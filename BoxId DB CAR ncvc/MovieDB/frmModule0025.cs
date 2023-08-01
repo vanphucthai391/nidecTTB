@@ -36,7 +36,7 @@ namespace BoxIdDB
         //string tableAssyThisMonth, tableAssyLastMonth;
         DataTable dtOverall;
         DataTable dtAllProcess;
-        int limit1 = 5;//testing  actual 500:
+        int limit1 = 3;//testing  actual 500:
         public int limit2 = 0;
         bool sound;
         public frmModule0025()
@@ -59,7 +59,7 @@ namespace BoxIdDB
             {
                 if (dtOverall.Rows.Count >= 0)
                 {
-                    limit1 = 5;//testing  actual 500:
+                    limit1 = 3;//testing  actual 500:
                 }
             }
             updateDataGridViews(dtOverall, ref dgvInline);
