@@ -216,7 +216,7 @@ namespace BoxIdDb
             if (dgvBoxId.Columns[e.ColumnIndex] == openBoxId && currentRow >= 0)
             {
                 //既にfrmModule が開かれている場合は、それ閉じるように促す
-                bool inUse = TfGeneral.checkOpenFormExists("frmModule") && TfGeneral.checkOpenFormExists("frmModule517EB") && TfGeneral.checkOpenFormExists("frmModule517FB") && TfGeneral.checkOpenFormExists("frmModule523") && TfGeneral.checkOpenFormExists("frmModuleLD") && TfGeneral.checkOpenFormExists("frmModule0148");
+                bool inUse = TfGeneral.checkOpenFormExists("frmModule") && TfGeneral.checkOpenFormExists("frmModule517EB") && TfGeneral.checkOpenFormExists("frmModule517FB") && TfGeneral.checkOpenFormExists("frmModule523") && TfGeneral.checkOpenFormExists("frmModuleLD") && TfGeneral.checkOpenFormExists("frmModule0148") && TfGeneral.checkOpenFormExists("frmModule0025");
                 if (inUse)
                 {
                     MessageBox.Show("Please close the other already open window.", "Notice",
@@ -258,6 +258,18 @@ namespace BoxIdDb
                 else if (dgvBoxId.CurrentRow.Cells["col_boxid"].Value.ToString().StartsWith("0148"))
                 {
                     frmModule0148 f3 = new frmModule0148();
+                    //子イベントをキャッチして、データグリッドを更新する
+                    f3.RefreshEvent += delegate (object sndr, EventArgs excp)
+                    {
+                        updateDataGridViews(ref dgvBoxId, false);
+                        Focus();
+                    };
+                    f3.updateControls(frmName, boxId, printDate, serialNo, invoice, user, false, false);
+                    f3.Show();
+                }
+                else if (dgvBoxId.CurrentRow.Cells["col_boxid"].Value.ToString().StartsWith("0025"))
+                {
+                    frmModule0025 f3 = new frmModule0025();
                     //子イベントをキャッチして、データグリッドを更新する
                     f3.RefreshEvent += delegate (object sndr, EventArgs excp)
                     {

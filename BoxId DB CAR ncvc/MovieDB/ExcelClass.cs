@@ -84,6 +84,8 @@ namespace BoxIdDb
             {
                 head = oSheet.get_Range("A1", "M2");
             }
+            else if (model[0] == "0025")
+                head = oSheet.get_Range("A1", "N2");
             else head = oSheet.get_Range("A1", "P2");
 
             head.MergeCells = true;
@@ -173,7 +175,7 @@ namespace BoxIdDb
 
                 rowHead = oSheet.get_Range("A3", "P3");
             }
-            if (model[0] == "0148")
+            else if (model[0] == "0148")
             {   //OQC
                 Microsoft.Office.Interop.Excel.Range cl4 = oSheet.get_Range("D3", "D3");
                 cl4.Value2 = "Datetest NMT";
@@ -232,7 +234,53 @@ namespace BoxIdDb
 
                 rowHead = oSheet.get_Range("A3", "Q3");
             }
-            if (model[0] == "LD20")
+            else if (model[0] == "0025")
+            {   //OQC
+                Microsoft.Office.Interop.Excel.Range cl4 = oSheet.get_Range("D3", "D3");
+                cl4.Value2 = "Datetest QA";
+                cl4.ColumnWidth = 20.0;
+                Microsoft.Office.Interop.Excel.Range cl5 = oSheet.get_Range("E3", "E3");
+                cl5.Value2 = "QA CURRENT";
+                cl5.ColumnWidth = 13.0;
+
+                Microsoft.Office.Interop.Excel.Range cl6 = oSheet.get_Range("F3", "F3");
+                cl6.Value2 = "QA FG";
+                cl6.ColumnWidth = 10.0;
+
+                Microsoft.Office.Interop.Excel.Range cl7 = oSheet.get_Range("G3", "G3");
+                cl7.Value2 = "QA SPEED";
+                cl7.ColumnWidth = 10.0;
+
+                Microsoft.Office.Interop.Excel.Range cl8 = oSheet.get_Range("H3", "H3");
+                cl8.Value2 = "Judge QA";
+                cl8.ColumnWidth = 7.0;
+                //INLINE
+                Microsoft.Office.Interop.Excel.Range cl9 = oSheet.get_Range("I3", "I3");
+                cl9.Value2 = "Datetest LINE";
+                cl9.ColumnWidth = 20.0;
+
+                Microsoft.Office.Interop.Excel.Range cl10 = oSheet.get_Range("J3", "J3");
+                cl10.Value2 = "CURRENT";
+                cl10.ColumnWidth = 13.0;
+
+                Microsoft.Office.Interop.Excel.Range cl11 = oSheet.get_Range("K3", "K3");
+                cl11.Value2 = "FG";
+                cl11.ColumnWidth = 13.0;
+
+                Microsoft.Office.Interop.Excel.Range cl12 = oSheet.get_Range("L3", "L3");
+                cl12.Value2 = "SPEED";
+                cl12.ColumnWidth = 13.0;
+
+                Microsoft.Office.Interop.Excel.Range cl13 = oSheet.get_Range("M3", "M3");
+                cl13.Value2 = "Judge INLINE";
+                cl13.ColumnWidth = 13.0;
+
+                Microsoft.Office.Interop.Excel.Range cl14 = oSheet.get_Range("N3", "N3");
+                cl14.Value2 = "Return";
+                cl14.ColumnWidth = 13.0;
+                rowHead = oSheet.get_Range("A3", "N3");
+            }
+            else if (model[0] == "LD20")
             {   //OQC
                 Microsoft.Office.Interop.Excel.Range cl4 = oSheet.get_Range("D3", "D3");
                 cl4.Value2 = "Date test";
@@ -439,7 +487,16 @@ namespace BoxIdDb
             int columnStart = 1;
 
             int rowEnd = rowStart + dgv.Rows.Count - 1;
-            int columnEnd = 16;
+            int columnEnd;
+
+            if (model[0] == "0025")
+            {
+                columnEnd = 14;
+            }
+            else
+            {
+                columnEnd = 16;
+            }
             //if (model[0] == "517EB")
             //{
             //    columnEnd = 16;
@@ -483,7 +540,26 @@ namespace BoxIdDb
                     oExcel.Cells[i + rowStart, 15] = dgv["col_judge_oqc", i].Value.ToString();
                     oExcel.Cells[i + rowStart, 16] = dgv["col_return", i].Value.ToString();
                 }
-                if (model[0] == "0148")
+                else if (model[0] == "0025")
+                {
+                    oExcel.Cells[i + rowStart, 1] = "'" + dgv["col_serial_no", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 2] = dgv["col_model", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 3] = dgv["col_lot", i].Value.ToString();
+                    //OQC
+                    oExcel.Cells[i + rowStart, 4] = dgv["col_date", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 5] = dgv["col_qacurrent", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 6] = dgv["col_qafg", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 7] = dgv["col_qaspeed", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 8] = dgv["col_judge_qa", i].Value.ToString();
+                    //INLINE
+                    oExcel.Cells[i + rowStart, 9] = dgv["col_date_line", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 10] = dgv["col_current", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 11] = dgv["col_fg", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 12] = dgv["col_speed", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 13] = dgv["col_judge_inline", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 14] = dgv["col_return", i].Value.ToString();
+                }
+                else if (model[0] == "0148")
                 {
                     oExcel.Cells[i + rowStart, 1] = "'" + dgv["col_serial_no", i].Value.ToString();
                     oExcel.Cells[i + rowStart, 2] = dgv["col_model", i].Value.ToString();
@@ -505,7 +581,7 @@ namespace BoxIdDb
                     oExcel.Cells[i + rowStart, 16] = dgv["col_return", i].Value.ToString();
                     oExcel.Cells[i + rowStart, 17] = dgv["col_terminal", i].Value.ToString();
                 }
-                if (model[0] == "LD20")
+                else if (model[0] == "LD20")
                 {
                     oExcel.Cells[i + rowStart, 1] = "'" + dgv["col_serial_no", i].Value.ToString();
                     oExcel.Cells[i + rowStart, 2] = dgv["col_model", i].Value.ToString();

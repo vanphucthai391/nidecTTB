@@ -649,7 +649,6 @@
             this.cmbModel.Name = "cmbModel";
             this.cmbModel.Size = new System.Drawing.Size(188, 21);
             this.cmbModel.TabIndex = 16;
-            this.cmbModel.Text = "BFB_0025";
             this.cmbModel.SelectedIndexChanged += new System.EventHandler(this.cmbModel_SelectedIndexChanged);
             // 
             // txtLimit
@@ -774,8 +773,8 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 27.74566F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 72.25433F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(619, 174);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -788,7 +787,7 @@
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(4, 1);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(611, 85);
+            this.label13.Size = new System.Drawing.Size(611, 47);
             this.label13.TabIndex = 0;
             this.label13.Text = "FRICTION";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -799,9 +798,9 @@
             this.tableLayoutPanel1.SetColumnSpan(this.lbFRICTIONAlarm, 2);
             this.lbFRICTIONAlarm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbFRICTIONAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbFRICTIONAlarm.Location = new System.Drawing.Point(4, 87);
+            this.lbFRICTIONAlarm.Location = new System.Drawing.Point(4, 49);
             this.lbFRICTIONAlarm.Name = "lbFRICTIONAlarm";
-            this.lbFRICTIONAlarm.Size = new System.Drawing.Size(611, 86);
+            this.lbFRICTIONAlarm.Size = new System.Drawing.Size(611, 124);
             this.lbFRICTIONAlarm.TabIndex = 2;
             this.lbFRICTIONAlarm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 

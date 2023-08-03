@@ -1347,7 +1347,7 @@ namespace BoxIdDb
 
             try
             {
-                string sql = "INSERT INTO product_serial_bfb0025(boxid, serialno, model, carton, lot, qacurrent, qafg, qaspeed, current, fg, speed,  tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :qacurrent, :qafg, :qaspeed, :current, :fg, :speed, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
+                string sql = "INSERT INTO product_serial_0025(boxid, serialno, model, carton, lot, qacurrent, qafg, qaspeed, current, fg, speed,  tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :qacurrent, :qafg, :qaspeed, :current, :fg, :speed, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
                 NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
                 command.Parameters.Add(new NpgsqlParameter("boxid", NpgsqlTypes.NpgsqlDbType.Varchar));
