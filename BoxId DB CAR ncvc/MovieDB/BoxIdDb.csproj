@@ -33,7 +33,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.html</WebPage>
-    <ApplicationRevision>46</ApplicationRevision>
+    <ApplicationRevision>47</ApplicationRevision>
     <ApplicationVersion>4.0.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -112,6 +112,9 @@
       <HintPath>..\packages\MathNet.Numerics.3.8.0\lib\net40\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mono.Security">
+      <HintPath>..\..\..\..\..\9999Long\BoxId DB CAR ncvc\MovieDB\bin\Debug\Mono.Security.dll</HintPath>
+    </Reference>
     <Reference Include="Npgsql">
       <HintPath>..\..\..\00Phuc\work on git\STM_CLR\STM_CLR\bin\Debug\Npgsql.dll</HintPath>
     </Reference>

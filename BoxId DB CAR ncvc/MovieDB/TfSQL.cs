@@ -116,7 +116,7 @@ namespace BoxIdDb
                 connection = new NpgsqlConnection(conStringBoxidDb);
                 connection.Open();
                 NpgsqlCommand command = new NpgsqlCommand(sql, connection);
-                response = Convert.ToDouble(command.ExecuteScalar());
+                response = Convert.ToDouble(command.ExecuteScalar());// 1 unique value. Ex: MAX, MIN, SUM, COUNT,... 
                 connection.Close();
                 return response;
             }
@@ -1198,6 +1198,40 @@ namespace BoxIdDb
                 return -1;
             }
         }
+        public int sqlDeleteBoxid_0025(string boxid)
+        {
+            int res1 = 0;
+            int res2 = 0;
+            string sql1 = "delete from box_id_rt where boxid = '" + boxid + "'";
+            string sql2 = "delete from product_serial_0025 where boxid = '" + boxid + "'";
+
+            System.Diagnostics.Debug.Print(sql1);
+            System.Diagnostics.Debug.Print(sql2);
+
+            connection = new NpgsqlConnection(conStringBoxidDb);
+            connection.Open();
+            NpgsqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+            try
+            {
+                NpgsqlCommand command1 = new NpgsqlCommand(sql1, connection);
+                NpgsqlCommand command2 = new NpgsqlCommand(sql2, connection);
+                res1 = command1.ExecuteNonQuery();
+                res2 = command2.ExecuteNonQuery();
+
+                transaction.Commit();
+                connection.Close();
+                return res2;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Not successful!" + "\r\n" + ex.Message
+                                , "Database Responce", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                connection.Close();
+                return -1;
+            }
+        }
         public void getCompleteData(string sql, ref Label txt)
         {
             NpgsqlDataAdapter adapter = new NpgsqlDataAdapter();
@@ -1347,7 +1381,7 @@ namespace BoxIdDb
 
             try
             {
-                string sql = "INSERT INTO product_serial_0025(boxid, serialno, model, carton, lot, qacurrent, qafg, qaspeed, current, fg, speed,  tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :qacurrent, :qafg, :qaspeed, :current, :fg, :speed, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
+                string sql = "INSERT INTO product_serial_0025(boxid, serialno, model, carton, lot, qacurrent, qafg, qaspeed, current, fg, speed,svfi,  tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :qacurrent, :qafg, :qaspeed, :current, :fg, :speed,:svfi, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
                 NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
                 command.Parameters.Add(new NpgsqlParameter("boxid", NpgsqlTypes.NpgsqlDbType.Varchar));
@@ -1367,7 +1401,8 @@ namespace BoxIdDb
                 command.Parameters.Add(new NpgsqlParameter("current", NpgsqlTypes.NpgsqlDbType.Varchar));
                 command.Parameters.Add(new NpgsqlParameter("fg", NpgsqlTypes.NpgsqlDbType.Varchar));
                 command.Parameters.Add(new NpgsqlParameter("speed", NpgsqlTypes.NpgsqlDbType.Varchar));
-              
+                command.Parameters.Add(new NpgsqlParameter("svfi", NpgsqlTypes.NpgsqlDbType.Varchar));
+
                 command.Parameters.Add(new NpgsqlParameter("return", NpgsqlTypes.NpgsqlDbType.Varchar));
 
                 for (int i = 0; i < dt.Rows.Count; i++)
@@ -1389,8 +1424,9 @@ namespace BoxIdDb
                     command.Parameters[12].Value = dt.Rows[i]["current"].ToString();
                     command.Parameters[13].Value = dt.Rows[i]["fg"].ToString();
                     command.Parameters[14].Value = dt.Rows[i]["speed"].ToString();
-             
-                    command.Parameters[15].Value = dt.Rows[i]["return"].ToString();
+                    command.Parameters[15].Value = dt.Rows[i]["svfi"].ToString();
+
+                    command.Parameters[16].Value = dt.Rows[i]["return"].ToString();
 
                     System.Diagnostics.Debug.Print(command.ToString());
                     res1 = command.ExecuteNonQuery();

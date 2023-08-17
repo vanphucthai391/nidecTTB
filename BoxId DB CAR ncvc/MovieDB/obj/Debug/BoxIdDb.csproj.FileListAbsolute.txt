@@ -23,7 +23,6 @@ D:\9999Long\BoxId DB CAR ncvc\MovieDB\bin\Debug\BoxIdDB.pdb
 D:\9999Long\BoxId DB CAR ncvc\MovieDB\bin\Debug\DotNetBarcode.dll
 D:\9999Long\BoxId DB CAR ncvc\MovieDB\bin\Debug\MathNet.Numerics.dll
 D:\9999Long\BoxId DB CAR ncvc\MovieDB\bin\Debug\Npgsql.dll
-D:\9999Long\BoxId DB CAR ncvc\MovieDB\bin\Debug\Mono.Security.dll
 D:\9999Long\BoxId DB CAR ncvc\MovieDB\bin\Debug\MathNet.Numerics.xml
 D:\9999Long\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDB.TrustInfo.xml
 D:\9999Long\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDB.exe.manifest
@@ -72,9 +71,7 @@ D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\bin\Debug\BoxIdDB
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\bin\Debug\BoxIdDB.exe
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\bin\Debug\BoxIdDB.pdb
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\bin\Debug\MathNet.Numerics.dll
-D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\bin\Debug\Mono.Security.dll
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\bin\Debug\MathNet.Numerics.xml
-D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.csprojResolveAssemblyReference.cache
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.frmCapacity.resources
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.frmLogin.resources
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDB.frmModule0025.resources
@@ -90,3 +87,5 @@ D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDB.TrustInfo.xml
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDB.exe.manifest
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDB.application
+D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\bin\Debug\Mono.Security.dll
+D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.csprojResolveAssemblyReference.cache

@@ -85,7 +85,7 @@ namespace BoxIdDb
                 head = oSheet.get_Range("A1", "M2");
             }
             else if (model[0] == "0025")
-                head = oSheet.get_Range("A1", "N2");
+                head = oSheet.get_Range("A1", "O2");
             else head = oSheet.get_Range("A1", "P2");
 
             head.MergeCells = true;
@@ -276,9 +276,13 @@ namespace BoxIdDb
                 cl13.ColumnWidth = 13.0;
 
                 Microsoft.Office.Interop.Excel.Range cl14 = oSheet.get_Range("N3", "N3");
-                cl14.Value2 = "Return";
+                cl14.Value2 = "SVFI";
                 cl14.ColumnWidth = 13.0;
-                rowHead = oSheet.get_Range("A3", "N3");
+
+                Microsoft.Office.Interop.Excel.Range cl15 = oSheet.get_Range("O3", "O3");
+                cl15.Value2 = "Return";
+                cl15.ColumnWidth = 13.0;
+                rowHead = oSheet.get_Range("A3", "O3");
             }
             else if (model[0] == "LD20")
             {   //OQC
@@ -491,7 +495,7 @@ namespace BoxIdDb
 
             if (model[0] == "0025")
             {
-                columnEnd = 14;
+                columnEnd = 15;
             }
             else
             {
@@ -557,7 +561,8 @@ namespace BoxIdDb
                     oExcel.Cells[i + rowStart, 11] = dgv["col_fg", i].Value.ToString();
                     oExcel.Cells[i + rowStart, 12] = dgv["col_speed", i].Value.ToString();
                     oExcel.Cells[i + rowStart, 13] = dgv["col_judge_inline", i].Value.ToString();
-                    oExcel.Cells[i + rowStart, 14] = dgv["col_return", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 14] = dgv["col_svfi", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 15] = dgv["col_return", i].Value.ToString();
                 }
                 else if (model[0] == "0148")
                 {
