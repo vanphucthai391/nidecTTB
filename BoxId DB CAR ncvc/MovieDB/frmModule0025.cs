@@ -32,6 +32,10 @@ namespace BoxIdDB
         string testerTableLastMonth;
         string tableThisMonth;
         string tableLastMonth;
+        string testerTableThisMonth1;
+        string testerTableLastMonth1;
+        string tableThisMonth1;
+        string tableLastMonth1;
         //string tableAssyThisMonth, tableAssyLastMonth;
         DataTable dtOverall;
         DataTable dtAllProcess;
@@ -39,6 +43,10 @@ namespace BoxIdDB
         public int limit2 = 0;
         bool sound;
         bool friction_overload = false;
+        bool assychecked = false;
+        bool smtspi = false;
+        bool smtaoi = false;
+        string pcbbarcode = "";
         public frmModule0025()
         {
             InitializeComponent();
@@ -166,12 +174,14 @@ namespace BoxIdDB
             //dt.Columns.Add("flux", Type.GetType("System.String"));//datetest priction
             dt.Columns.Add("tjudge_line", Type.GetType("System.String"));//format form
             dt.Columns.Add("svfi", Type.GetType("System.String"));//datetest NO41-FAN
+            dt.Columns.Add("pcbbarcode", Type.GetType("System.String"));//datetest NO41-FAN
+
             dt.Columns.Add("return", Type.GetType("System.String"));//format form
 
             if (!formEditMode) //boxid DB
             {
                 string sql;
-                sql = "select serialno, model, lot, inspectdate, qacurrent, qafg, qaspeed, tjudge, date_line, current, fg, speed, svfi, tjudge_line, return " +
+                sql = "select serialno, model, lot, inspectdate, qacurrent, qafg, qaspeed, tjudge, date_line, current, fg, speed, svfi, pcbbarcode, tjudge_line, return " +
                     "FROM " + productTable + " WHERE boxid='" + boxId + "'";
                 TfSQL tf = new TfSQL();
                 System.Diagnostics.Debug.Print(sql);
@@ -228,6 +238,7 @@ namespace BoxIdDB
             int dist = dr.Length;
             return dist;
         }
+
         private void updateDataGridViewsSub(DataTable dt1, ref DataGridView dgv1)
         {
             dgv1.DataSource = dt1;
@@ -371,12 +382,7 @@ namespace BoxIdDB
                 }
 
                 TfSQL tf = new TfSQL();
-                bool res1;
-                if (cmbModel.Text == "BFB_0025")
-                    res1 = tf.sqlMultipleInsertBFB0025(dt);
-                else
-                    res1 = tf.sqlMultipleInsertBFB0025(dt);
-
+                bool res1= tf.sqlMultipleInsertBFB0025(dt);
                 if (res1)
                 {
                     string shipKind = dtOverall.Rows[0]["return"].ToString();
@@ -445,7 +451,7 @@ namespace BoxIdDB
                     dgv["col_fg", i].Style.BackColor = Color.Red;
                     dgv["col_speed", i].Style.BackColor = Color.Red;
                     dgv["col_svfi", i].Style.BackColor = Color.Red;
-
+                    dgv["col_pcbbarcode", i].Style.BackColor = Color.Red;
                     dgv["col_judge_inline", i].Style.BackColor = Color.Red;
 
                     if (dgv.Name == "dgvInline") tabControl1.SelectedIndex = 1;
@@ -764,6 +770,12 @@ namespace BoxIdDB
                 (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
             tableLastMonth = testerTableLastMonth;
 
+            testerTableThisMonth1 = cmbModel.Text.ToLower() + "_b3a502757" + DateTime.Today.ToString("yyyyMM");
+            tableThisMonth1 = testerTableThisMonth1;
+            testerTableLastMonth1 = cmbModel.Text.ToLower() + "_b3a502757" + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+    (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
+            tableLastMonth1 = testerTableLastMonth1;
+
             //tableAssyThisMonth = "la20_523ab" + DateTime.Today.ToString("yyyyMM");
             //tableAssyLastMonth = "la20_523ab" + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
             //    (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
@@ -973,91 +985,146 @@ namespace BoxIdDB
                         string sqlFRICTION = string.Format("select serno, inspectdate, tjudge from {1} where serno = '{0}' and process = 'SVFRICTION'  UNION ALL select serno, inspectdate, tjudge from {2} where serno = '{0}' and process = 'SVFRICTION' order by inspectdate DESC", txtProductSerial.Text, tableThisMonth, tableLastMonth);
                         System.Diagnostics.Debug.Print(System.Environment.NewLine + sqlFRICTION);
                         tf.sqlDataAdapterFillDatatableOqc(sqlFRICTION, ref dtFRICTION);
-                        /////////
-                        int numberng = 0;
-                        for (int i=0;i< dtFRICTION.Rows.Count; i++)
-                        {
-                            if (dtFRICTION.Rows[i]["tjudge"].ToString() == "1")
-                            {
-                                numberng++;
-                            }
-                        }
-                        if (numberng >1 && dtFRICTION.Rows.Count > 0 || dtFRICTION.Rows[0]["tjudge"].ToString()=="1"&& dtFRICTION.Rows.Count>0)
-                        {
-                            friction_overload = true;
-                            int noi = 1;
-                            string countdt = dtFRICTION.Rows.Count.ToString();
-                            List<string> show = new List<string>();
+                        string sqlASSY = string.Format("select serno, inspectdate, lot, model, tjudge from {1} where serno = '{0}' and process = 'SMTASY'  UNION ALL select serno, inspectdate, lot, model, tjudge from {2} where serno = '{0}' and process = 'SMTASY' order by inspectdate DESC limit 1", txtProductSerial.Text, tableThisMonth1, tableLastMonth1);
+                        System.Diagnostics.Debug.Print(System.Environment.NewLine + sqlASSY);
+                        DataTable dtASSY = new DataTable();
+                        tf.sqlDataAdapterFillDatatableOqc(sqlASSY, ref dtASSY);
 
-                            foreach (DataRow row in dtFRICTION.Rows)
-                            {
-                                string value = row[2].ToString();
-                                if (value == "0")
-                                    value = "OK";
-                                if (value == "1")
-                                    value = "NG";
+                        if ( dtASSY.Rows.Count > 0)
+                        {
+                            DataTable dtERP = new DataTable();
+                            string serno_pqm = dtASSY.Rows[0]["serno"].ToString();
+                            string lot_pqm = dtASSY.Rows[0]["lot"].ToString();
+                            string model_pqm = dtASSY.Rows[0]["model"].ToString();
+                            string sqlERP = "select assy_code, create_time, model_cd, pcb_code from smt_m_assy_code where assy_code = '" + txtProductSerial.Text + "' and pcb_code='" + lot_pqm + "' and model_cd ='" + model_pqm + "'";
+                            System.Diagnostics.Debug.Print(System.Environment.NewLine + sqlERP);
+                            tf.sqlDataAdapterFillDatatableERP(sqlERP, ref dtERP);
 
-                                if (noi <= dtFRICTION.Rows.Count)
+                            if(dtERP.Rows.Count > 0)
+                            {
+                                assychecked = true;
+                                pcbbarcode = dtASSY.Rows[0]["lot"].ToString();
+                                string sql4 = "select serno, tjudge as tjudge_smtspi, inspectdate as date_line, " +
+                                "MAX(case inspect when 'SMTSPI' then inspectdata else null end) as SMTSPI" +
+                                " FROM" +
+                                " (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge from (select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE from (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag from (select * from " + testerTableThisMonth1 + "data" +
+                                " WHERE serno = (SELECT serno from(select lot, serno,process, inspectdate, ROW_NUMBER() OVER(PARTITION BY process ORDER BY inspectdate DESC) from " + testerTableThisMonth1 + " where (process = 'SMTSPI' and serno = '" + pcbbarcode + "') order by serno) tbl where row_number =1) and inspect in ('SMTSPI'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + testerTableThisMonth1 + " where serno = '" + pcbbarcode + "' and process = 'SMTSPI' and tjudge = '0' order by inspectdate desc LIMIT 1) d" +
+                                " group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
+                                " GROUP BY serno, tjudge, inspectdate" +
+                                " UNION ALL " +
+
+                                "select serno, tjudge as tjudge_line, inspectdate as date_line, " +
+                                 "MAX(case inspect when 'SMTSPI' then inspectdata else null end) as SMTSPI" +
+                                " FROM" +
+                                " (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge from (select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE from (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag from (select * from " + testerTableLastMonth1 + "data" +
+                                " WHERE serno = (SELECT serno from(select lot, serno,process, inspectdate, ROW_NUMBER() OVER(PARTITION BY process ORDER BY inspectdate DESC) from " + testerTableLastMonth1 + " where (process = 'SMTSPI' and serno = '" + pcbbarcode + "') order by serno) tbl where row_number =1) and inspect in ('SMTSPI'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + testerTableLastMonth1 + " where serno = '" + pcbbarcode + "' and process = 'SMTSPI' and tjudge = '0' order by inspectdate desc LIMIT 1) d" +
+                                " group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
+                                " GROUP BY serno, tjudge, inspectdate";
+                                System.Diagnostics.Debug.Print(System.Environment.NewLine + sql4);
+                                DataTable dt4 = new DataTable();
+                                tf.sqlDataAdapterFillDatatableOqc(sql4, ref dt4);
+                                if (dt4.Rows.Count > 0)
                                 {
-                                    show.Add("No " + noi + ": " + value + "\r\n");
-                                    noi++;
+                                    smtspi = true;
+                                }
+                                else
+                                {
+                                    smtspi = false;
+                                }
+                                string sql5 = "select serno, tjudge as tjudge_smtaoi, inspectdate as date_line, " +
+                                "MAX(case inspect when 'SMTAOI' then inspectdata else null end) as SMTAOI" +
+                                " FROM" +
+                                " (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge from (select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE from (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag from (select * from " + testerTableThisMonth1 + "data" +
+                                " WHERE serno = (SELECT serno from(select lot, serno,process, inspectdate, ROW_NUMBER() OVER(PARTITION BY process ORDER BY inspectdate DESC) from " + testerTableThisMonth1 + " where (process = 'SMTAOI' and serno = '" + pcbbarcode + "') order by serno) tbl where row_number =1) and inspect in ('SMTAOI'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + testerTableThisMonth1 + " where serno = '" + pcbbarcode + "' and process = 'SMTAOI' and tjudge = '0' order by inspectdate desc LIMIT 1) d" +
+                                " group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
+                                " GROUP BY serno, tjudge, inspectdate" +
+                                " UNION ALL " +
+
+                                "select serno, tjudge as tjudge_line, inspectdate as date_line, " +
+                                "MAX(case inspect when 'SMTAOI' then inspectdata else null end) as SMTAOI" +
+                                " FROM" +
+                                " (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge from (select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE from (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag from (select * from " + testerTableLastMonth1 + "data" +
+                                " WHERE serno = (SELECT serno from(select lot, serno,process, inspectdate, ROW_NUMBER() OVER(PARTITION BY process ORDER BY inspectdate DESC) from " + testerTableLastMonth1 + " where (process = 'SMTAOI' and serno = '" + pcbbarcode + "') order by serno) tbl where row_number =1) and inspect in ('SMTAOI'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + testerTableLastMonth1 + " where serno = '" + pcbbarcode + "' and process = 'SMTAOI' and tjudge = '0' order by inspectdate desc LIMIT 1) d" +
+                                " group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
+                                " GROUP BY serno, tjudge, inspectdate";
+                                System.Diagnostics.Debug.Print(System.Environment.NewLine + sql5);
+                                DataTable dt5 = new DataTable();
+                                tf.sqlDataAdapterFillDatatableOqc(sql5, ref dt5);
+                                if (dt5.Rows.Count > 0)
+                                {
+                                    smtaoi = true;
+                                }
+                                else
+                                {
+                                    smtaoi = false;
                                 }
                             }
-
-                            lbFRICTIONAlarm.Text = "Data FRICTION Đã Kiểm " + countdt + " lần\r\n" + String.Join("", show.ToArray());
-                            //lbFRICTIONAlarm.BackColor = Color.Red; //confirm NG
-                            //txtCount.Text = "NG";
-                            //txtCount.BackColor = Color.Red;
-                            //txtResultDetail.BackColor = Color.Red;
-                            //return;
                         }
-                        else //FAN not size, friction need limit 3 rows  if (dtFAN.Rows.Count <= 3 && dtFRICTION.Rows.Count <= 2)
+                        else
                         {
-                            friction_overload = false;
-                            //int noiFAN = 1;
-                            //string countdtFAN = dtFAN.Rows.Count.ToString();
-                            //List<string> showFAN = new List<string>();
-
-                            //foreach (DataRow row in dtFAN.Rows)
-                            //{
-                            //    string value = row[2].ToString(); //tjudge
-                            //    if (value == "0")
-                            //        value = "OK";
-                            //    if (value == "1")
-                            //        value = "NG";
-
-                            //    if (noiFAN <= dtFAN.Rows.Count)
-                            //    {
-                            //        showFAN.Add("No " + noiFAN + ": " + value + "\n");
-                            //        noiFAN++;
-                            //    }
-                            //}
-                            //  lbFRICTIONAlarm.Text = "Data FAN Đã Kiểm " + countdtFAN + " Lần \n" + String.Join("", showFAN.ToArray());
-                            //  lbFRICTIONAlarm.BackColor = Color.SpringGreen;
-
-                            int noiFRICTION = 1;
-                            string countdtFRICTION = dtFRICTION.Rows.Count.ToString();
-                            List<string> showFRICTION = new List<string>();
-
-                            foreach (DataRow row in dtFRICTION.Rows)
+                            assychecked = false;
+                            smtaoi = false;
+                            smtspi = false;
+                        }
+                        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        if (dtFRICTION.Rows.Count > 0)
+                        {
+                            int numberng = 0;
+                            for (int i = 0; i < dtFRICTION.Rows.Count; i++)
                             {
-                                string value = row[2].ToString();
-                                if (value == "0")
-                                    value = "OK";
-                                if (value == "1")
-                                    value = "NG";
-
-                                // if (noiFRICTION <= dtFAN.Rows.Count)//why dtFAN
-                                if (noiFRICTION <= dtFRICTION.Rows.Count)
+                                if (dtFRICTION.Rows[i]["tjudge"].ToString() == "1")
                                 {
-                                    showFRICTION.Add("No " + noiFRICTION + ": " + value + "\r\n");
-                                    noiFRICTION++;
+                                    numberng++;
                                 }
                             }
-                            lbFRICTIONAlarm.Text = "Data FRICTION Đã Kiểm " + countdtFRICTION + " lần\r\n" + String.Join("", showFRICTION.ToArray());
-                            //lbFRICTIONAlarm.BackColor = Color.SpringGreen; //confirm OK
+                            if (numberng <= 1 && dtFRICTION.Rows[0]["tjudge"].ToString() == "0")
+                            {
+                                friction_overload = false;
+                                int noiFRICTION = 1;
+                                string countdtFRICTION = dtFRICTION.Rows.Count.ToString();
+                                List<string> showFRICTION = new List<string>();
 
+                                foreach (DataRow row in dtFRICTION.Rows)
+                                {
+                                    string value = row[2].ToString();
+                                    if (value == "0")
+                                        value = "OK";
+                                    if (value == "1")
+                                        value = "NG";
+                                    if (noiFRICTION <= dtFRICTION.Rows.Count)
+                                    {
+                                        showFRICTION.Add("No " + noiFRICTION + ": " + value + "\r\n");
+                                        noiFRICTION++;
+                                    }
+                                }
+                                lbFRICTIONAlarm.Text = "Data FRICTION Đã Kiểm " + countdtFRICTION + " lần\r\n" + String.Join("", showFRICTION.ToArray());
+                            }
+                            else
+                            {
+
+                                friction_overload = true;
+                                int noi = 1;
+                                string countdt = dtFRICTION.Rows.Count.ToString();
+                                List<string> show = new List<string>();
+
+                                foreach (DataRow row in dtFRICTION.Rows)
+                                {
+                                    string value = row[2].ToString();
+                                    if (value == "0")
+                                        value = "OK";
+                                    if (value == "1")
+                                        value = "NG";
+
+                                    if (noi <= dtFRICTION.Rows.Count)
+                                    {
+                                        show.Add("No " + noi + ": " + value + "\r\n");
+                                        noi++;
+                                    }
+                                }
+                                lbFRICTIONAlarm.Text = "Data FRICTION Đã Kiểm " + countdt + " lần\r\n" + String.Join("", show.ToArray());
+                            }
                         }
+
 
                         #region Data OQC
                         string sql2 = "select serno, tjudge, inspectdate, " +
@@ -1133,6 +1200,7 @@ namespace BoxIdDB
                         System.Diagnostics.Debug.Print(System.Environment.NewLine + sql3);
                         DataTable dt3 = new DataTable();
                         tf.sqlDataAdapterFillDatatableOqc(sql3, ref dt3);
+
                         #endregion
                         #region -- Get All Process Judge --
                         string queryProcess = string.Format("SELECT serno, lot, inspectdate, process,judge from "
@@ -1181,8 +1249,7 @@ namespace BoxIdDB
                             dr["qaspeed"] = dt2.Rows[0]["qaspeed"].ToString();
                             string linepass = String.Empty;
                             string buff = dt2.Rows[0]["tjudge"].ToString();
-                            if (buff == "0" && !friction_overload) linepass = "PASS";
-                            else if (buff == "0" && friction_overload) linepass = "FAIL";
+                            if (buff == "0") linepass = "PASS";
                             else if (buff == "1") linepass = "FAIL";
                             else linepass = "ERROR";
 
@@ -1195,21 +1262,37 @@ namespace BoxIdDB
                             dr["current"] = dt1.Rows[0]["current"].ToString();
                             dr["fg"] = dt1.Rows[0]["fg"].ToString();
                             dr["speed"] = dt1.Rows[0]["speed"].ToString();
-                            dr["svfi"] = dt3.Rows[0]["svfi"].ToString();
                             //dr["srtpctg2"] = dt1.Rows[0]["srtpctg2"].ToString();
                             //dr["sbtpctg2"] = dt1.Rows[0]["sbtpctg2"].ToString();
                             // dr["bin"] = dt1.Rows[0]["bin"].ToString();
                             //T-judge LINE
                             string judge_line = String.Empty;
-                            string buff = dt1.Rows[0]["tjudge_line"].ToString();
-                            if (buff == "0" && !friction_overload) judge_line = "PASS";
-                            else if (buff == "0" && friction_overload) judge_line = "FAIL";
-                            else if (buff == "1" && friction_overload) judge_line = "FAIL";
-                            else judge_line = "ERROR";
 
+                            string buff = dt1.Rows[0]["tjudge_line"].ToString();
+                            if (buff == "0" && !friction_overload && smtaoi && smtspi && assychecked) judge_line = "PASS";
+                            else if (buff == "0"&& friction_overload|| buff == "0" && !smtaoi || buff == "0" && !smtspi || buff == "0" && !assychecked) judge_line = "FAIL";
+                            else if (buff == "1" || friction_overload||!smtspi||!smtaoi||!assychecked) judge_line = "FAIL";
+                            else judge_line = "ERROR";
                             dr["tjudge_line"] = judge_line;
                             dr["date_line"] = dt1.Rows[0]["date_line"].ToString();
                         }
+                        if (dt3.Rows.Count != 0&&!friction_overload)
+                        {
+                            dr["svfi"] = dt3.Rows[0]["svfi"].ToString();
+                        }
+                        //else
+                        //{
+                        //    dr["svfi"] = "FAIL";
+                        //}
+
+                        if (assychecked)
+                        {
+                            dr["pcbbarcode"] = pcbbarcode;
+                        }
+                        //else
+                        //{
+                        //    dr["pcbbarcode"] = "FAIL";
+                        //}
                         dtOverall.Rows.Add(dr);
                         updateDataGridViews(dtOverall, ref dgvInline);
 
@@ -1307,13 +1390,46 @@ namespace BoxIdDB
                     lbFRICTIONAlarm.BackColor = Color.Red;
                     datastring += "SVFRICTION: FAILURE\r\n";
                 }
-                if (!friction_overload)
+                else
+                {
+                    datastring += "SVFRICTION: PASS\r\n";
+                }
+                if (!smtspi)
                 {
                     txtResultDetail.BackColor = Color.Red;
-                    txtCount.Text = "OK";
+                    txtCount.Text = "NG";
                     txtCount.BackColor = Color.Red;
                     lbFRICTIONAlarm.BackColor = Color.Red;
-                    datastring += "SVFRICTION: PASS\r\n";
+                    datastring += "SMTSPI: FAILURE\r\n";
+                }
+                else
+                {
+                    datastring += "SMTSPI: PASS\r\n";
+                }
+                if (!smtaoi)
+                {
+                    txtResultDetail.BackColor = Color.Red;
+                    txtCount.Text = "NG";
+                    txtCount.BackColor = Color.Red;
+                    lbFRICTIONAlarm.BackColor = Color.Red;
+                    datastring += "SMTAOI: FAILURE\r\n";
+                }
+                else
+                {
+                    datastring += "SMTAOI: PASS\r\n";
+                }
+
+                if (!assychecked)
+                {
+                    txtResultDetail.BackColor = Color.Red;
+                    txtCount.Text = "NG";
+                    txtCount.BackColor = Color.Red;
+                    lbFRICTIONAlarm.BackColor = Color.Red;
+                    datastring += "SMTASY: FAILURE\r\n";
+                }
+                if (assychecked)
+                {
+                    datastring += "SMTASY: PASS\r\n";
                 }
                 if (!checkFRICTION)
                 {
@@ -1342,7 +1458,7 @@ namespace BoxIdDB
                     lbFRICTIONAlarm.BackColor = Color.Red;
                     txtResultDetail.Text = datastring;
                 }
-                if (!checkFail && checkFAN && checkFRICTION && checkFANOQC && !friction_overload)
+                if (!checkFail && checkFAN && checkFRICTION && checkFANOQC && !friction_overload&&assychecked &&smtaoi&&smtspi)
                 {
                     txtCount.Text = "OK";
                     txtCount.BackColor = Color.SpringGreen;

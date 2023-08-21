@@ -15,6 +15,8 @@ namespace BoxIdDb
         static string conStringBoxidDb = @"Server=192.168.193.4;Port=5432;User Id=pqm;Password=dbuser;Database=boxidcardb; CommandTimeout=100; Timeout=100;";
         static string conStringPQMDb = @"Server=192.168.193.4;Port=5432;User Id=pqm;Password=dbuser;Database=pqmdb; CommandTimeout=100; Timeout=100;";
         static string conStringOQC = @"Server=192.168.193.4;Port=5432;User Id=pqm;Password=dbuser;Database=ncardb; CommandTimeout=100; Timeout=100;";
+        static string conStringERP = @"Server=192.168.193.4;Port=5432;User Id=pqm;Password=dbuser;Database=ERP_DB; CommandTimeout=100; Timeout=100;";
+
 
         public void getComboBoxData(string sql, ref ComboBox cmb)
         {
@@ -315,7 +317,19 @@ namespace BoxIdDb
                 adapter.Fill(dt);
             }
         }
+        public void sqlDataAdapterFillDatatableERP(string sql, ref DataTable dt)
+        {
+            NpgsqlConnection connection = new NpgsqlConnection(conStringERP);
+            NpgsqlCommand command = new NpgsqlCommand();
 
+            using (NpgsqlDataAdapter adapter = new NpgsqlDataAdapter())
+            {
+                command.CommandText = sql;
+                command.Connection = connection;
+                adapter.SelectCommand = command;
+                adapter.Fill(dt);
+            }
+        }
         public void sqlDataAdapterFillDatatableOqc517EB(string sql, ref DataTable dt)
         {
             NpgsqlConnection connection = new NpgsqlConnection(conStringPQMDb);
@@ -1381,7 +1395,7 @@ namespace BoxIdDb
 
             try
             {
-                string sql = "INSERT INTO product_serial_0025(boxid, serialno, model, carton, lot, qacurrent, qafg, qaspeed, current, fg, speed,svfi,  tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :qacurrent, :qafg, :qaspeed, :current, :fg, :speed,:svfi, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
+                string sql = "INSERT INTO product_serial_0025(boxid, serialno, model, carton, lot, qacurrent, qafg, qaspeed, current, fg, speed, svfi, pcbbarcode, tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :qacurrent, :qafg, :qaspeed, :current, :fg, :speed,:svfi,:pcbbarcode, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
                 NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
                 command.Parameters.Add(new NpgsqlParameter("boxid", NpgsqlTypes.NpgsqlDbType.Varchar));
@@ -1402,6 +1416,7 @@ namespace BoxIdDb
                 command.Parameters.Add(new NpgsqlParameter("fg", NpgsqlTypes.NpgsqlDbType.Varchar));
                 command.Parameters.Add(new NpgsqlParameter("speed", NpgsqlTypes.NpgsqlDbType.Varchar));
                 command.Parameters.Add(new NpgsqlParameter("svfi", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("pcbbarcode", NpgsqlTypes.NpgsqlDbType.Varchar));
 
                 command.Parameters.Add(new NpgsqlParameter("return", NpgsqlTypes.NpgsqlDbType.Varchar));
 
@@ -1425,8 +1440,8 @@ namespace BoxIdDb
                     command.Parameters[13].Value = dt.Rows[i]["fg"].ToString();
                     command.Parameters[14].Value = dt.Rows[i]["speed"].ToString();
                     command.Parameters[15].Value = dt.Rows[i]["svfi"].ToString();
-
-                    command.Parameters[16].Value = dt.Rows[i]["return"].ToString();
+                    command.Parameters[16].Value = dt.Rows[i]["pcbbarcode"].ToString();
+                    command.Parameters[17].Value = dt.Rows[i]["return"].ToString();
 
                     System.Diagnostics.Debug.Print(command.ToString());
                     res1 = command.ExecuteNonQuery();

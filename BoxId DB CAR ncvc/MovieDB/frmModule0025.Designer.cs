@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -43,27 +46,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabInline = new System.Windows.Forms.TabPage();
             this.dgvInline = new System.Windows.Forms.DataGridView();
-            this.col_serial_no = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_model = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_lot = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_qacurrent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_qafg = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_qaspeed = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_judge_qa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_date_line = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_current = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_fg = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_speed = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_judge_inline = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_svfi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_return = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtBoxIdPrint = new System.Windows.Forms.TextBox();
             this.dgvDateCode2 = new System.Windows.Forms.DataGridView();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -101,13 +88,29 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label13 = new System.Windows.Forms.Label();
+            this.lbFRICTIONAlarm = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblFrmName = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.dgvDateCode = new System.Windows.Forms.DataGridView();
-            this.lbFRICTIONAlarm = new System.Windows.Forms.TextBox();
+            this.col_serial_no = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_model = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_lot = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_qacurrent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_qafg = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_qaspeed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_judge_qa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_date_line = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_current = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_fg = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_speed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_judge_inline = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_svfi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_pcbbarcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_return = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -173,14 +176,14 @@
             this.dgvInline.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dgvInline.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvInline.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvInline.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvInline.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.dgvInline.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvInline.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_serial_no,
@@ -197,6 +200,7 @@
             this.col_speed,
             this.col_judge_inline,
             this.col_svfi,
+            this.col_pcbbarcode,
             this.col_return});
             this.dgvInline.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvInline.Location = new System.Drawing.Point(3, 3);
@@ -206,147 +210,6 @@
             this.dgvInline.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvInline.Size = new System.Drawing.Size(1321, 318);
             this.dgvInline.TabIndex = 23;
-            // 
-            // col_serial_no
-            // 
-            this.col_serial_no.DataPropertyName = "serialno";
-            this.col_serial_no.HeaderText = "Serialno";
-            this.col_serial_no.Name = "col_serial_no";
-            this.col_serial_no.ReadOnly = true;
-            this.col_serial_no.Width = 70;
-            // 
-            // col_model
-            // 
-            this.col_model.DataPropertyName = "model";
-            this.col_model.HeaderText = "Model";
-            this.col_model.Name = "col_model";
-            this.col_model.ReadOnly = true;
-            this.col_model.Width = 61;
-            // 
-            // col_lot
-            // 
-            this.col_lot.DataPropertyName = "lot";
-            this.col_lot.HeaderText = "Lot";
-            this.col_lot.Name = "col_lot";
-            this.col_lot.ReadOnly = true;
-            this.col_lot.Width = 47;
-            // 
-            // col_date
-            // 
-            this.col_date.DataPropertyName = "inspectdate";
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.SpringGreen;
-            this.col_date.DefaultCellStyle = dataGridViewCellStyle18;
-            this.col_date.HeaderText = "Datetest QA";
-            this.col_date.Name = "col_date";
-            this.col_date.ReadOnly = true;
-            this.col_date.Width = 90;
-            // 
-            // col_qacurrent
-            // 
-            this.col_qacurrent.DataPropertyName = "qacurrent";
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.SpringGreen;
-            this.col_qacurrent.DefaultCellStyle = dataGridViewCellStyle19;
-            this.col_qacurrent.HeaderText = "QACURRENT";
-            this.col_qacurrent.Name = "col_qacurrent";
-            this.col_qacurrent.ReadOnly = true;
-            // 
-            // col_qafg
-            // 
-            this.col_qafg.DataPropertyName = "qafg";
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.SpringGreen;
-            dataGridViewCellStyle20.Format = "N2";
-            dataGridViewCellStyle20.NullValue = null;
-            this.col_qafg.DefaultCellStyle = dataGridViewCellStyle20;
-            this.col_qafg.HeaderText = "QAFG";
-            this.col_qafg.Name = "col_qafg";
-            this.col_qafg.ReadOnly = true;
-            this.col_qafg.Width = 61;
-            // 
-            // col_qaspeed
-            // 
-            this.col_qaspeed.DataPropertyName = "qaspeed";
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.SpringGreen;
-            this.col_qaspeed.DefaultCellStyle = dataGridViewCellStyle21;
-            this.col_qaspeed.HeaderText = "QASPEED";
-            this.col_qaspeed.Name = "col_qaspeed";
-            this.col_qaspeed.ReadOnly = true;
-            this.col_qaspeed.Width = 83;
-            // 
-            // col_judge_qa
-            // 
-            this.col_judge_qa.DataPropertyName = "tjudge";
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.SpringGreen;
-            this.col_judge_qa.DefaultCellStyle = dataGridViewCellStyle22;
-            this.col_judge_qa.HeaderText = "Judge QA";
-            this.col_judge_qa.Name = "col_judge_qa";
-            this.col_judge_qa.ReadOnly = true;
-            this.col_judge_qa.Width = 79;
-            // 
-            // col_date_line
-            // 
-            this.col_date_line.DataPropertyName = "date_line";
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.col_date_line.DefaultCellStyle = dataGridViewCellStyle23;
-            this.col_date_line.HeaderText = "Datetest LINE";
-            this.col_date_line.Name = "col_date_line";
-            this.col_date_line.ReadOnly = true;
-            this.col_date_line.Width = 99;
-            // 
-            // col_current
-            // 
-            this.col_current.DataPropertyName = "current";
-            dataGridViewCellStyle24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.col_current.DefaultCellStyle = dataGridViewCellStyle24;
-            this.col_current.HeaderText = "CURRENT";
-            this.col_current.Name = "col_current";
-            this.col_current.ReadOnly = true;
-            this.col_current.Width = 85;
-            // 
-            // col_fg
-            // 
-            this.col_fg.DataPropertyName = "fg";
-            dataGridViewCellStyle25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.col_fg.DefaultCellStyle = dataGridViewCellStyle25;
-            this.col_fg.HeaderText = "FG";
-            this.col_fg.Name = "col_fg";
-            this.col_fg.ReadOnly = true;
-            this.col_fg.Width = 46;
-            // 
-            // col_speed
-            // 
-            this.col_speed.DataPropertyName = "speed";
-            dataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.col_speed.DefaultCellStyle = dataGridViewCellStyle26;
-            this.col_speed.HeaderText = "SPEED";
-            this.col_speed.Name = "col_speed";
-            this.col_speed.ReadOnly = true;
-            this.col_speed.Width = 68;
-            // 
-            // col_judge_inline
-            // 
-            this.col_judge_inline.DataPropertyName = "tjudge_line";
-            dataGridViewCellStyle27.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.col_judge_inline.DefaultCellStyle = dataGridViewCellStyle27;
-            this.col_judge_inline.HeaderText = "Judge INLINE";
-            this.col_judge_inline.Name = "col_judge_inline";
-            this.col_judge_inline.ReadOnly = true;
-            this.col_judge_inline.Width = 99;
-            // 
-            // col_svfi
-            // 
-            this.col_svfi.DataPropertyName = "svfi";
-            this.col_svfi.HeaderText = "Friction";
-            this.col_svfi.Name = "col_svfi";
-            this.col_svfi.ReadOnly = true;
-            this.col_svfi.Width = 66;
-            // 
-            // col_return
-            // 
-            this.col_return.DataPropertyName = "return";
-            this.col_return.HeaderText = "Return";
-            this.col_return.Name = "col_return";
-            this.col_return.ReadOnly = true;
-            this.col_return.Width = 64;
             // 
             // txtBoxIdPrint
             // 
@@ -363,49 +226,49 @@
             // 
             this.dgvDateCode2.AllowUserToAddRows = false;
             this.dgvDateCode2.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle28.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle28.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.dgvDateCode2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle32.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle32.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.dgvDateCode2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle32;
             this.dgvDateCode2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle29.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle29.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle29.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvDateCode2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle33.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle33.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle33.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle33.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle33.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDateCode2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle33;
             this.dgvDateCode2.ColumnHeadersHeight = 30;
             this.dgvDateCode2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle30.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle30.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle30.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle30.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvDateCode2.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle34.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle34.Font = new System.Drawing.Font("MS UI Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle34.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle34.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle34.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDateCode2.DefaultCellStyle = dataGridViewCellStyle34;
             this.dgvDateCode2.EnableHeadersVisualStyles = false;
             this.dgvDateCode2.GridColor = System.Drawing.Color.White;
             this.dgvDateCode2.Location = new System.Drawing.Point(355, 65);
             this.dgvDateCode2.Name = "dgvDateCode2";
             this.dgvDateCode2.ReadOnly = true;
-            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            dataGridViewCellStyle31.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle31.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle31.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle31.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvDateCode2.RowHeadersDefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle35.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle35.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle35.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle35.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvDateCode2.RowHeadersDefaultCellStyle = dataGridViewCellStyle35;
             this.dgvDateCode2.RowHeadersVisible = false;
             this.dgvDateCode2.RowHeadersWidth = 30;
             this.dgvDateCode2.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle32.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle32.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle32.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvDateCode2.RowsDefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle36.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle36.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle36.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle36.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvDateCode2.RowsDefaultCellStyle = dataGridViewCellStyle36;
             this.dgvDateCode2.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.dgvDateCode2.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.White;
             this.dgvDateCode2.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.Black;
@@ -802,6 +665,20 @@
             this.label13.Text = "FRICTION";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lbFRICTIONAlarm
+            // 
+            this.lbFRICTIONAlarm.BackColor = System.Drawing.SystemColors.Control;
+            this.tableLayoutPanel1.SetColumnSpan(this.lbFRICTIONAlarm, 2);
+            this.lbFRICTIONAlarm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbFRICTIONAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbFRICTIONAlarm.Location = new System.Drawing.Point(4, 52);
+            this.lbFRICTIONAlarm.Multiline = true;
+            this.lbFRICTIONAlarm.Name = "lbFRICTIONAlarm";
+            this.lbFRICTIONAlarm.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.lbFRICTIONAlarm.Size = new System.Drawing.Size(611, 118);
+            this.lbFRICTIONAlarm.TabIndex = 1;
+            this.lbFRICTIONAlarm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -868,18 +745,158 @@
             this.dgvDateCode.Size = new System.Drawing.Size(396, 79);
             this.dgvDateCode.TabIndex = 54;
             // 
-            // lbFRICTIONAlarm
+            // col_serial_no
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.lbFRICTIONAlarm, 2);
-            this.lbFRICTIONAlarm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbFRICTIONAlarm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbFRICTIONAlarm.Location = new System.Drawing.Point(4, 52);
-            this.lbFRICTIONAlarm.Multiline = true;
-            this.lbFRICTIONAlarm.Name = "lbFRICTIONAlarm";
-            this.lbFRICTIONAlarm.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.lbFRICTIONAlarm.Size = new System.Drawing.Size(611, 118);
-            this.lbFRICTIONAlarm.TabIndex = 1;
-            this.lbFRICTIONAlarm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.col_serial_no.DataPropertyName = "serialno";
+            this.col_serial_no.HeaderText = "Serialno";
+            this.col_serial_no.Name = "col_serial_no";
+            this.col_serial_no.ReadOnly = true;
+            this.col_serial_no.Width = 70;
+            // 
+            // col_model
+            // 
+            this.col_model.DataPropertyName = "model";
+            this.col_model.HeaderText = "Model";
+            this.col_model.Name = "col_model";
+            this.col_model.ReadOnly = true;
+            this.col_model.Width = 61;
+            // 
+            // col_lot
+            // 
+            this.col_lot.DataPropertyName = "lot";
+            this.col_lot.HeaderText = "Lot";
+            this.col_lot.Name = "col_lot";
+            this.col_lot.ReadOnly = true;
+            this.col_lot.Width = 47;
+            // 
+            // col_date
+            // 
+            this.col_date.DataPropertyName = "inspectdate";
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.SpringGreen;
+            this.col_date.DefaultCellStyle = dataGridViewCellStyle20;
+            this.col_date.HeaderText = "Datetest QA";
+            this.col_date.Name = "col_date";
+            this.col_date.ReadOnly = true;
+            this.col_date.Width = 90;
+            // 
+            // col_qacurrent
+            // 
+            this.col_qacurrent.DataPropertyName = "qacurrent";
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.SpringGreen;
+            this.col_qacurrent.DefaultCellStyle = dataGridViewCellStyle21;
+            this.col_qacurrent.HeaderText = "QACURRENT";
+            this.col_qacurrent.Name = "col_qacurrent";
+            this.col_qacurrent.ReadOnly = true;
+            // 
+            // col_qafg
+            // 
+            this.col_qafg.DataPropertyName = "qafg";
+            dataGridViewCellStyle22.BackColor = System.Drawing.Color.SpringGreen;
+            dataGridViewCellStyle22.Format = "N2";
+            dataGridViewCellStyle22.NullValue = null;
+            this.col_qafg.DefaultCellStyle = dataGridViewCellStyle22;
+            this.col_qafg.HeaderText = "QAFG";
+            this.col_qafg.Name = "col_qafg";
+            this.col_qafg.ReadOnly = true;
+            this.col_qafg.Width = 61;
+            // 
+            // col_qaspeed
+            // 
+            this.col_qaspeed.DataPropertyName = "qaspeed";
+            dataGridViewCellStyle23.BackColor = System.Drawing.Color.SpringGreen;
+            this.col_qaspeed.DefaultCellStyle = dataGridViewCellStyle23;
+            this.col_qaspeed.HeaderText = "QASPEED";
+            this.col_qaspeed.Name = "col_qaspeed";
+            this.col_qaspeed.ReadOnly = true;
+            this.col_qaspeed.Width = 83;
+            // 
+            // col_judge_qa
+            // 
+            this.col_judge_qa.DataPropertyName = "tjudge";
+            dataGridViewCellStyle24.BackColor = System.Drawing.Color.SpringGreen;
+            this.col_judge_qa.DefaultCellStyle = dataGridViewCellStyle24;
+            this.col_judge_qa.HeaderText = "Judge QA";
+            this.col_judge_qa.Name = "col_judge_qa";
+            this.col_judge_qa.ReadOnly = true;
+            this.col_judge_qa.Width = 79;
+            // 
+            // col_date_line
+            // 
+            this.col_date_line.DataPropertyName = "date_line";
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_date_line.DefaultCellStyle = dataGridViewCellStyle25;
+            this.col_date_line.HeaderText = "Datetest LINE";
+            this.col_date_line.Name = "col_date_line";
+            this.col_date_line.ReadOnly = true;
+            this.col_date_line.Width = 99;
+            // 
+            // col_current
+            // 
+            this.col_current.DataPropertyName = "current";
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_current.DefaultCellStyle = dataGridViewCellStyle26;
+            this.col_current.HeaderText = "CURRENT";
+            this.col_current.Name = "col_current";
+            this.col_current.ReadOnly = true;
+            this.col_current.Width = 85;
+            // 
+            // col_fg
+            // 
+            this.col_fg.DataPropertyName = "fg";
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_fg.DefaultCellStyle = dataGridViewCellStyle27;
+            this.col_fg.HeaderText = "FG";
+            this.col_fg.Name = "col_fg";
+            this.col_fg.ReadOnly = true;
+            this.col_fg.Width = 46;
+            // 
+            // col_speed
+            // 
+            this.col_speed.DataPropertyName = "speed";
+            dataGridViewCellStyle28.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_speed.DefaultCellStyle = dataGridViewCellStyle28;
+            this.col_speed.HeaderText = "SPEED";
+            this.col_speed.Name = "col_speed";
+            this.col_speed.ReadOnly = true;
+            this.col_speed.Width = 68;
+            // 
+            // col_judge_inline
+            // 
+            this.col_judge_inline.DataPropertyName = "tjudge_line";
+            dataGridViewCellStyle29.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_judge_inline.DefaultCellStyle = dataGridViewCellStyle29;
+            this.col_judge_inline.HeaderText = "Judge INLINE";
+            this.col_judge_inline.Name = "col_judge_inline";
+            this.col_judge_inline.ReadOnly = true;
+            this.col_judge_inline.Width = 99;
+            // 
+            // col_svfi
+            // 
+            this.col_svfi.DataPropertyName = "svfi";
+            dataGridViewCellStyle30.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_svfi.DefaultCellStyle = dataGridViewCellStyle30;
+            this.col_svfi.HeaderText = "Friction";
+            this.col_svfi.Name = "col_svfi";
+            this.col_svfi.ReadOnly = true;
+            this.col_svfi.Width = 66;
+            // 
+            // col_pcbbarcode
+            // 
+            this.col_pcbbarcode.DataPropertyName = "pcbbarcode";
+            dataGridViewCellStyle31.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_pcbbarcode.DefaultCellStyle = dataGridViewCellStyle31;
+            this.col_pcbbarcode.HeaderText = "PCB Barcode";
+            this.col_pcbbarcode.Name = "col_pcbbarcode";
+            this.col_pcbbarcode.ReadOnly = true;
+            this.col_pcbbarcode.Width = 96;
+            // 
+            // col_return
+            // 
+            this.col_return.DataPropertyName = "return";
+            this.col_return.HeaderText = "Return";
+            this.col_return.Name = "col_return";
+            this.col_return.ReadOnly = true;
+            this.col_return.Width = 64;
             // 
             // frmModule0025
             // 
@@ -964,6 +981,7 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.DataGridView dgvInline;
+        private System.Windows.Forms.TextBox lbFRICTIONAlarm;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_serial_no;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_model;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_lot;
@@ -978,7 +996,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_speed;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_judge_inline;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_svfi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_pcbbarcode;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_return;
-        private System.Windows.Forms.TextBox lbFRICTIONAlarm;
     }
 }
