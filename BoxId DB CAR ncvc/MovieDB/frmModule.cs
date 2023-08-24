@@ -79,7 +79,9 @@ namespace BoxIdDb
                 // ÉfÅ[É^ÉeÅ[ÉuÉãÇÃêÊì™çsÇÃÉVÉäÉAÉãÇ©ÇÁÅAÇkÇhÇlÇhÇsÇîªífÇ∑ÇÈ
                 if (dtOverall.Rows.Count >= 0)
                 {
-                    limit1 = 80;
+                    
+                    if(cmbModel.Text== "BMA_0129") limit1 = 60;
+                    else limit1 = 80;
                 }
             }
 
@@ -221,7 +223,7 @@ namespace BoxIdDb
                 //if (VBS.Left(boxId, 4) == "517C" || VBS.Left(boxId, 4) == "517D" || VBS.Left(boxId, 4) == "517E")
                 //{
                 sql = "select serialno, model, lot, inspectdate, cio_ccw, cg_ccw, cno_ccw, tjudge, date_line, aio_ccw, ano_ccw, air_ccw, anr_ccw, ais_ccw, tjudge_line, return " +
-                    "FROM product_serial_rtcd WHERE boxid='" + boxId + "'";
+                    "FROM product_serial_rtcd1 WHERE boxid='" + boxId + "'";
                 //}
                 //else
                 //{
@@ -707,11 +709,11 @@ namespace BoxIdDb
                         dr["serialno"] = serial;
                         dr["lot"] = VBS.Mid(serial, 9, 3).Length < 3 ? "Error" : VBS.Mid(serial, 9, 3);
                     }
-                    if (cmbModel.Text == "BMA_0129")
+                    else if (cmbModel.Text == "BMA_0129")
                     {
                         dr["model"] = "BMA_0129";
                         dr["serialno"] = serial;
-                        dr["lot"] = VBS.Mid(serial, 9, 3).Length < 3 ? "Error" : VBS.Mid(serial, 9, 3);
+                        dr["lot"] = VBS.Mid(serial, 11, 3).Length < 3 ? "Error" : VBS.Mid(serial, 11, 3);
                     }
                     else
                     {
@@ -1035,8 +1037,8 @@ namespace BoxIdDb
             }
             else
             {
-                string model = VBS.Mid(cmbModel.Text, 6, 4);
-                string model_c = VBS.Left(cmbModel.Text, 9);
+                string model = VBS.Mid(cmbModel.Text, 6, 4);//517C
+                string model_c = VBS.Left(cmbModel.Text, 9);//LA20_517C
                 switch (model)
                 {
                     case "517C":
@@ -1213,9 +1215,16 @@ namespace BoxIdDb
             string serial;
             string result = String.Empty;
             if (formReturnMode) return result;
-
-            string sql = "select serialno, boxid FROM product_serial_rtcd";
-
+            string sql = "";
+            if (cmbModel.Text == "BMA_0129"|| cmbModel.Text == "BMA_0051")
+            {
+                sql = "select serialno, boxid, model FROM product_serial_rtcd1 where model='"+cmbModel.Text+"'";
+            }
+            else
+            {
+                string MODEL = cmbModel.Text.Substring(0, 4) + "V" + cmbModel.Text.Substring(4);
+                sql = "select serialno, boxid, model FROM product_serial_rtcd1 where model='"+ MODEL + "' ";
+            }
             DataTable dt2 = new DataTable();
             TfSQL tf = new TfSQL();
             tf.sqlDataAdapterFillDatatable(sql, ref dt2);
@@ -1226,6 +1235,10 @@ namespace BoxIdDb
                 {
                     serial = VBS.Mid(dt1.Rows[i]["serialno"].ToString(), 2, 21);
                 }
+                //else if (cmbModel.Text == "BMA_0129")
+                //{
+                //    serial = VBS.Right(dt1.Rows[i]["serialno"].ToString(), 8);
+                //}
                 else serial = dt1.Rows[i]["serialno"].ToString();
                 DataRow[] dr = dt2.Select("serialno = '" + serial + "'");
                 if (dr.Length >= 1)
@@ -1341,7 +1354,7 @@ namespace BoxIdDb
             {
                 // ÇcÇdÇkÇdÇsÇd ÇrÇpÇkï∂Çî≠çsÇµÅAÉfÅ[É^ÉxÅ[ÉXÇ©ÇÁçÌèúÇ∑ÇÈ
                 string boxId = txtBoxId.Text;
-                string sql = "delete from product_serial_rtcd where boxid = '" + boxId + "'";
+                string sql = "delete from product_serial_rtcd1 where boxid = '" + boxId + "'";
                 System.Diagnostics.Debug.Print(sql);
                 TfSQL tf = new TfSQL();
                 bool res1 = tf.sqlExecuteNonQuery(sql, false);
@@ -1409,7 +1422,7 @@ namespace BoxIdDb
                 {
                     whereSer += "'" + cell.Value.ToString() + "', ";
                 }
-                string sql = "delete from product_serial_rtcd where boxid = '" + boxId + "' and  serialno in (" + VBS.Left(whereSer, whereSer.Length - 2) + ")";
+                string sql = "delete from product_serial_rtcd1 where boxid = '" + boxId + "' and  serialno in (" + VBS.Left(whereSer, whereSer.Length - 2) + ")";
                 System.Diagnostics.Debug.Print(sql);
                 TfSQL tf = new TfSQL();
                 int res = tf.sqlExecuteNonQueryInt(sql, false);

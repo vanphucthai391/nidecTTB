@@ -360,7 +360,8 @@ namespace BoxIdDb
 
             try
             {
-                string sql = "INSERT INTO product_serial_rtcd(boxid, serialno, model, carton, lot, cio_ccw, cg_ccw, cno_ccw, aio_ccw, ano_ccw, air_ccw, anr_ccw, ais_ccw, tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :cio_ccw, :cg_ccw, :cno_ccw, :aio_ccw, :ano_ccw, :air_ccw, :anr_ccw, :ais_ccw, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
+                //string sql = "INSERT INTO product_serial_rtcd(boxid, serialno, model, carton, lot, cio_ccw, cg_ccw, cno_ccw, aio_ccw, ano_ccw, air_ccw, anr_ccw, ais_ccw, tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :cio_ccw, :cg_ccw, :cno_ccw, :aio_ccw, :ano_ccw, :air_ccw, :anr_ccw, :ais_ccw, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
+                string sql = "INSERT INTO product_serial_rtcd1(boxid, serialno, model, carton, lot, cio_ccw, cg_ccw, cno_ccw, aio_ccw, ano_ccw, air_ccw, anr_ccw, ais_ccw, tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :cio_ccw, :cg_ccw, :cno_ccw, :aio_ccw, :ano_ccw, :air_ccw, :anr_ccw, :ais_ccw, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
                 NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
                 command.Parameters.Add(new NpgsqlParameter("boxid", NpgsqlTypes.NpgsqlDbType.Varchar));
@@ -1080,7 +1081,8 @@ namespace BoxIdDb
             int res1 = 0;
             int res2 = 0;
             string sql1 = "delete from box_id_rt where boxid = '" + boxid + "'";
-            string sql2 = "delete from product_serial_rtcd where boxid = '" + boxid + "'";
+            //string sql2 = "delete from product_serial_rtcd where boxid = '" + boxid + "'";
+            string sql2 = "delete from product_serial_rtcd1 where boxid = '" + boxid + "'";
 
             System.Diagnostics.Debug.Print(sql1);
             System.Diagnostics.Debug.Print(sql2);
@@ -1218,6 +1220,142 @@ namespace BoxIdDb
             int res2 = 0;
             string sql1 = "delete from box_id_rt where boxid = '" + boxid + "'";
             string sql2 = "delete from product_serial_0025 where boxid = '" + boxid + "'";
+
+            System.Diagnostics.Debug.Print(sql1);
+            System.Diagnostics.Debug.Print(sql2);
+
+            connection = new NpgsqlConnection(conStringBoxidDb);
+            connection.Open();
+            NpgsqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+            try
+            {
+                NpgsqlCommand command1 = new NpgsqlCommand(sql1, connection);
+                NpgsqlCommand command2 = new NpgsqlCommand(sql2, connection);
+                res1 = command1.ExecuteNonQuery();
+                res2 = command2.ExecuteNonQuery();
+
+                transaction.Commit();
+                connection.Close();
+                return res2;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Not successful!" + "\r\n" + ex.Message
+                                , "Database Responce", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                connection.Close();
+                return -1;
+            }
+        }
+        public int sqlDeleteBoxid_0148(string boxid)
+        {
+            int res1 = 0;
+            int res2 = 0;
+            string sql1 = "delete from box_id_rt where boxid = '" + boxid + "'";
+            string sql2 = "delete from product_serial_0148 where boxid = '" + boxid + "'";
+
+            System.Diagnostics.Debug.Print(sql1);
+            System.Diagnostics.Debug.Print(sql2);
+
+            connection = new NpgsqlConnection(conStringBoxidDb);
+            connection.Open();
+            NpgsqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+            try
+            {
+                NpgsqlCommand command1 = new NpgsqlCommand(sql1, connection);
+                NpgsqlCommand command2 = new NpgsqlCommand(sql2, connection);
+                res1 = command1.ExecuteNonQuery();
+                res2 = command2.ExecuteNonQuery();
+
+                transaction.Commit();
+                connection.Close();
+                return res2;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Not successful!" + "\r\n" + ex.Message
+                                , "Database Responce", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                connection.Close();
+                return -1;
+            }
+        }
+        public int sqlDeleteBoxid_517fb(string boxid)
+        {
+            int res1 = 0;
+            int res2 = 0;
+            string sql1 = "delete from box_id_rt where boxid = '" + boxid + "'";
+            string sql2 = "delete from product_serial_517fb where boxid = '" + boxid + "'";
+
+            System.Diagnostics.Debug.Print(sql1);
+            System.Diagnostics.Debug.Print(sql2);
+
+            connection = new NpgsqlConnection(conStringBoxidDb);
+            connection.Open();
+            NpgsqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+            try
+            {
+                NpgsqlCommand command1 = new NpgsqlCommand(sql1, connection);
+                NpgsqlCommand command2 = new NpgsqlCommand(sql2, connection);
+                res1 = command1.ExecuteNonQuery();
+                res2 = command2.ExecuteNonQuery();
+
+                transaction.Commit();
+                connection.Close();
+                return res2;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Not successful!" + "\r\n" + ex.Message
+                                , "Database Responce", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                connection.Close();
+                return -1;
+            }
+        }
+        public int sqlDeleteBoxid_523ab(string boxid)
+        {
+            int res1 = 0;
+            int res2 = 0;
+            string sql1 = "delete from box_id_rt where boxid = '" + boxid + "'";
+            string sql2 = "delete from product_serial_523ab where boxid = '" + boxid + "'";
+
+            System.Diagnostics.Debug.Print(sql1);
+            System.Diagnostics.Debug.Print(sql2);
+
+            connection = new NpgsqlConnection(conStringBoxidDb);
+            connection.Open();
+            NpgsqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+            try
+            {
+                NpgsqlCommand command1 = new NpgsqlCommand(sql1, connection);
+                NpgsqlCommand command2 = new NpgsqlCommand(sql2, connection);
+                res1 = command1.ExecuteNonQuery();
+                res2 = command2.ExecuteNonQuery();
+
+                transaction.Commit();
+                connection.Close();
+                return res2;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Not successful!" + "\r\n" + ex.Message
+                                , "Database Responce", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                connection.Close();
+                return -1;
+            }
+        }
+        public int sqlDeleteBoxid_523ac(string boxid)
+        {
+            int res1 = 0;
+            int res2 = 0;
+            string sql1 = "delete from box_id_rt where boxid = '" + boxid + "'";
+            string sql2 = "delete from product_serial_523ac where boxid = '" + boxid + "'";
 
             System.Diagnostics.Debug.Print(sql1);
             System.Diagnostics.Debug.Print(sql2);

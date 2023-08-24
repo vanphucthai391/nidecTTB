@@ -1039,8 +1039,7 @@ namespace BoxIdDb
                 {
                     string boxid = txtBoxId.Text;
                     TfSQL tf = new TfSQL();
-                    int res = tf.sqlDeleteBoxid(boxid);
-
+                    int res = tf.sqlDeleteBoxid_517fb(boxid);
                     dtOverall.Clear();
                     updateDataGridViews(dtOverall, ref dgvInline);
 

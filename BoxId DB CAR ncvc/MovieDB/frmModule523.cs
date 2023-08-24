@@ -1522,7 +1522,10 @@ namespace BoxIdDb
                 {
                     string boxid = txtBoxId.Text;
                     TfSQL tf = new TfSQL();
-                    int res = tf.sqlDeleteBoxid(boxid);
+                    int res=0;
+                    if(cmbModel.Text== "LA20_523AB")
+                    res = tf.sqlDeleteBoxid_523ab(boxid);
+                    else res = tf.sqlDeleteBoxid_523ac(boxid);
 
                     dtOverall.Clear();
                     updateDataGridViews(dtOverall, ref dgvInline);

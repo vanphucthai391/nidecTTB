@@ -267,7 +267,8 @@ namespace BoxIdDb
             "LA20_517DB",
             "LA20_517DC",
             "LA20_517DD",
-            "BMA_0051"});
+            "BMA_0051",
+            "BMA_0129"});
             this.cmbModel.Location = new System.Drawing.Point(113, 58);
             this.cmbModel.Name = "cmbModel";
             this.cmbModel.Size = new System.Drawing.Size(188, 21);
