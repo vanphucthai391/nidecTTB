@@ -14,7 +14,7 @@
     <framework targetVersion="4.5.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="BoxIdDB.exe.manifest" size="9355">
+    <dependentAssembly dependencyType="install" codebase="Application Files\BoxIdDB_4_0_2_49\BoxIdDB.exe.manifest" size="9355">
       <assemblyIdentity name="BoxIdDB.exe" version="4.0.2.49" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>

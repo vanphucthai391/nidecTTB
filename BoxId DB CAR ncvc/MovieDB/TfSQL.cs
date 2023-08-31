@@ -1533,7 +1533,7 @@ namespace BoxIdDb
 
             try
             {
-                string sql = "INSERT INTO product_serial_0025(boxid, serialno, model, carton, lot, qacurrent, qafg, qaspeed, current, fg, speed, svfi, pcbbarcode, tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :qacurrent, :qafg, :qaspeed, :current, :fg, :speed,:svfi,:pcbbarcode, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
+                string sql = "INSERT INTO product_serial_0025(boxid, serialno, model, carton, lot, qacurrent, qafg, qaspeed, current, fg, speed, svfi, tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :qacurrent, :qafg, :qaspeed, :current, :fg, :speed,:svfi, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
                 NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
                 command.Parameters.Add(new NpgsqlParameter("boxid", NpgsqlTypes.NpgsqlDbType.Varchar));
@@ -1554,8 +1554,6 @@ namespace BoxIdDb
                 command.Parameters.Add(new NpgsqlParameter("fg", NpgsqlTypes.NpgsqlDbType.Varchar));
                 command.Parameters.Add(new NpgsqlParameter("speed", NpgsqlTypes.NpgsqlDbType.Varchar));
                 command.Parameters.Add(new NpgsqlParameter("svfi", NpgsqlTypes.NpgsqlDbType.Varchar));
-                command.Parameters.Add(new NpgsqlParameter("pcbbarcode", NpgsqlTypes.NpgsqlDbType.Varchar));
-
                 command.Parameters.Add(new NpgsqlParameter("return", NpgsqlTypes.NpgsqlDbType.Varchar));
 
                 for (int i = 0; i < dt.Rows.Count; i++)
@@ -1578,8 +1576,7 @@ namespace BoxIdDb
                     command.Parameters[13].Value = dt.Rows[i]["fg"].ToString();
                     command.Parameters[14].Value = dt.Rows[i]["speed"].ToString();
                     command.Parameters[15].Value = dt.Rows[i]["svfi"].ToString();
-                    command.Parameters[16].Value = dt.Rows[i]["pcbbarcode"].ToString();
-                    command.Parameters[17].Value = dt.Rows[i]["return"].ToString();
+                    command.Parameters[16].Value = dt.Rows[i]["return"].ToString();
 
                     System.Diagnostics.Debug.Print(command.ToString());
                     res1 = command.ExecuteNonQuery();
