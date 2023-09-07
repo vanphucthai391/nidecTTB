@@ -42,9 +42,9 @@ namespace BoxIdDB
         int limit1 = 500;//testing  actual 500:
         public int limit2 = 0;
         bool sound;
-        bool friction_overload = true;
+        bool frictiongood = false;
         string pcbbarcode = "";
-        bool rowfrictionnhohon0 =false;
+        bool frictionnorow =false;
         public frmModule0025()
         {
             InitializeComponent();
@@ -976,7 +976,7 @@ namespace BoxIdDB
                         if (dtFRICTION.Rows.Count > 0)
                         {
                             int numberng = 0;
-                            rowfrictionnhohon0 = false;
+                            frictionnorow = false;
                             for (int i = 0; i < dtFRICTION.Rows.Count; i++)
                             {
                                 if (dtFRICTION.Rows[i]["tjudge"].ToString() == "1")
@@ -986,7 +986,7 @@ namespace BoxIdDB
                             }
                             if (numberng <= 1 && dtFRICTION.Rows[0]["tjudge"].ToString() == "0")
                             {
-                                friction_overload = false;
+                                frictiongood = true;
                                 int noiFRICTION = 1;
                                 string countdtFRICTION = dtFRICTION.Rows.Count.ToString();
                                 List<string> showFRICTION = new List<string>();
@@ -1009,7 +1009,7 @@ namespace BoxIdDB
                             else
                             {
 
-                                friction_overload = true;
+                                frictiongood = false;
                                 int noi = 1;
                                 string countdt = dtFRICTION.Rows.Count.ToString();
                                 List<string> show = new List<string>();
@@ -1033,7 +1033,7 @@ namespace BoxIdDB
                         }
                         else
                         {
-                            rowfrictionnhohon0 = true;
+                            frictionnorow = true;
                         }
 
 
@@ -1176,14 +1176,14 @@ namespace BoxIdDB
                             string judge_line = String.Empty;
 
                             string buff = dt1.Rows[0]["tjudge_line"].ToString();
-                            if (buff == "0" && !friction_overload) judge_line = "PASS";
-                            else if (buff == "0"&& friction_overload) judge_line = "FAIL";
-                            else if (buff == "1" || friction_overload) judge_line = "FAIL";
+                            if (buff == "0" && frictiongood) judge_line = "PASS";
+                            else if (buff == "0"&& !frictiongood) judge_line = "FAIL";
+                            else if (buff == "1" || !frictiongood) judge_line = "FAIL";
                             else judge_line = "ERROR";
                             dr["tjudge_line"] = judge_line;
                             dr["date_line"] = dt1.Rows[0]["date_line"].ToString();
                         }
-                        if (dt3.Rows.Count != 0&&!friction_overload)
+                        if (dt3.Rows.Count != 0&& frictiongood)
                         {
                             dr["svfi"] = dt3.Rows[0]["svfi"].ToString();
                         }
@@ -1237,7 +1237,7 @@ namespace BoxIdDB
                     lbFRICTIONAlarm.BackColor = Color.Red;
                     datastring += "FAN: NO DATA\r\n";
                 }
-                if (friction_overload && !rowfrictionnhohon0)
+                if (!frictiongood && !frictionnorow)
                 {
                     txtResultDetail.BackColor = Color.Red;
                     txtCount.Text = "NG";
@@ -1253,7 +1253,7 @@ namespace BoxIdDB
                     lbFRICTIONAlarm.BackColor = Color.Red;
                     datastring += "FRICTION: NO DATA\r\n";
                 }
-                else if(!friction_overload)
+                else if(frictiongood)
                 {
                     datastring += "FRICTION: PASS\r\n";
                 }
@@ -1274,7 +1274,7 @@ namespace BoxIdDB
                     lbFRICTIONAlarm.BackColor = Color.Red;
                     txtResultDetail.Text = datastring;
                 }
-                if (!checkFail && checkFAN && checkFRICTION && checkFANOQC && !friction_overload)
+                if (!checkFail && checkFAN && checkFRICTION && checkFANOQC && frictiongood)
                 {
                     txtCount.Text = "OK";
                     txtCount.BackColor = Color.SpringGreen;
