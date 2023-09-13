@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BoxIdDB.exe" size="551424">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="BoxIdDB.exe" size="552448">
       <assemblyIdentity name="BoxIdDB" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>mZTfQAR0/EHbdnN0W0Jx8JmIt0nBKttZ+cu5yewRUsE=</dsig:DigestValue>
+        <dsig:DigestValue>/cGUCK5qgpQUIY0yDTKWxzmACpUYlvYO0bbUjj0Y1Zs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

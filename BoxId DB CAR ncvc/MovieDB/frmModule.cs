@@ -80,7 +80,7 @@ namespace BoxIdDb
                 if (dtOverall.Rows.Count >= 0)
                 {
                     
-                    if(cmbModel.Text== "BMA_0129") limit1 = 60;
+                    if(cmbModel.Text== "BMA_0129"|| cmbModel.Text == "BMA_0241") limit1 = 60;
                     else limit1 = 80;
                 }
             }
@@ -160,6 +160,10 @@ namespace BoxIdDb
                         break;
                     case "0129":
                         cmbModel.Text = "BMA_0129";
+                        limit1 = 60;
+                        break;
+                    case "0241":
+                        cmbModel.Text = "BMA_0241";
                         limit1 = 60;
                         break;
                     default:
@@ -715,6 +719,12 @@ namespace BoxIdDb
                         dr["serialno"] = serial;
                         dr["lot"] = VBS.Mid(serial, 11, 3).Length < 3 ? "Error" : VBS.Mid(serial, 11, 3);
                     }
+                    else if (cmbModel.Text == "BMA_0241")
+                    {
+                        dr["model"] = "BMA_0241";
+                        dr["serialno"] = serial;
+                        dr["lot"] = VBS.Mid(serial, 8, 3).Length < 3 ? "Error" : VBS.Mid(serial, 8, 3);
+                    }
                     else
                     {
                         dr["model"] = model.Substring(0, 4) + "V" + model.Substring(4);
@@ -1015,7 +1025,7 @@ namespace BoxIdDb
                         break;
                 }
             }
-            if (cmbModel.Text == "BMA_0129")
+            else if (cmbModel.Text == "BMA_0129")
             {
                 string modelsub = "0129";
                 string model_sub = "BMA0_0129";
@@ -1026,6 +1036,26 @@ namespace BoxIdDb
                         testerTableThisMonth = "BMA0_00129" + DateTime.Today.ToString("yyyyMM");
                         tableThisMonth = model_sub + DateTime.Today.ToString("yyyyMM");
                         testerTableLastMonth = "BMA0_00129" + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
+                        tableLastMonth = model_sub + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
+                        tablethis = model_c + DateTime.Today.ToString("yyyyMM");
+                        tablelast = model_c + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
+                        break;
+                }
+            }
+            else if (cmbModel.Text == "BMA_0241")
+            {
+                string modelsub = "0241";
+                string model_sub = "BMA0_0241";
+                string model_c = "BMA0_0241";
+                switch (modelsub)
+                {
+                    case "0241":
+                        testerTableThisMonth = "BMA0_00241" + DateTime.Today.ToString("yyyyMM");
+                        tableThisMonth = model_sub + DateTime.Today.ToString("yyyyMM");
+                        testerTableLastMonth = "BMA0_00241" + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
                             (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
                         tableLastMonth = model_sub + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
                             (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
@@ -1090,10 +1120,10 @@ namespace BoxIdDb
                 printBarcode(directory, boxId, model, dgvDateCode, ref dgvDateCode2, ref txtBoxIdPrint, shipKind);
 
             }
-            else if (cmbModel.Text == "BMA_0129")
+            else if (cmbModel.Text == "BMA_0129"|| cmbModel.Text == "BMA_0241")
             {
                 string boxId = txtBoxId.Text;
-                string model = "BMA_0129";
+                string model = cmbModel.Text;
                 string shipKind = dtOverall.Rows[0]["return"].ToString();
                 printBarcode(directory, boxId, model, dgvDateCode, ref dgvDateCode2, ref txtBoxIdPrint, shipKind);
 
@@ -1168,8 +1198,8 @@ namespace BoxIdDb
                     string prt_model;
                     if (cmbModel.Text == "BMA_0051")
                         prt_model = "BMA_0051";
-                    else if (cmbModel.Text == "BMA_0129")
-                        prt_model = "BMA_0129";
+                    else if (cmbModel.Text == "BMA_0129"|| cmbModel.Text == "BMA_0241")
+                        prt_model = cmbModel.Text;
                     else
                         prt_model = cmbModel.Text.Substring(0, 4) + "V" + cmbModel.Text.Substring(4);
                     //printBarcode(directory, boxId, prt_model, dgvDateCode, ref dgvDateCode2, ref txtBoxIdPrint, shipKind);
@@ -1216,7 +1246,7 @@ namespace BoxIdDb
             string result = String.Empty;
             if (formReturnMode) return result;
             string sql = "";
-            if (cmbModel.Text == "BMA_0129"|| cmbModel.Text == "BMA_0051")
+            if (cmbModel.Text == "BMA_0129"|| cmbModel.Text == "BMA_0051" || cmbModel.Text == "BMA_0241")
             {
                 sql = "select serialno, boxid, model FROM product_serial_rtcd1 where model='"+cmbModel.Text+"'";
             }
@@ -1664,7 +1694,7 @@ namespace BoxIdDb
                 txtProductSerial.Enabled = true;
                 txtProductSerial.Focus();
             }
-            else if (cmbModel.Text == "BMA_0129")
+            else if (cmbModel.Text == "BMA_0129"|| cmbModel.Text == "BMA_0241")
             {
                 limit1 = 60;
                 txtOkCount.Text = okCount.ToString() + "/" + limit1.ToString();
