@@ -987,24 +987,37 @@ namespace BoxIdDB
                             if (numberng <= 1 && dtFRICTION.Rows[0]["tjudge"].ToString() == "0")
                             {
                                 frictiongood = true;
-                                int noiFRICTION = 1;
-                                string countdtFRICTION = dtFRICTION.Rows.Count.ToString();
+                                //int noiFRICTION = 1;
+                                //string countdtFRICTION = dtFRICTION.Rows.Count.ToString();
+                                int maxRowIndex = dtFRICTION.Rows.Count;
                                 List<string> showFRICTION = new List<string>();
-
-                                foreach (DataRow row in dtFRICTION.Rows)
+                                for (int rowIndex = maxRowIndex - 1; rowIndex >= 0; rowIndex--)
                                 {
+                                    DataRow row = dtFRICTION.Rows[rowIndex];
                                     string value = row[2].ToString();
+
                                     if (value == "0")
                                         value = "OK";
                                     if (value == "1")
                                         value = "NG";
-                                    if (noiFRICTION <= dtFRICTION.Rows.Count)
-                                    {
-                                        showFRICTION.Add("No " + noiFRICTION + ": " + value + "\r\n");
-                                        noiFRICTION++;
-                                    }
+
+                                    int noiFRICTION = maxRowIndex - rowIndex;
+                                    showFRICTION.Add("No " + noiFRICTION + ": " + value + "\r\n");
                                 }
-                                lbFRICTIONAlarm.Text = "Data FRICTION Đã Kiểm " + countdtFRICTION + " lần\r\n" + String.Join("", showFRICTION.ToArray());
+                                //foreach (DataRow row in dtFRICTION.Rows)
+                                //{
+                                //    string value = row[2].ToString();
+                                //    if (value == "0")
+                                //        value = "OK";
+                                //    if (value == "1")
+                                //        value = "NG";
+                                //    if (noiFRICTION <= dtFRICTION.Rows.Count)
+                                //    {
+                                //        showFRICTION.Add("No " + noiFRICTION + ": " + value + "\r\n");
+                                //        noiFRICTION++;
+                                //    }
+                                //}
+                                lbFRICTIONAlarm.Text = "Data FRICTION Đã Kiểm " + maxRowIndex + " lần\r\n" + String.Join("", showFRICTION.ToArray());
                             }
                             else
                             {
