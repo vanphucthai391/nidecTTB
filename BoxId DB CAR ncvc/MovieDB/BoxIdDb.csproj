@@ -33,7 +33,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.html</WebPage>
-    <ApplicationRevision>51</ApplicationRevision>
+    <ApplicationRevision>53</ApplicationRevision>
     <ApplicationVersion>4.0.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -144,6 +144,12 @@
     <Compile Include="frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmModule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmModule.Designer.cs">
+      <DependentUpon>frmModule.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmModule0025.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +161,12 @@
     </Compile>
     <Compile Include="frmModule0148.Designer.cs">
       <DependentUpon>frmModule0148.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmModule0241.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmModule0241.Designer.cs">
+      <DependentUpon>frmModule0241.cs</DependentUpon>
     </Compile>
     <Compile Include="frmModule517FB.cs">
       <SubType>Form</SubType>
@@ -173,12 +185,6 @@
     </Compile>
     <Compile Include="frmModule517EB.Designer.cs">
       <DependentUpon>frmModule517EB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmModule.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmModule.Designer.cs">
-      <DependentUpon>frmModule.cs</DependentUpon>
     </Compile>
     <Compile Include="frmBox.cs">
       <SubType>Form</SubType>
@@ -209,11 +215,17 @@
       <DependentUpon>frmLogin.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmModule.resx">
+      <DependentUpon>frmModule.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmModule0025.resx">
       <DependentUpon>frmModule0025.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmModule0148.resx">
       <DependentUpon>frmModule0148.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmModule0241.resx">
+      <DependentUpon>frmModule0241.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmModule517FB.resx">
       <DependentUpon>frmModule517FB.cs</DependentUpon>
@@ -225,10 +237,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmModule517EB.resx">
       <DependentUpon>frmModule517EB.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmModule.resx">
-      <DependentUpon>frmModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmBox.resx">

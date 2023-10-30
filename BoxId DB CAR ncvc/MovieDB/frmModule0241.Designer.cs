@@ -1,6 +1,6 @@
 namespace BoxIdDb
 {
-    partial class frmModule
+    partial class frmModule0241
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,11 @@ namespace BoxIdDb
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -41,12 +46,7 @@ namespace BoxIdDb
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmModule));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmModule0241));
             this.btnCancel = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.txtUser = new System.Windows.Forms.TextBox();
@@ -69,22 +69,6 @@ namespace BoxIdDb
             this.btnAddSerial = new System.Windows.Forms.Button();
             this.tabInline = new System.Windows.Forms.TabPage();
             this.dgvInline = new System.Windows.Forms.DataGridView();
-            this.col_serial_no = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_model = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_lot = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_cg_ccw = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_cio_ccw = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_cno_ccw = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_judge_oqc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_date_line = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_aio_ccw = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_air_ccw = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_ais_ccw = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_ano_ccw = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_anr_ccw = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_judge_inline = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_return = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtBoxIdPrint = new System.Windows.Forms.TextBox();
             this.dgvDateCode2 = new System.Windows.Forms.DataGridView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -104,6 +88,22 @@ namespace BoxIdDb
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.col_serial_no = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_model = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_lot = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_cg_cw = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_cio_cw = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_cno_cw = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_judge_oqc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_date_line = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_aio_cw = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_air_cw = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_ais_cw = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_ano_cw = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_anr_cw = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_judge_inline = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_return = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabInline.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInline)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDateCode2)).BeginInit();
@@ -258,17 +258,7 @@ namespace BoxIdDb
             this.cmbModel.Enabled = false;
             this.cmbModel.FormattingEnabled = true;
             this.cmbModel.Items.AddRange(new object[] {
-            "LA20_517CB",
-            "LA20_517CC",
-            "LA20_517CC1",
-            "LA20_517CC2",
-            "LA20_517CC3",
-            "LA20_517CD",
-            "LA20_517DB",
-            "LA20_517DC",
-            "LA20_517DD",
-            "BMA_0051",
-            "BMA_0129"});
+            "BMA_0241"});
             this.cmbModel.Location = new System.Drawing.Point(113, 58);
             this.cmbModel.Name = "cmbModel";
             this.cmbModel.Size = new System.Drawing.Size(188, 21);
@@ -355,16 +345,16 @@ namespace BoxIdDb
             this.col_model,
             this.col_lot,
             this.col_date,
-            this.col_cg_ccw,
-            this.col_cio_ccw,
-            this.col_cno_ccw,
+            this.col_cg_cw,
+            this.col_cio_cw,
+            this.col_cno_cw,
             this.col_judge_oqc,
             this.col_date_line,
-            this.col_aio_ccw,
-            this.col_air_ccw,
-            this.col_ais_ccw,
-            this.col_ano_ccw,
-            this.col_anr_ccw,
+            this.col_aio_cw,
+            this.col_air_cw,
+            this.col_ais_cw,
+            this.col_ano_cw,
+            this.col_anr_cw,
             this.col_judge_inline,
             this.col_return});
             this.dgvInline.Location = new System.Drawing.Point(4, 3);
@@ -374,160 +364,6 @@ namespace BoxIdDb
             this.dgvInline.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvInline.Size = new System.Drawing.Size(1316, 414);
             this.dgvInline.TabIndex = 9;
-            // 
-            // col_serial_no
-            // 
-            this.col_serial_no.DataPropertyName = "serialno";
-            this.col_serial_no.HeaderText = "Serialno";
-            this.col_serial_no.Name = "col_serial_no";
-            this.col_serial_no.ReadOnly = true;
-            this.col_serial_no.Width = 70;
-            // 
-            // col_model
-            // 
-            this.col_model.DataPropertyName = "model";
-            this.col_model.HeaderText = "Model";
-            this.col_model.Name = "col_model";
-            this.col_model.ReadOnly = true;
-            this.col_model.Width = 61;
-            // 
-            // col_lot
-            // 
-            this.col_lot.DataPropertyName = "lot";
-            this.col_lot.HeaderText = "Lot";
-            this.col_lot.Name = "col_lot";
-            this.col_lot.ReadOnly = true;
-            this.col_lot.Width = 47;
-            // 
-            // col_date
-            // 
-            this.col_date.DataPropertyName = "inspectdate";
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.SpringGreen;
-            this.col_date.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_date.HeaderText = "Datetest NMT";
-            this.col_date.Name = "col_date";
-            this.col_date.ReadOnly = true;
-            this.col_date.Width = 91;
-            // 
-            // col_cg_ccw
-            // 
-            this.col_cg_ccw.DataPropertyName = "cg_ccw";
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.SpringGreen;
-            this.col_cg_ccw.DefaultCellStyle = dataGridViewCellStyle3;
-            this.col_cg_ccw.HeaderText = "CG_CCW";
-            this.col_cg_ccw.Name = "col_cg_ccw";
-            this.col_cg_ccw.ReadOnly = true;
-            this.col_cg_ccw.Width = 78;
-            // 
-            // col_cio_ccw
-            // 
-            this.col_cio_ccw.DataPropertyName = "cio_ccw";
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.SpringGreen;
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.col_cio_ccw.DefaultCellStyle = dataGridViewCellStyle4;
-            this.col_cio_ccw.HeaderText = "CIO_CCW";
-            this.col_cio_ccw.Name = "col_cio_ccw";
-            this.col_cio_ccw.ReadOnly = true;
-            this.col_cio_ccw.Width = 81;
-            // 
-            // col_cno_ccw
-            // 
-            this.col_cno_ccw.DataPropertyName = "cno_ccw";
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.SpringGreen;
-            this.col_cno_ccw.DefaultCellStyle = dataGridViewCellStyle5;
-            this.col_cno_ccw.HeaderText = "CNO_CCW";
-            this.col_cno_ccw.Name = "col_cno_ccw";
-            this.col_cno_ccw.ReadOnly = true;
-            this.col_cno_ccw.Width = 86;
-            // 
-            // col_judge_oqc
-            // 
-            this.col_judge_oqc.DataPropertyName = "tjudge";
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.SpringGreen;
-            this.col_judge_oqc.DefaultCellStyle = dataGridViewCellStyle6;
-            this.col_judge_oqc.HeaderText = "Judge OQC";
-            this.col_judge_oqc.Name = "col_judge_oqc";
-            this.col_judge_oqc.ReadOnly = true;
-            this.col_judge_oqc.Width = 80;
-            // 
-            // col_date_line
-            // 
-            this.col_date_line.DataPropertyName = "date_line";
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.col_date_line.DefaultCellStyle = dataGridViewCellStyle7;
-            this.col_date_line.HeaderText = "Datetest NO41";
-            this.col_date_line.Name = "col_date_line";
-            this.col_date_line.ReadOnly = true;
-            this.col_date_line.Width = 95;
-            // 
-            // col_aio_ccw
-            // 
-            this.col_aio_ccw.DataPropertyName = "aio_ccw";
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.col_aio_ccw.DefaultCellStyle = dataGridViewCellStyle8;
-            this.col_aio_ccw.HeaderText = "AIO_CCW";
-            this.col_aio_ccw.Name = "col_aio_ccw";
-            this.col_aio_ccw.ReadOnly = true;
-            this.col_aio_ccw.Width = 81;
-            // 
-            // col_air_ccw
-            // 
-            this.col_air_ccw.DataPropertyName = "air_ccw";
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.col_air_ccw.DefaultCellStyle = dataGridViewCellStyle9;
-            this.col_air_ccw.HeaderText = "AIR_CCW";
-            this.col_air_ccw.Name = "col_air_ccw";
-            this.col_air_ccw.ReadOnly = true;
-            this.col_air_ccw.Width = 81;
-            // 
-            // col_ais_ccw
-            // 
-            this.col_ais_ccw.DataPropertyName = "ais_ccw";
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.col_ais_ccw.DefaultCellStyle = dataGridViewCellStyle10;
-            this.col_ais_ccw.HeaderText = "AIS_CCW";
-            this.col_ais_ccw.Name = "col_ais_ccw";
-            this.col_ais_ccw.ReadOnly = true;
-            this.col_ais_ccw.Width = 80;
-            // 
-            // col_ano_ccw
-            // 
-            this.col_ano_ccw.DataPropertyName = "ano_ccw";
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.col_ano_ccw.DefaultCellStyle = dataGridViewCellStyle11;
-            this.col_ano_ccw.HeaderText = "ANO_CCW";
-            this.col_ano_ccw.Name = "col_ano_ccw";
-            this.col_ano_ccw.ReadOnly = true;
-            this.col_ano_ccw.Width = 86;
-            // 
-            // col_anr_ccw
-            // 
-            this.col_anr_ccw.DataPropertyName = "anr_ccw";
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.col_anr_ccw.DefaultCellStyle = dataGridViewCellStyle12;
-            this.col_anr_ccw.HeaderText = "ANR_CCW";
-            this.col_anr_ccw.Name = "col_anr_ccw";
-            this.col_anr_ccw.ReadOnly = true;
-            this.col_anr_ccw.Width = 86;
-            // 
-            // col_judge_inline
-            // 
-            this.col_judge_inline.DataPropertyName = "tjudge_line";
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.col_judge_inline.DefaultCellStyle = dataGridViewCellStyle13;
-            this.col_judge_inline.HeaderText = "Judge INLINE";
-            this.col_judge_inline.Name = "col_judge_inline";
-            this.col_judge_inline.ReadOnly = true;
-            this.col_judge_inline.Width = 91;
-            // 
-            // col_return
-            // 
-            this.col_return.DataPropertyName = "return";
-            this.col_return.HeaderText = "Return";
-            this.col_return.Name = "col_return";
-            this.col_return.ReadOnly = true;
-            this.col_return.Width = 64;
             // 
             // txtBoxIdPrint
             // 
@@ -806,7 +642,161 @@ namespace BoxIdDb
             this.panel1.Size = new System.Drawing.Size(139, 79);
             this.panel1.TabIndex = 53;
             // 
-            // frmModule
+            // col_serial_no
+            // 
+            this.col_serial_no.DataPropertyName = "serialno";
+            this.col_serial_no.HeaderText = "Serialno";
+            this.col_serial_no.Name = "col_serial_no";
+            this.col_serial_no.ReadOnly = true;
+            this.col_serial_no.Width = 70;
+            // 
+            // col_model
+            // 
+            this.col_model.DataPropertyName = "model";
+            this.col_model.HeaderText = "Model";
+            this.col_model.Name = "col_model";
+            this.col_model.ReadOnly = true;
+            this.col_model.Width = 61;
+            // 
+            // col_lot
+            // 
+            this.col_lot.DataPropertyName = "lot";
+            this.col_lot.HeaderText = "Lot";
+            this.col_lot.Name = "col_lot";
+            this.col_lot.ReadOnly = true;
+            this.col_lot.Width = 47;
+            // 
+            // col_date
+            // 
+            this.col_date.DataPropertyName = "inspectdate";
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.SpringGreen;
+            this.col_date.DefaultCellStyle = dataGridViewCellStyle2;
+            this.col_date.HeaderText = "Datetest NMT";
+            this.col_date.Name = "col_date";
+            this.col_date.ReadOnly = true;
+            this.col_date.Width = 99;
+            // 
+            // col_cg_cw
+            // 
+            this.col_cg_cw.DataPropertyName = "cg_cw";
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.SpringGreen;
+            this.col_cg_cw.DefaultCellStyle = dataGridViewCellStyle3;
+            this.col_cg_cw.HeaderText = "CG_CW";
+            this.col_cg_cw.Name = "col_cg_cw";
+            this.col_cg_cw.ReadOnly = true;
+            this.col_cg_cw.Width = 71;
+            // 
+            // col_cio_cw
+            // 
+            this.col_cio_cw.DataPropertyName = "cio_cw";
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.SpringGreen;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.col_cio_cw.DefaultCellStyle = dataGridViewCellStyle4;
+            this.col_cio_cw.HeaderText = "CIO_CW";
+            this.col_cio_cw.Name = "col_cio_cw";
+            this.col_cio_cw.ReadOnly = true;
+            this.col_cio_cw.Width = 74;
+            // 
+            // col_cno_cw
+            // 
+            this.col_cno_cw.DataPropertyName = "cno_cw";
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.SpringGreen;
+            this.col_cno_cw.DefaultCellStyle = dataGridViewCellStyle5;
+            this.col_cno_cw.HeaderText = "CNO_CW";
+            this.col_cno_cw.Name = "col_cno_cw";
+            this.col_cno_cw.ReadOnly = true;
+            this.col_cno_cw.Width = 79;
+            // 
+            // col_judge_oqc
+            // 
+            this.col_judge_oqc.DataPropertyName = "tjudge";
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.SpringGreen;
+            this.col_judge_oqc.DefaultCellStyle = dataGridViewCellStyle6;
+            this.col_judge_oqc.HeaderText = "Judge OQC";
+            this.col_judge_oqc.Name = "col_judge_oqc";
+            this.col_judge_oqc.ReadOnly = true;
+            this.col_judge_oqc.Width = 87;
+            // 
+            // col_date_line
+            // 
+            this.col_date_line.DataPropertyName = "date_line";
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_date_line.DefaultCellStyle = dataGridViewCellStyle7;
+            this.col_date_line.HeaderText = "Datetest NO41";
+            this.col_date_line.Name = "col_date_line";
+            this.col_date_line.ReadOnly = true;
+            this.col_date_line.Width = 95;
+            // 
+            // col_aio_cw
+            // 
+            this.col_aio_cw.DataPropertyName = "aio_cw";
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_aio_cw.DefaultCellStyle = dataGridViewCellStyle8;
+            this.col_aio_cw.HeaderText = "AIO_CW";
+            this.col_aio_cw.Name = "col_aio_cw";
+            this.col_aio_cw.ReadOnly = true;
+            this.col_aio_cw.Width = 74;
+            // 
+            // col_air_cw
+            // 
+            this.col_air_cw.DataPropertyName = "air_cw";
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_air_cw.DefaultCellStyle = dataGridViewCellStyle9;
+            this.col_air_cw.HeaderText = "AIR_CW";
+            this.col_air_cw.Name = "col_air_cw";
+            this.col_air_cw.ReadOnly = true;
+            this.col_air_cw.Width = 74;
+            // 
+            // col_ais_cw
+            // 
+            this.col_ais_cw.DataPropertyName = "ais_cw";
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_ais_cw.DefaultCellStyle = dataGridViewCellStyle10;
+            this.col_ais_cw.HeaderText = "AIS_CW";
+            this.col_ais_cw.Name = "col_ais_cw";
+            this.col_ais_cw.ReadOnly = true;
+            this.col_ais_cw.Width = 73;
+            // 
+            // col_ano_cw
+            // 
+            this.col_ano_cw.DataPropertyName = "ano_cw";
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_ano_cw.DefaultCellStyle = dataGridViewCellStyle11;
+            this.col_ano_cw.HeaderText = "ANO_CW";
+            this.col_ano_cw.Name = "col_ano_cw";
+            this.col_ano_cw.ReadOnly = true;
+            this.col_ano_cw.Width = 79;
+            // 
+            // col_anr_cw
+            // 
+            this.col_anr_cw.DataPropertyName = "anr_cw";
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_anr_cw.DefaultCellStyle = dataGridViewCellStyle12;
+            this.col_anr_cw.HeaderText = "ANR_CW";
+            this.col_anr_cw.Name = "col_anr_cw";
+            this.col_anr_cw.ReadOnly = true;
+            this.col_anr_cw.Width = 79;
+            // 
+            // col_judge_inline
+            // 
+            this.col_judge_inline.DataPropertyName = "tjudge_line";
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.col_judge_inline.DefaultCellStyle = dataGridViewCellStyle13;
+            this.col_judge_inline.HeaderText = "Judge INLINE";
+            this.col_judge_inline.Name = "col_judge_inline";
+            this.col_judge_inline.ReadOnly = true;
+            this.col_judge_inline.Width = 91;
+            // 
+            // col_return
+            // 
+            this.col_return.DataPropertyName = "return";
+            this.col_return.HeaderText = "Return";
+            this.col_return.Name = "col_return";
+            this.col_return.ReadOnly = true;
+            this.col_return.Width = 64;
+            // 
+            // frmModule0241
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -820,7 +810,7 @@ namespace BoxIdDb
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "frmModule";
+            this.Name = "frmModule0241";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Product Serial";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -880,25 +870,25 @@ namespace BoxIdDb
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtCount;
+        private System.Windows.Forms.TextBox txtResultDetail;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_serial_no;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_model;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_lot;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_cg_ccw;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_cio_ccw;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_cno_ccw;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_cg_cw;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_cio_cw;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_cno_cw;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_judge_oqc;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_date_line;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_aio_ccw;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_air_ccw;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_ais_ccw;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_ano_ccw;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_anr_ccw;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_aio_cw;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_air_cw;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_ais_cw;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_ano_cw;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_anr_cw;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_judge_inline;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_return;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox txtCount;
-        private System.Windows.Forms.TextBox txtResultDetail;
     }
 }
 

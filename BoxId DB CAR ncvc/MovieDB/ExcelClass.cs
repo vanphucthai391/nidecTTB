@@ -341,6 +341,64 @@ namespace BoxIdDb
 
                 rowHead = oSheet.get_Range("A3", "P3");
             }
+            else if(model[0] == "0241")
+            {
+                //OQC
+                Microsoft.Office.Interop.Excel.Range cl4 = oSheet.get_Range("D3", "D3");
+                cl4.Value2 = "Datetest NMT";
+                cl4.ColumnWidth = 20.0;
+
+                Microsoft.Office.Interop.Excel.Range cl5 = oSheet.get_Range("E3", "E3");
+                cl5.Value2 = "CIO_CW-Motor COMP No load current";
+                cl5.ColumnWidth = 13.0;
+
+                Microsoft.Office.Interop.Excel.Range cl6 = oSheet.get_Range("F3", "F3");
+                cl6.Value2 = "CG_CW-Motor COMP Vibration";
+                cl6.ColumnWidth = 13.0;
+
+                Microsoft.Office.Interop.Excel.Range cl7 = oSheet.get_Range("G3", "G3");
+                cl7.Value2 = "CNO_CW-Motor COMP No load speed";
+                cl7.ColumnWidth = 13.0;
+
+                Microsoft.Office.Interop.Excel.Range cl8 = oSheet.get_Range("H3", "H3");
+                cl8.Value2 = "Judge OQC";
+                cl8.ColumnWidth = 7.0;
+
+                //INLINE
+                Microsoft.Office.Interop.Excel.Range cl9 = oSheet.get_Range("I3", "I3");
+                cl9.Value2 = "Datetest NO41";
+                cl9.ColumnWidth = 20.0;
+
+                Microsoft.Office.Interop.Excel.Range cl10 = oSheet.get_Range("J3", "J3");
+                cl10.Value2 = "AIO_CW-No load current";
+                cl10.ColumnWidth = 13.0;
+
+                Microsoft.Office.Interop.Excel.Range cl11 = oSheet.get_Range("K3", "K3");
+                cl11.Value2 = "ANO_CW-No load speed";
+                cl11.ColumnWidth = 13.0;
+
+                Microsoft.Office.Interop.Excel.Range cl12 = oSheet.get_Range("L3", "L3");
+                cl12.Value2 = "AIR_CW-Rated load current";
+                cl12.ColumnWidth = 13.0;
+
+                Microsoft.Office.Interop.Excel.Range cl13 = oSheet.get_Range("M3", "M3");
+                cl13.Value2 = "ANR_CW-Rated load speed";
+                cl13.ColumnWidth = 13.0;
+
+                Microsoft.Office.Interop.Excel.Range cl14 = oSheet.get_Range("N3", "N3");
+                cl14.Value2 = "AIS_CW-Stall current";
+                cl14.ColumnWidth = 13.0;
+
+                Microsoft.Office.Interop.Excel.Range cl15 = oSheet.get_Range("O3", "O3");
+                cl15.Value2 = "Judge LINE";
+                cl15.ColumnWidth = 7.0;
+
+                Microsoft.Office.Interop.Excel.Range cl16 = oSheet.get_Range("P3", "P3");
+                cl16.Value2 = "Return";
+                cl16.ColumnWidth = 7.0;
+
+                rowHead = oSheet.get_Range("A3", "P3");
+            }
             else
             {
                 //OQC
@@ -609,6 +667,28 @@ namespace BoxIdDb
                     //oExcel.Cells[i + rowStart, 13] = dgv["col_anr_ccw", i].Value.ToString();
                     //oExcel.Cells[i + rowStart, 14] = dgv["col_ais_ccw", i].Value.ToString();
                     //oExcel.Cells[i + rowStart, 15] = dgv["col_judge_oqc", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 16] = dgv["col_return", i].Value.ToString();
+                }
+
+                else if(model[0] == "0241")
+                {
+                    oExcel.Cells[i + rowStart, 1] = "'" + dgv["col_serial_no", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 2] = dgv["col_model", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 3] = dgv["col_lot", i].Value.ToString();
+                    //OQC
+                    oExcel.Cells[i + rowStart, 4] = dgv["col_date", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 5] = dgv["col_cio_cw", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 6] = dgv["col_cg_cw", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 7] = dgv["col_cno_cw", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 8] = dgv["col_judge_oqc", i].Value.ToString();
+                    //ININE
+                    oExcel.Cells[i + rowStart, 9] = dgv["col_date_line", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 10] = dgv["col_aio_cw", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 11] = dgv["col_ano_cw", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 12] = dgv["col_air_cw", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 13] = dgv["col_anr_cw", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 14] = dgv["col_ais_cw", i].Value.ToString();
+                    oExcel.Cells[i + rowStart, 15] = dgv["col_judge_oqc", i].Value.ToString();
                     oExcel.Cells[i + rowStart, 16] = dgv["col_return", i].Value.ToString();
                 }
                 else //if (model[0] == "517DB" || model[0] == "517DC")

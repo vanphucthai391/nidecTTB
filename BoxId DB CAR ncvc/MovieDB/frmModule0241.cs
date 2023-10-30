@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace BoxIdDb
 {
-    public partial class frmModule : Form
+    public partial class frmModule0241 : Form
     {
         //親フォームfrmBoxへイベント発生を連絡（デレゲート）
         public delegate void RefreshEventHandler(object sender, EventArgs e);
@@ -40,12 +40,12 @@ namespace BoxIdDb
         DataTable dtAllProcess;
 
         //DataTable dtTester;
-        int limit1 = 80;
+        int limit1 =60;
         public int limit2 = 0;
         bool sound;
 
         // コンストラクタ
-        public frmModule()
+        public frmModule0241()
         {
             InitializeComponent();
         }
@@ -53,49 +53,32 @@ namespace BoxIdDb
         // ロード時の処理
         private void frmModule_Load(object sender, EventArgs e)
         {
+            cmbModel.SelectedIndex = 0;
             txtCarton.Enabled = false;
-            // 編集モード用ユーザー名を保持する
             user = txtUser.Text;
-
-            // ユーザー９が設定するＬＩＭＩＴを、テキストボックスへ表示
             txtLimit.Text = limit2.ToString();
-
-            // プリント用ファイルの保存先フォルダ、その他設定を、読み込む
             directory =  /*@"C:\Users\mt-qc20\Desktop\print\";*/ readIni("TARGET DIRECTORY", "DIR", appconfig);
-
-            // 当フォームの表示場所を指定
             this.Left = 250;
             this.Top = 20;
-
-            // 各種処理用のテーブルを生成
             dtOverall = new DataTable();
             defineAndReadDtOverall(ref dtOverall);
-            //dtTester = new DataTable();
-            //defineAndReaddtTester(ref dtTester);
-
-            // ＬＩＭＩＴの制御を後で直す必要あり
             if (!formEditMode)
             {
-                // データテーブルの先頭行のシリアルから、ＬＩＭＩＴを判断する
                 if (dtOverall.Rows.Count >= 0)
                 {
-                    
-                    if(cmbModel.Text== "BMA_0129") limit1 = 60;
-                    else limit1 = 80;
+                    limit1 = 60;
                 }
             }
-
-            // グリットビューの更新
             updateDataGridViews(dtOverall, ref dgvInline);
-
-            // シリアル用テキストボックスの制御を後で直す必要あり
             if (!formEditMode)
             {
                 txtProductSerial.Enabled = false;
             }
+            txtCarton.Enabled = true;
+            txtOkCount.Text = okCount.ToString() + "/" + limit1.ToString();
+            txtProductSerial.Enabled = true;
+            txtProductSerial.Focus();
         }
-
-        // 設定テキストファイルの読み込み
         private string readIni(string s, string k, string cfs)
         {
             StringBuilder retVal = new StringBuilder(255);
@@ -124,50 +107,8 @@ namespace BoxIdDb
                 string[] box_arr = boxId.Split('-');
 
                 string model = box_arr[0];
-                switch (model)
-                {
-                    case "517CC":
-                        cmbModel.Text = "LA20_517CC";
-                        limit1 = 80;
-                        break;
-                    case "517CC1":
-                        cmbModel.Text = "LA20_517CC1";
-                        limit1 = 80;
-                        break;
-                    case "517CC2":
-                        cmbModel.Text = "LA20_517CC2";
-                        limit1 = 80;
-                        break;
-                    case "517CC3":
-                        cmbModel.Text = "LA20_517CC3";
-                        limit1 = 80;
-                        break;
-                    case "517CB":
-                        cmbModel.Text = "LA20_517CB";
-                        limit1 = 80;
-                        break;
-                    case "517DB":
-                        cmbModel.Text = "LA20_517DB";
-                        limit1 = 96;
-                        break;
-                    case "517DC":
-                        cmbModel.Text = "LA20_517DC";
-                        limit1 = 96;
-                        break;
-                    case "0051":
-                        cmbModel.Text = "BMA_0051";
-                        limit1 = 108;
-                        break;
-                    case "0129":
-                        cmbModel.Text = "BMA_0129";
-                        limit1 = 60;
-                        break;
-                    default:
-                        cmbModel.Text = "LA20_517EB";
-                        limit1 = 60;
-                        break;
-
-                }
+                cmbModel.Text = "BMA_0241";
+                limit1 = 60;
                 txtCarton.Text = box_arr[2];
             }
 
@@ -199,37 +140,26 @@ namespace BoxIdDb
         private void defineAndReadDtOverall(ref DataTable dt)
         {
             string boxId = txtBoxId.Text;
-
             dt.Columns.Add("serialno", Type.GetType("System.String"));
             dt.Columns.Add("model", Type.GetType("System.String"));
             dt.Columns.Add("lot", Type.GetType("System.String"));
-            dt.Columns.Add("inspectdate", Type.GetType("System.DateTime")); //datetest NMT
-            dt.Columns.Add("cio_ccw", Type.GetType("System.String"));
-            dt.Columns.Add("cg_ccw", Type.GetType("System.String"));
-            dt.Columns.Add("cno_ccw", Type.GetType("System.String"));
+            dt.Columns.Add("inspectdate", Type.GetType("System.DateTime"));
+            dt.Columns.Add("cio_cw", Type.GetType("System.String"));
+            dt.Columns.Add("cg_cw", Type.GetType("System.String"));
+            dt.Columns.Add("cno_cw", Type.GetType("System.String"));
             dt.Columns.Add("tjudge", Type.GetType("System.String"));
-            dt.Columns.Add("date_line", Type.GetType("System.DateTime")); //datetest NO41
-            dt.Columns.Add("aio_ccw", Type.GetType("System.String"));
-            dt.Columns.Add("ano_ccw", Type.GetType("System.String"));
-            dt.Columns.Add("air_ccw", Type.GetType("System.String"));
-            dt.Columns.Add("anr_ccw", Type.GetType("System.String"));
-            dt.Columns.Add("ais_ccw", Type.GetType("System.String"));
+            dt.Columns.Add("date_line", Type.GetType("System.DateTime"));
+            dt.Columns.Add("aio_cw", Type.GetType("System.String"));
+            dt.Columns.Add("ano_cw", Type.GetType("System.String"));
+            dt.Columns.Add("air_cw", Type.GetType("System.String"));
+            dt.Columns.Add("anr_cw", Type.GetType("System.String"));
+            dt.Columns.Add("ais_cw", Type.GetType("System.String"));
             dt.Columns.Add("tjudge_line", Type.GetType("System.String"));
             dt.Columns.Add("return", Type.GetType("System.String"));
-
             if (!formEditMode)
             {
-                string sql;
-                //if (VBS.Left(boxId, 4) == "517C" || VBS.Left(boxId, 4) == "517D" || VBS.Left(boxId, 4) == "517E")
-                //{
-                sql = "select serialno, model, lot, inspectdate, cio_ccw, cg_ccw, cno_ccw, tjudge, date_line, aio_ccw, ano_ccw, air_ccw, anr_ccw, ais_ccw, tjudge_line, return " +
-                    "FROM product_serial_rtcd1 WHERE boxid='" + boxId + "'";
-                //}
-                //else
-                //{
-                //    sql = "select serialno, model, lot, current_ma, vibration_g, vibration_m_s2, vibration10, frequency_hz, aio_cw, ano_cw, air_cw, anr_cw, ais_cw, judge, return " +
-                //        "FROM product_serial_rtcd WHERE boxid='" + boxId + "'";
-                //}
+                string sql = "select serialno, model, lot, inspectdate, cio_cw, cg_cw, cno_cw, tjudge, date_line, aio_cw, ano_cw, air_cw, anr_cw, ais_cw, tjudge_line, return " +
+"FROM product_serial_0241 WHERE boxid='" + boxId + "'";
                 TfSQL tf = new TfSQL();
                 System.Diagnostics.Debug.Print(sql);
                 tf.sqlDataAdapterFillDatatable(sql, ref dt);
@@ -331,22 +261,6 @@ namespace BoxIdDb
             array[dt2.Rows.Count] = "Total";
             return array;
         }
-
-        //private string[] getCompArray(DataTable dt0)
-        //{
-        //    DataTable dt1 = dt0.Copy();
-        //    DataView dv = dt1.DefaultView;
-        //    dv.Sort = "comp_ser";
-        //    DataTable dt2 = dv.ToTable(true, "comp_ser");
-        //    string[] array = new string[dt2.Rows.Count + 1];
-        //    for (int i = 0; i < dt2.Rows.Count; i++)
-        //    {
-        //        array[i] = dt2.Rows[i]["comp_ser"].ToString();
-        //    }
-        //    array[dt2.Rows.Count] = "Total";
-        //    return array;
-        //}
-        // サブサブプロシージャ：集計用のデータテーブルを、データグリッドビューに格納
         public void makeDatatableSummary(DataTable dt0, ref DataGridView dgv, string[] criteria, string header)
         {
             DataTable dt1 = new DataTable();
@@ -389,11 +303,7 @@ namespace BoxIdDb
                 string B = distinct1.Rows[1]["lot"].ToString();
                 int a = distinct1.Select("lot = '" + A + "'").Length;
                 int b = distinct1.Select("lot = '" + B + "'").Length;
-
-                // 件数の多いコンフィグを、この箱のメインモデルとする
                 m_lot = a > b ? A : B;
-
-                // 件数の少ないほうのメインモデル文字を取得し、セル番地を特定してマークする
                 string C = a < b ? A : B;
                 int c = -1;
 
@@ -413,8 +323,6 @@ namespace BoxIdDb
                 }
             }
         }
-
-        // サブプロシージャ：テスト結果がＦＡＩＬまたはレコードなしのシリアルをマーキングする
         private void colorViewForFailAndBlank(ref DataGridView dgv)
         {
             int row = dgv.Rows.Count;
@@ -423,21 +331,19 @@ namespace BoxIdDb
                 //Alarm OQC FAIL or NODATA
                 if (dgv["col_judge_oqc", i].Value.ToString() == "FAIL" || dgv["col_judge_oqc", i].Value.ToString() == "PLS NG" || String.IsNullOrEmpty(dgv["col_judge_oqc", i].Value.ToString()))
                 {
+                    dgv["col_cg_cw", i].Style.BackColor = Color.Red;
+                    dgv["col_cio_cw", i].Style.BackColor = Color.Red;
+                    dgv["col_cno_cw", i].Style.BackColor = Color.Red;
                     dgv["col_date", i].Style.BackColor = Color.Red;
-                    dgv["col_cg_ccw", i].Style.BackColor = Color.Red;
-                    dgv["col_cio_ccw", i].Style.BackColor = Color.Red;
-                    dgv["col_cno_ccw", i].Style.BackColor = Color.Red;
                     dgv["col_judge_oqc", i].Style.BackColor = Color.Red;
 
                     if (dgv.Name == "dgvInline") tabControl1.SelectedIndex = 1;
                     else tabControl1.SelectedIndex = 0;
-
                     soundAlarm();
                 }
                 else
                 {
                     dgv.Rows[i].InheritedStyle.BackColor = Color.FromKnownColor(KnownColor.Window);
-
                     tabControl1.SelectedIndex = 0;
                 }
 
@@ -445,12 +351,12 @@ namespace BoxIdDb
                 if (dgv["col_judge_inline", i].Value.ToString() == "FAIL" || dgv["col_judge_inline", i].Value.ToString() == "PLS NG" || String.IsNullOrEmpty(dgv["col_judge_inline", i].Value.ToString()))
                 {
                     dgv["col_date_line", i].Style.BackColor = Color.Red;
-                    dgv["col_aio_ccw", i].Style.BackColor = Color.Red;
-                    dgv["col_air_ccw", i].Style.BackColor = Color.Red;
-                    dgv["col_ais_ccw", i].Style.BackColor = Color.Red;
-                    dgv["col_ano_ccw", i].Style.BackColor = Color.Red;
-                    dgv["col_anr_ccw", i].Style.BackColor = Color.Red;
                     dgv["col_judge_inline", i].Style.BackColor = Color.Red;
+                    dgv["col_aio_cw", i].Style.BackColor = Color.Red;
+                    dgv["col_air_cw", i].Style.BackColor = Color.Red;
+                    dgv["col_ais_cw", i].Style.BackColor = Color.Red;
+                    dgv["col_ano_cw", i].Style.BackColor = Color.Red;
+                    dgv["col_anr_cw", i].Style.BackColor = Color.Red;
 
                     if (dgv.Name == "dgvInline") tabControl1.SelectedIndex = 1;
                     else tabControl1.SelectedIndex = 0;
@@ -524,76 +430,71 @@ namespace BoxIdDb
 
                     #region Data OQC
                     string sql2 = "select serno, tjudge, inspectdate, " +
-                    "MAX(case inspect when 'CG_CCW' then inspectdata else null end) as CG_CCW," +
-                    "MAX(case inspect when 'CIO_CCW' then inspectdata else null end) as CIO_CCW," +
-                    "MAX(case inspect when 'CNO_CCW' then inspectdata else null end) as CNO_CCW" +
-                    " FROM" +
-                    " (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge from (select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE from (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag from (select * from " + testerTableThisMonth + "data" +
-                    " WHERE serno = (select serno from " + testerTableThisMonth + " where process = 'NMT2' and serno = '" + serial + "' LIMIT 1) and inspect in ('CG_CCW','CIO_CCW','CNO_CCW'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + testerTableThisMonth + " where serno = '" + serial + "' and process = 'NMT2' and tjudge = '0' order by inspectdate desc LIMIT 1) d" +
-                    " group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
-                    " GROUP BY serno, tjudge, inspectdate" +
+"MAX(case inspect when 'CG_CW' then inspectdata else null end) as CG_CW," +
+"MAX(case inspect when 'CIO_CW' then inspectdata else null end) as CIO_CW," +
+"MAX(case inspect when 'CNO_CW' then inspectdata else null end) as CNO_CW" +
+" FROM" +
+" (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge from (select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE from (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag from (select * from " + testerTableThisMonth + "data" +
+" WHERE serno = (select serno from " + testerTableThisMonth + " where process = 'NMT2' and serno = '" + serial + "' LIMIT 1) and inspect in ('CG_CW','CIO_CW','CNO_CW'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + testerTableThisMonth + " where serno = '" + serial + "' and process = 'NMT2' and tjudge = '0' order by inspectdate desc LIMIT 1) d" +
+" group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
+" GROUP BY serno, tjudge, inspectdate" +
 
-                    " UNION ALL " +
+" UNION ALL " +
 
-                    "select serno, tjudge, inspectdate, " +
-                    "MAX(case inspect when 'CG_CCW' then inspectdata else null end) as CG_CCW," +
-                    "MAX(case inspect when 'CIO_CCW' then inspectdata else null end) as CIO_CCW," +
-                    "MAX(case inspect when 'CNO_CCW' then inspectdata else null end) as CNO_CCW" +
-                    " FROM" +
-                    " (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge from (select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE from (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag from (select * from " + testerTableLastMonth + "data" +
-                    " WHERE serno = (select serno from " + testerTableLastMonth + " where process = 'NMT2' and serno = '" + serial + "' LIMIT 1) and inspect in ('CG_CCW','CIO_CCW','CNO_CCW'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + testerTableLastMonth + " where serno = '" + serial + "' and process = 'NMT2' and tjudge = '0' order by inspectdate desc LIMIT 1) d" +
-                    " group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
-                    " GROUP BY serno, tjudge, inspectdate";
-
+"select serno, tjudge, inspectdate, " +
+"MAX(case inspect when 'CG_CW' then inspectdata else null end) as CG_CW," +
+"MAX(case inspect when 'CIO_CW' then inspectdata else null end) as CIO_CW," +
+"MAX(case inspect when 'CNO_CW' then inspectdata else null end) as CNO_CW" +
+" FROM" +
+" (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge from (select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE from (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag from (select * from " + testerTableLastMonth + "data" +
+" WHERE serno = (select serno from " + testerTableLastMonth + " where process = 'NMT2' and serno = '" + serial + "' LIMIT 1) and inspect in ('CG_CW','CIO_CW','CNO_CW'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + testerTableLastMonth + " where serno = '" + serial + "' and process = 'NMT2' and tjudge = '0' order by inspectdate desc LIMIT 1) d" +
+" group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
+" GROUP BY serno, tjudge, inspectdate";
                     System.Diagnostics.Debug.Print(System.Environment.NewLine + sql2);
                     DataTable dt2 = new DataTable();
                     TfSQL tf = new TfSQL();
                     tf.sqlDataAdapterFillDatatableOqc(sql2, ref dt2);
-
-                    //System.Diagnostics.Debug.Print(System.Environment.NewLine + sql5);
-                    //txtCompSerData.Text = tf.sqlScalarString(sql5);
                     #endregion
-
                     #region Data INLINE
                     string sql1 = "select serno, tjudge as tjudge_line, inspectdate as date_line, " +
-                    "MAX(case inspect when 'AIO_CCW' then inspectdata else null end) as AIO_CCW," +
-                    "MAX(case inspect when 'ANO_CCW' then inspectdata else null end) as ANO_CCW," +
-                    "MAX(case inspect when 'AIR_CCW' then inspectdata else null end) as AIR_CCW," +
-                    "MAX(case inspect when 'ANR_CCW' then inspectdata else null end) as ANR_CCW," +
-                    "MAX(case inspect when 'AIS_CCW' then inspectdata else null end) as AIS_CCW" +
-                    " FROM" +
-                    " (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge FROM(select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE FROM (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag FROM (select * from " + tableThisMonth + "data" +
-                    " WHERE serno = (select lot from " + testerTableThisMonth + " where process = 'NO53' and serno = '" + serial + "' LIMIT 1) and inspect in ('AIO_CCW','AIR_CCW','AIS_CCW','ANO_CCW','ANR_CCW'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + tableThisMonth + " where serno = (select lot from " + testerTableThisMonth + " where process = 'NO53' and serno = '" + serial + "' LIMIT 1) and process = 'NO41' order by inspectdate desc LIMIT 1) d" +
-                    " group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
-                    " GROUP BY serno, tjudge, inspectdate" +
+"MAX(case inspect when 'AIO_CW' then inspectdata else null end) as AIO_CW," +
+"MAX(case inspect when 'ANO_CW' then inspectdata else null end) as ANO_CW," +
+"MAX(case inspect when 'AIR_CW' then inspectdata else null end) as AIR_CW," +
+"MAX(case inspect when 'ANR_CW' then inspectdata else null end) as ANR_CW," +
+"MAX(case inspect when 'AIS_CW' then inspectdata else null end) as AIS_CW" +
+" FROM" +
+" (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge FROM(select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE FROM (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag FROM (select * from " + tableThisMonth + "data" +
+" WHERE serno = (select lot from " + testerTableThisMonth + " where process = 'NO53' and serno = '" + serial + "' LIMIT 1) and inspect in ('AIO_CW','AIR_CW','AIS_CW','ANO_CW','ANR_CW'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + tableThisMonth + " where serno = (select lot from " + testerTableThisMonth + " where process = 'NO53' and serno = '" + serial + "' LIMIT 1) and process = 'NO41' order by inspectdate desc LIMIT 1) d" +
+" group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
+" GROUP BY serno, tjudge, inspectdate" +
 
-                    " UNION ALL " +
+" UNION ALL " +
 
-                    "select serno, tjudge as tjudge_line, inspectdate as date_line, " +
-                    "MAX(case inspect when 'AIO_CCW' then inspectdata else null end) as AIO_CCW," +
-                    "MAX(case inspect when 'ANO_CCW' then inspectdata else null end) as ANO_CCW," +
-                    "MAX(case inspect when 'AIR_CCW' then inspectdata else null end) as AIR_CCW," +
-                    "MAX(case inspect when 'ANR_CCW' then inspectdata else null end) as ANR_CCW," +
-                    "MAX(case inspect when 'AIS_CCW' then inspectdata else null end) as AIS_CCW" +
-                    " FROM" +
-                    " (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge FROM(select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE FROM (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag FROM (select * from " + tableLastMonth + "data" +
-                    " WHERE serno = (select lot from " + testerTableThisMonth + " where process = 'NO53' and serno = '" + serial + "' LIMIT 1) and inspect in ('AIO_CCW','AIR_CCW','AIS_CCW','ANO_CCW','ANR_CCW'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + tableLastMonth + " where serno = (select lot from " + testerTableThisMonth + " where process = 'NO53' and serno = '" + serial + "' LIMIT 1) and process = 'NO41' order by inspectdate desc LIMIT 1) d" +
-                    " group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
-                    " GROUP BY serno, tjudge, inspectdate" +
+"select serno, tjudge as tjudge_line, inspectdate as date_line, " +
+"MAX(case inspect when 'AIO_CW' then inspectdata else null end) as AIO_CW," +
+"MAX(case inspect when 'ANO_CW' then inspectdata else null end) as ANO_CW," +
+"MAX(case inspect when 'AIR_CW' then inspectdata else null end) as AIR_CW," +
+"MAX(case inspect when 'ANR_CW' then inspectdata else null end) as ANR_CW," +
+"MAX(case inspect when 'AIS_CW' then inspectdata else null end) as AIS_CW" +
+" FROM" +
+" (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge FROM(select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE FROM (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag FROM (select * from " + tableLastMonth + "data" +
+" WHERE serno = (select lot from " + testerTableThisMonth + " where process = 'NO53' and serno = '" + serial + "' LIMIT 1) and inspect in ('AIO_CW','AIR_CW','AIS_CW','ANO_CW','ANR_CW'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + tableLastMonth + " where serno = (select lot from " + testerTableThisMonth + " where process = 'NO53' and serno = '" + serial + "' LIMIT 1) and process = 'NO41' order by inspectdate desc LIMIT 1) d" +
+" group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
+" GROUP BY serno, tjudge, inspectdate" +
 
-                    " UNION ALL " +
+" UNION ALL " +
 
-                    "select serno, tjudge as tjudge_line, inspectdate as date_line, " +
-                    "MAX(case inspect when 'AIO_CCW' then inspectdata else null end) as AIO_CCW," +
-                    "MAX(case inspect when 'ANO_CCW' then inspectdata else null end) as ANO_CCW," +
-                    "MAX(case inspect when 'AIR_CCW' then inspectdata else null end) as AIR_CCW," +
-                    "MAX(case inspect when 'ANR_CCW' then inspectdata else null end) as ANR_CCW," +
-                    "MAX(case inspect when 'AIS_CCW' then inspectdata else null end) as AIS_CCW" +
-                    " FROM" +
-                    " (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge FROM(select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE FROM (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag FROM (select * from " + tableLastMonth + "data" +
-                    " WHERE serno = (select lot from " + testerTableLastMonth + " where process = 'NO53' and serno = '" + serial + "' LIMIT 1) and inspect in ('AIO_CCW','AIR_CCW','AIS_CCW','ANO_CCW','ANR_CCW'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + tableLastMonth + " where serno = (select lot from " + testerTableLastMonth + " where process = 'NO53' and serno = '" + serial + "' LIMIT 1) and process = 'NO41' order by inspectdate desc LIMIT 1) d" +
-                    " group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
-                    " GROUP BY serno, tjudge, inspectdate";
+"select serno, tjudge as tjudge_line, inspectdate as date_line, " +
+"MAX(case inspect when 'AIO_CW' then inspectdata else null end) as AIO_CW," +
+"MAX(case inspect when 'ANO_CW' then inspectdata else null end) as ANO_CW," +
+"MAX(case inspect when 'AIR_CW' then inspectdata else null end) as AIR_CW," +
+"MAX(case inspect when 'ANR_CW' then inspectdata else null end) as ANR_CW," +
+"MAX(case inspect when 'AIS_CW' then inspectdata else null end) as AIS_CW" +
+" FROM" +
+" (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge FROM(select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE FROM (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag FROM (select * from " + tableLastMonth + "data" +
+" WHERE serno = (select lot from " + testerTableLastMonth + " where process = 'NO53' and serno = '" + serial + "' LIMIT 1) and inspect in ('AIO_CW','AIR_CW','AIS_CW','ANO_CW','ANR_CW'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + tableLastMonth + " where serno = (select lot from " + testerTableLastMonth + " where process = 'NO53' and serno = '" + serial + "' LIMIT 1) and process = 'NO41' order by inspectdate desc LIMIT 1) d" +
+" group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
+" GROUP BY serno, tjudge, inspectdate";
                     #endregion
 
                     System.Diagnostics.Debug.Print(System.Environment.NewLine + sql1);
@@ -602,77 +503,30 @@ namespace BoxIdDb
                     tf.sqlDataAdapterFillDatatablePqm(sql1, ref dt1);
                     #region -- Get All Process Judge --
                     string queryProcess = "";
-                    if (cmbModel.Text == "BMA_0051")
-                    {
-                        string lotthis = string.Format("SELECT lot FROM (SELECT lot, inspectdate, ROW_NUMBER() OVER(PARTITION BY lot ORDER BY inspectdate DESC) from {1} where serno = '{0}' and process = 'NO53' ORDER BY lot)tb where ROW_NUMBER = 1", serial, testerTableThisMonth);
-                        string lotlast = string.Format("SELECT lot FROM (SELECT lot, inspectdate, ROW_NUMBER() OVER(PARTITION BY lot ORDER BY inspectdate DESC) from {1} where serno = '{0}' and process = 'NO53' ORDER BY lot)tb where ROW_NUMBER = 1", serial, testerTableLastMonth);
-                        queryProcess = string.Format("SELECT serno, lot, inspectdate, process,judge from "
-                        + "(SELECT serno, lot, inspectdate, process, judge, ROW_NUMBER() OVER(PARTITION BY process ORDER BY inspectdate DESC) from "
-                        + "(SELECT ({3}) as serno, serno lot,inspectdate, process,"
-                        + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {4} "
-                        + "WHERE serno in (SELECT DISTINCT lot FROM {4} WHERE process = 'NO53' AND serno = ({3})) "
-                        + "OR serno = ({3})"
-                        + "UNION ALL SELECT ({6}) as serno, serno lot, inspectdate, process,"
-                        + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {5} "
-                        + "WHERE serno in (SELECT DISTINCT lot FROM {5} WHERE process = 'NO53' AND serno = ({6})) "
-                        + "OR serno = ({6})"
-                        + "UNION ALL SELECT ({3}) as serno, serno lot, inspectdate, process,"
-                        + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {5} "
-                        + "WHERE serno in (SELECT DISTINCT lot FROM {1} WHERE process = 'NO53' AND serno = ({3})) "
-                        + "OR serno = ({3})"
-                        + "UNION ALL SELECT '{0}' as serno, serno lot, inspectdate, process, "
-                        + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {1} "
-                        + "WHERE serno in (SELECT DISTINCT lot FROM {1} WHERE process = 'NO53' AND serno = '{0}') "
-                        + "OR serno = '{0}' "
-                        + "UNION ALL SELECT '{0}' as serno, serno lot, inspectdate, process, "
-                        + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {2} "
-                        + "WHERE serno in (SELECT DISTINCT lot FROM {2} WHERE process = 'NO53' AND serno = '{0}') "
-                        + "OR serno = '{0}' ORDER BY process) tbl) tb where ROW_NUMBER = 1 and process in ('NMT2','NO41','NO43','NO44','NO53','NO56')", serial, testerTableThisMonth, testerTableLastMonth, lotthis, tablethis, tablelast, lotlast);
-                    }
-                    else
-                    {
-                        string lotthis = string.Format("SELECT lot FROM (SELECT lot, inspectdate, ROW_NUMBER() OVER(PARTITION BY lot ORDER BY inspectdate DESC) from {1} where serno = '{0}' and process = 'NO53' ORDER BY lot)tb where ROW_NUMBER = 1", serial, testerTableThisMonth);
-                        string lotlast = string.Format("SELECT lot FROM (SELECT lot, inspectdate, ROW_NUMBER() OVER(PARTITION BY lot ORDER BY inspectdate DESC) from {1} where serno = '{0}' and process = 'NO53' ORDER BY lot)tb where ROW_NUMBER = 1", serial, testerTableLastMonth);
-                        queryProcess = string.Format("SELECT serno, lot, inspectdate, process,judge from "
-                        + "(SELECT serno, lot, inspectdate, process, judge, ROW_NUMBER() OVER(PARTITION BY process ORDER BY inspectdate DESC) from "
-                        + "(SELECT ({3}) as serno, serno lot,inspectdate, process,"
-                        + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {4} "
-                        + "WHERE serno in (SELECT DISTINCT lot FROM {4} WHERE process = 'NO53' AND serno = ({3})) "
-                        + "OR serno = ({3})"
-                        + "UNION ALL SELECT ({6}) as serno, serno lot, inspectdate, process,"
-                        + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {5} "
-                        + "WHERE serno in (SELECT DISTINCT lot FROM {5} WHERE process = 'NO53' AND serno = ({6})) "
-                        + "OR serno = ({6})"
-                        + "UNION ALL SELECT ({3}) as serno, serno lot, inspectdate, process,"
-                        + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {5} "
-                        + "WHERE serno in (SELECT DISTINCT lot FROM {1} WHERE process = 'NO53' AND serno = ({3})) "
-                        + "OR serno = ({3})"
-                        + "UNION ALL SELECT '{0}' as serno, serno lot, inspectdate, process, "
-                        + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {1} "
-                        + "WHERE serno in (SELECT DISTINCT lot FROM {1} WHERE process = 'NO53' AND serno = '{0}') "
-                        + "OR serno = '{0}' "
-                        + "UNION ALL SELECT '{0}' as serno, serno lot, inspectdate, process, "
-                        + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {2} "
-                        + "WHERE serno in (SELECT DISTINCT lot FROM {2} WHERE process = 'NO53' AND serno = '{0}') "
-                        + "OR serno = '{0}' ORDER BY process) tbl) tb where ROW_NUMBER = 1 and process in ('NMT2','NO41','NO43','NO53','NO56')", serial, testerTableThisMonth, testerTableLastMonth, lotthis, tablethis, tablelast, lotlast);
-                    }
-                    //string queryProcess = string.Format("SELECT '{0}' as serno, serno lot, process,"
-                    //+ "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {1} "
-                    //+ "WHERE serno in (SELECT DISTINCT lot FROM {1} WHERE process = 'NO41' AND serno = '{0}') "
-                    //+ "OR serno = '{0}' "
-                    //+ "UNION ALL SELECT '{0}' as serno, serno lot, process,"
-                    //+ "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {2} "
-                    //+ "WHERE serno in (SELECT DISTINCT lot FROM {2} WHERE process = 'NO41' AND serno = '{0}') "
-                    //+ "OR serno = '{0}' "
-                    //+ "UNION ALL SELECT '{0}' as serno, serno lot, process,"
-                    //+ "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {3} "
-                    //+ "WHERE serno in (SELECT DISTINCT lot FROM {3} WHERE process = 'NO41' AND serno = '{0}') "
-                    //+ "OR serno = '{0}' "
-                    //+ "UNION ALL SELECT '{0}' as serno, serno lot, process,"
-                    //+ "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {4} "
-                    //+ "WHERE serno in (SELECT DISTINCT lot FROM {4} WHERE process = 'NO41' AND serno = '{0}') "
-                    //+ "OR serno = '{0}' ORDER BY process ", serial, tableThisMonth, tableLastMonth, testerTableThisMonth, testerTableLastMonth);
-
+                    string lotthis = string.Format("SELECT lot FROM (SELECT lot, inspectdate, ROW_NUMBER() OVER(PARTITION BY lot ORDER BY inspectdate DESC) from {1} where serno = '{0}' and process = 'NO53' ORDER BY lot)tb where ROW_NUMBER = 1", serial, testerTableThisMonth);
+                    string lotlast = string.Format("SELECT lot FROM (SELECT lot, inspectdate, ROW_NUMBER() OVER(PARTITION BY lot ORDER BY inspectdate DESC) from {1} where serno = '{0}' and process = 'NO53' ORDER BY lot)tb where ROW_NUMBER = 1", serial, testerTableLastMonth);
+                    queryProcess = string.Format("SELECT serno, lot, inspectdate, process,judge from "
+                    + "(SELECT serno, lot, inspectdate, process, judge, ROW_NUMBER() OVER(PARTITION BY process ORDER BY inspectdate DESC) from "
+                    + "(SELECT ({3}) as serno, serno lot,inspectdate, process,"
+                    + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {4} "
+                    + "WHERE serno in (SELECT DISTINCT lot FROM {4} WHERE process = 'NO53' AND serno = ({3})) "
+                    + "OR serno = ({3})"
+                    + "UNION ALL SELECT ({6}) as serno, serno lot, inspectdate, process,"
+                    + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {5} "
+                    + "WHERE serno in (SELECT DISTINCT lot FROM {5} WHERE process = 'NO53' AND serno = ({6})) "
+                    + "OR serno = ({6})"
+                    + "UNION ALL SELECT ({3}) as serno, serno lot, inspectdate, process,"
+                    + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {5} "
+                    + "WHERE serno in (SELECT DISTINCT lot FROM {1} WHERE process = 'NO53' AND serno = ({3})) "
+                    + "OR serno = ({3})"
+                    + "UNION ALL SELECT '{0}' as serno, serno lot, inspectdate, process, "
+                    + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {1} "
+                    + "WHERE serno in (SELECT DISTINCT lot FROM {1} WHERE process = 'NO53' AND serno = '{0}') "
+                    + "OR serno = '{0}' "
+                    + "UNION ALL SELECT '{0}' as serno, serno lot, inspectdate, process, "
+                    + "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {2} "
+                    + "WHERE serno in (SELECT DISTINCT lot FROM {2} WHERE process = 'NO53' AND serno = '{0}') "
+                    + "OR serno = '{0}' ORDER BY process) tbl) tb where ROW_NUMBER = 1 and process in ('NMT2','NO41','NO43','NO53','NO56')", serial, testerTableThisMonth, testerTableLastMonth, lotthis, tablethis, tablelast, lotlast);
                     if (dtAllProcess == null || dtAllProcess.Rows.Count == 0)
                     {
                         dtAllProcess = new DataTable();
@@ -693,67 +547,10 @@ namespace BoxIdDb
                     dtAllProcess.Clear();
                     #endregion
                     DataRow dr = dtOverall.NewRow();
-
-                    //if (model == "LA20_517CB")
-                    //{
-                    //    dr["serialno"] = "'" + serial;
-                    //}
-                    //else dr["serialno"] = serial;
-                    //if (model == "LA20_517EB")
-                    //{
-                    //    dr["comp_ser"] = comp_ser;
-                    //}
-                    if (cmbModel.Text == "BMA_0051")
-                    {
-                        dr["model"] = "BMA_0051";
-                        dr["serialno"] = serial;
-                        dr["lot"] = VBS.Mid(serial, 9, 3).Length < 3 ? "Error" : VBS.Mid(serial, 9, 3);
-                    }
-                    else if (cmbModel.Text == "BMA_0129")
-                    {
-                        dr["model"] = "BMA_0129";
-                        dr["serialno"] = serial;
-                        dr["lot"] = VBS.Mid(serial, 11, 3).Length < 3 ? "Error" : VBS.Mid(serial, 11, 3);
-                    }
-
-                    else
-                    {
-                        dr["model"] = model.Substring(0, 4) + "V" + model.Substring(4);
-
-                        switch (model)
-                        {
-                            case "LA20_517CC":
-                            case "LA20_517CC1":
-                            case "LA20_517DB":
-                                dr["serialno"] = serial;
-                                dr["lot"] = VBS.Mid(serial, 13, 3).Length < 3 ? "Error" : VBS.Mid(serial, 13, 3);
-                                break;
-                            case "LA20_517CC2":
-                            case "LA20_517CC3":
-                            case "LA20_517CD":
-                            case "LA20_517DC":
-                            case "LA20_517DD":
-                                dr["serialno"] = serial;
-                                dr["lot"] = VBS.Mid(serial, 8, 3).Length < 3 ? "Error" : VBS.Mid(serial, 8, 3);
-                                break;
-                            case "LA20_517CB":
-                                dr["serialno"] = serial;
-                                dr["lot"] = VBS.Mid(serial, 9, 3).Length < 3 ? "Error" : VBS.Mid(serial, 9, 3);
-                                break;
-                            case "LA20_517EB":
-                                dr["serialno"] = serial;
-                                dr["lot"] = VBS.Mid(serial, 12, 6).Length < 3 ? "Error" : VBS.Mid(serial, 12, 6);
-                                break;
-
-                            default:
-                                dr["serialno"] = serial;
-                                dr["lot"] = VBS.Mid(serial, 9, 3).Length < 3 ? "Error" : VBS.Mid(serial, 9, 3);
-                                break;
-                        }
-                    }
-
+                    dr["model"] = "BMA_0241";
+                    dr["serialno"] = serial;
+                    dr["lot"] = VBS.Mid(serial, 8, 3).Length < 3 ? "Error" : VBS.Mid(serial, 8, 3);
                     dr["return"] = formReturnMode ? "R" : "N";
-
                     if (dt2.Rows.Count != 0)
                     {
                         //T-judge OQC
@@ -769,12 +566,11 @@ namespace BoxIdDb
 
                     if (dt1.Rows.Count != 0)
                     {
-                        dr["aio_ccw"] = dt1.Rows[0]["aio_ccw"].ToString();
-                        dr["ano_ccw"] = dt1.Rows[0]["ano_ccw"].ToString();
-                        dr["air_ccw"] = dt1.Rows[0]["air_ccw"].ToString();
-                        dr["anr_ccw"] = dt1.Rows[0]["anr_ccw"].ToString();
-                        dr["ais_ccw"] = dt1.Rows[0]["ais_ccw"].ToString();
-
+                        dr["aio_cw"] = dt1.Rows[0]["aio_cw"].ToString();
+                        dr["ano_cw"] = dt1.Rows[0]["ano_cw"].ToString();
+                        dr["air_cw"] = dt1.Rows[0]["air_cw"].ToString();
+                        dr["anr_cw"] = dt1.Rows[0]["anr_cw"].ToString();
+                        dr["ais_cw"] = dt1.Rows[0]["ais_cw"].ToString();
                         //T-judge LINE
                         string judge_line = String.Empty;
                         string buff = dt1.Rows[0]["tjudge_line"].ToString();
@@ -788,9 +584,9 @@ namespace BoxIdDb
 
                     if (dt2.Rows.Count != 0)
                     {
-                        dr["cg_ccw"] = dt2.Rows[0]["cg_ccw"].ToString();
-                        dr["cio_ccw"] = dt2.Rows[0]["cio_ccw"].ToString();
-                        dr["cno_ccw"] = dt2.Rows[0]["cno_ccw"].ToString();
+                        dr["cg_cw"] = dt2.Rows[0]["cg_cw"].ToString();
+                        dr["cio_cw"] = dt2.Rows[0]["cio_cw"].ToString();
+                        dr["cno_cw"] = dt2.Rows[0]["cno_cw"].ToString();
                     }
 
                     dtOverall.Rows.Add(dr);
@@ -995,120 +791,32 @@ namespace BoxIdDb
         }
         private void decideReferenceTable()
         {
-            if (cmbModel.Text == "BMA_0051")
+            string modelsub = "0241";
+            string model_sub = "BMA0_0241";
+            string model_c = "BMA0_0241";
+            switch (modelsub)
             {
-                string modelsub = "0051";
-                string model_sub = "BMA0_0051";
-                string model_c = "BMA0_0051";
-                switch (modelsub)
-                {
-                    case "0051":
-                        testerTableThisMonth = "BMA0_00051" + DateTime.Today.ToString("yyyyMM");
-                        tableThisMonth = model_sub + DateTime.Today.ToString("yyyyMM");
-                        testerTableLastMonth = "BMA0_00051" + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        tableLastMonth = model_sub + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        tablethis = model_c + DateTime.Today.ToString("yyyyMM");
-                        tablelast = model_c + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-
-                        break;
-                }
-            }
-            else if (cmbModel.Text == "BMA_0129")
-            {
-                string modelsub = "0129";
-                string model_sub = "BMA0_0129";
-                string model_c = "BMA0_0129";
-                switch (modelsub)
-                {
-                    case "0129":
-                        testerTableThisMonth = "BMA0_00129" + DateTime.Today.ToString("yyyyMM");
-                        tableThisMonth = model_sub + DateTime.Today.ToString("yyyyMM");
-                        testerTableLastMonth = "BMA0_00129" + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        tableLastMonth = model_sub + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        tablethis = model_c + DateTime.Today.ToString("yyyyMM");
-                        tablelast = model_c + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        break;
-                }
-            }
-            else
-            {
-                string model = VBS.Mid(cmbModel.Text, 6, 4);//517C
-                string model_c = VBS.Left(cmbModel.Text, 9);//LA20_517C
-                switch (model)
-                {
-                    case "517C":
-                        testerTableThisMonth = cmbModel.Text + DateTime.Today.ToString("yyyyMM");
-                        tableThisMonth = model_c + DateTime.Today.ToString("yyyyMM");
-                        testerTableLastMonth = cmbModel.Text + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        tableLastMonth = model_c + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        tablethis = model_c + DateTime.Today.ToString("yyyyMM");
-                        tablelast = model_c + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        break;
-                    case "517D":
-                        testerTableThisMonth = cmbModel.Text + DateTime.Today.ToString("yyyyMM");
-                        tableThisMonth = model_c + DateTime.Today.ToString("yyyyMM");
-                        testerTableLastMonth = cmbModel.Text + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        tableLastMonth = model_c + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        tablethis = model_c + DateTime.Today.ToString("yyyyMM");
-                        tablelast = model_c + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        break;
-                    default:
-                        testerTableThisMonth = cmbModel.Text + DateTime.Today.ToString("yyyyMM");
-                        tableThisMonth = model_c + DateTime.Today.ToString("yyyyMM");
-                        testerTableLastMonth = cmbModel.Text + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        tableLastMonth = model_c + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        tablethis = model_c + DateTime.Today.ToString("yyyyMM");
-                        tablelast = model_c + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
-                            (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
-                        break;
-
-                }
+                case "0241":
+                    testerTableThisMonth = "BMA0_00241" + DateTime.Today.ToString("yyyyMM");
+                    tableThisMonth = model_sub + DateTime.Today.ToString("yyyyMM");
+                    testerTableLastMonth = "BMA0_00241" + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+                        (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
+                    tableLastMonth = model_sub + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+                        (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
+                    tablethis = model_c + DateTime.Today.ToString("yyyyMM");
+                    tablelast = model_c + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+                        (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
+                    break;
             }
         }
 
-        // ビューモードで再印刷を行う
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            if (cmbModel.Text == "BMA_0051")
-            {
-                string boxId = txtBoxId.Text;
-                string model = "BMA_0051";
-                string shipKind = dtOverall.Rows[0]["return"].ToString();
-                printBarcode(directory, boxId, model, dgvDateCode, ref dgvDateCode2, ref txtBoxIdPrint, shipKind);
-
-            }
-            else if (cmbModel.Text == "BMA_0129")
-            {
-                string boxId = txtBoxId.Text;
-                string model = cmbModel.Text;
-                string shipKind = dtOverall.Rows[0]["return"].ToString();
-                printBarcode(directory, boxId, model, dgvDateCode, ref dgvDateCode2, ref txtBoxIdPrint, shipKind);
-
-            }
-            else
-            {
-                string boxId = txtBoxId.Text;
-                string model = cmbModel.Text.Substring(0, 4) + "V" + cmbModel.Text.Substring(4);
-                string shipKind = dtOverall.Rows[0]["return"].ToString();
-                printBarcode(directory, boxId, model, dgvDateCode, ref dgvDateCode2, ref txtBoxIdPrint, shipKind);
-            }
+            string boxId = txtBoxId.Text;
+            string model = cmbModel.Text;
+            string shipKind = dtOverall.Rows[0]["return"].ToString();
+            printBarcode(directory, boxId, model, dgvDateCode, ref dgvDateCode2, ref txtBoxIdPrint, shipKind);
         }
-
-        // 各種確認後、ボックスＩＤの発行、シリアルの登録、バーコードラベルのプリントを行う
         private void btnRegisterBoxId_Click(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(txtCarton.Text))
@@ -1116,10 +824,7 @@ namespace BoxIdDb
                 btnRegisterBoxId.Enabled = false;
                 btnDeleteSelection.Enabled = false;
                 btnCancel.Enabled = false;
-
                 string boxId = txtBoxId.Text;
-
-                //一時テーブルのシリアル全てについて、本番テーブルに登録がないか、チェック
                 string checkResult = checkDataTableWithRealTable(dtOverall);
 
                 if (checkResult != String.Empty)
@@ -1133,8 +838,6 @@ namespace BoxIdDb
                     return;
                 }
 
-                //ボックスＩＤの新規採番
-                //string boxIdNew = box_m[1] + "-" + DateTime.Today.ToString("yyyyMMdd") + "-" + txtCarton.Text;
                 TfSQL yn = new TfSQL();
                 string sql_box = "INSERT INTO box_id_rt(" +
                     "boxid," +
@@ -1146,8 +849,6 @@ namespace BoxIdDb
                     "'" + DateTime.Now.ToString() + "')";
                 System.Diagnostics.Debug.Print(sql_box);
                 yn.sqlExecuteNonQuery(sql_box, false);
-
-                //先ずは、DataTbleにボックスＩＤを登録
                 DataTable dt = dtOverall.Copy();
                 dt.Columns.Add("boxid", Type.GetType("System.String"));
                 dt.Columns.Add("carton", Type.GetType("System.String"));
@@ -1156,33 +857,17 @@ namespace BoxIdDb
                     dt.Rows[i]["boxid"] = boxId;
                     dt.Rows[i]["carton"] = txtCarton.Text;
                 }
-
-                //DataTableから本番テーブルへ一括登録
                 TfSQL tf = new TfSQL();
-                bool res1 = tf.sqlMultipleInsertOverall(dt);
-
+                bool res1 = tf.sqlMultipleInsert0241(dt);
                 if (res1)
                 {
                     // バーコードを印字（念のためメインモデルを今一度取得した後）
                     //m_model = dtOverall.Rows[0]["model"].ToString();
                     string shipKind = dtOverall.Rows[0]["return"].ToString();
-                    string prt_model;
-                    if (cmbModel.Text == "BMA_0051")
-                        prt_model = "BMA_0051";
-                    else if (cmbModel.Text == "BMA_0129")
-                        prt_model = cmbModel.Text;
-                    else
-                        prt_model = cmbModel.Text.Substring(0, 4) + "V" + cmbModel.Text.Substring(4);
-                    //printBarcode(directory, boxId, prt_model, dgvDateCode, ref dgvDateCode2, ref txtBoxIdPrint, shipKind);
-
-                    //データテーブルのレコード消去
+                    string prt_model = cmbModel.Text;
                     dtOverall.Clear();
                     dt = null;
-
                     txtBoxId.Text = boxId;
-                    //dtpPrintDate.Value = DateTime.ParseExact(VBS.Mid(boxIdNew, 3, 6), "yyMMdd", CultureInfo.InvariantCulture);
-
-                    //親フォームfrmBoxのデータグリットビューを更新するため、デレゲートイベントを発生させる
                     this.RefreshEvent(this, new EventArgs());
 
                     this.Focus();
@@ -1200,7 +885,6 @@ namespace BoxIdDb
                     //一旦登録したＢＯＸＩＤを消去する
                     string sql = "delete from box_id_rt WHERE boxid= '" + boxId + "'";
                     int res = tf.sqlExecuteNonQueryInt(sql, false);
-
                     MessageBox.Show("Box id and product serials were not registered.", "Process Result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     btnRegisterBoxId.Enabled = true;
                     btnDeleteSelection.Enabled = true;
@@ -1209,38 +893,19 @@ namespace BoxIdDb
             }
             else MessageBox.Show("Please input the carton number!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
-
-        // サブプロシージャ：データテーブルのシリアル全てについて、本テーブルに登録がないか一括確認
         private string checkDataTableWithRealTable(DataTable dt1)
         {
             string serial;
             string result = String.Empty;
             if (formReturnMode) return result;
-            string sql = "";
-            if (cmbModel.Text == "BMA_0129"|| cmbModel.Text == "BMA_0051")
-            {
-                sql = "select serialno, boxid, model FROM product_serial_rtcd1 where model='"+cmbModel.Text+"'";
-            }
-            else
-            {
-                string MODEL = cmbModel.Text.Substring(0, 4) + "V" + cmbModel.Text.Substring(4);
-                sql = "select serialno, boxid, model FROM product_serial_rtcd1 where model='"+ MODEL + "' ";
-            }
+            string sql = "select serialno, boxid, model FROM product_serial_0241 where model='" + cmbModel.Text + "'";
             DataTable dt2 = new DataTable();
             TfSQL tf = new TfSQL();
             tf.sqlDataAdapterFillDatatable(sql, ref dt2);
 
             for (int i = 0; i < dt1.Rows.Count; i++)
             {
-                if (cmbModel.Text == "LA20_517CB" || cmbModel.Text == "BMA_0051")
-                {
-                    serial = VBS.Mid(dt1.Rows[i]["serialno"].ToString(), 2, 21);
-                }
-                //else if (cmbModel.Text == "BMA_0129")
-                //{
-                //    serial = VBS.Right(dt1.Rows[i]["serialno"].ToString(), 8);
-                //}
-                else serial = dt1.Rows[i]["serialno"].ToString();
+                serial = dt1.Rows[i]["serialno"].ToString();
                 DataRow[] dr = dt2.Select("serialno = '" + serial + "'");
                 if (dr.Length >= 1)
                 {
@@ -1248,7 +913,6 @@ namespace BoxIdDb
                     result += (i + 1 + ": " + serial + " / " + boxid + Environment.NewLine);
                 }
             }
-
             if (result == String.Empty)
             {
                 return String.Empty;
@@ -1258,15 +922,11 @@ namespace BoxIdDb
                 return result;
             }
         }
-
-        // サブプロシージャ：バーコードをプリントする（本バージョンは、ＢＯＸＩＤ名のテキストファイルを生成する）
         private void printBarcode(string dir, string id, string m_model_long, DataGridView dgv1, ref DataGridView dgv2, ref TextBox txt, string shipKind)
         {
             TfPrint tf = new TfPrint();
             tf.createBoxidFiles(dir, id, m_model_long, dgv1, ref dgv2, ref txt, shipKind);
         }
-
-        // 一時テーブルの選択された複数レコードを、一括消去させる
         private void btnDeleteSelection_Click(object sender, EventArgs e)
         {
             DataGridView dgv = new DataGridView();
@@ -1293,17 +953,13 @@ namespace BoxIdDb
                 }
                 dtOverall.AcceptChanges();
                 updateDataGridViews(dtOverall, ref dgvInline);
-
                 txtProductSerial.Focus();
                 txtProductSerial.SelectAll();
                 txtProductSerial.Enabled = true;
             }
         }
-
-        // １ラベルあたりのシリアル数を変更する（管理権限ユーザーのみ）
         private void btnChangeLimit_Click(object sender, EventArgs e)
         {
-            // フォーム４（１ラベルあたりシリアル数変更）を、デレゲートイベントを付加して開く
             bool bl = TfGeneral.checkOpenFormExists("frmCapacity");
             if (bl)
             {
@@ -1313,7 +969,6 @@ namespace BoxIdDb
             else
             {
                 frmCapacity f4 = new frmCapacity();
-                //子イベントをキャッチして、データグリッドを更新する
                 f4.RefreshEvent += delegate (object sndr, EventArgs excp)
                 {
                     int l = f4.getLimit();
@@ -1331,11 +986,8 @@ namespace BoxIdDb
                 f4.Show();
             }
         }
-
-        // 登録済みのボックスＩＤへ、モジュールを追加（管理ユーザーのみ）
         private void btnAddSerial_Click(object sender, EventArgs e)
         {
-            // 追加モードでない場合は、追加モードの表示へ切り替える
             if (!formAddMode)
             {
                 formAddMode = true;
@@ -1350,12 +1002,10 @@ namespace BoxIdDb
                     formReturnMode = (dtOverall.Rows[0]["return"].ToString() == "R" ? true : false);
                 }
             }
-            // 既に追加モードの場合は、ＤＢへの登録を行う
             else
             {
-                // ＤＥＬＥＴＥ ＳＱＬ文を発行し、データベースから削除する
                 string boxId = txtBoxId.Text;
-                string sql = "delete from product_serial_rtcd1 where boxid = '" + boxId + "'";
+                string sql = "delete from product_serial_0241 where boxid = '" + boxId + "'";
                 System.Diagnostics.Debug.Print(sql);
                 TfSQL tf = new TfSQL();
                 bool res1 = tf.sqlExecuteNonQuery(sql, false);
@@ -1400,11 +1050,8 @@ namespace BoxIdDb
                 txtProductSerial.Text = string.Empty;
             }
         }
-
-        // 登録済みのボックスＩＤの、モジュールを削除（管理ユーザーのみ）
         private void btnDeleteSerial_Click(object sender, EventArgs e)
         {
-            // セルの選択範囲が２列以上の場合は、メッセージの表示のみでプロシージャを抜ける
             if (dgvInline.Columns.GetColumnCount(DataGridViewElementStates.Selected) >= 2)
             {
                 MessageBox.Show("Please select range with only one columns.", "Notice",
@@ -1423,14 +1070,12 @@ namespace BoxIdDb
                 {
                     whereSer += "'" + cell.Value.ToString() + "', ";
                 }
-                string sql = "delete from product_serial_rtcd1 where boxid = '" + boxId + "' and  serialno in (" + VBS.Left(whereSer, whereSer.Length - 2) + ")";
+                string sql = "delete from product_serial_0241 where boxid = '" + boxId + "' and  serialno in (" + VBS.Left(whereSer, whereSer.Length - 2) + ")";
                 System.Diagnostics.Debug.Print(sql);
                 TfSQL tf = new TfSQL();
                 int res = tf.sqlExecuteNonQueryInt(sql, false);
-
                 if (res >= 1)
                 {
-                    // データグリッドビューから削除する
                     foreach (DataGridViewCell cell in dgvInline.SelectedCells)
                     {
                         int i = cell.RowIndex;
@@ -1448,11 +1093,8 @@ namespace BoxIdDb
                 }
             }
         }
-
-        // 登録済みのボックスＩＤおよび該当モジュールの削除（管理ユーザーのみ）
         private void btnCancelBoxid_Click(object sender, EventArgs e)
         {
-            // 本当に削除してよいか、２重で確認する。
             DialogResult result1 = MessageBox.Show("Do you really delete this box id's all the serial data?",
                 "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             if (result1 == DialogResult.Yes)
@@ -1462,14 +1104,11 @@ namespace BoxIdDb
                 if (result2 == DialogResult.Yes)
                 {
                     string boxid = txtBoxId.Text;
+
                     TfSQL tf = new TfSQL();
-                    int res = tf.sqlDeleteBoxid(boxid);
-
+                    int res = tf.sqlDeleteBoxid0241(boxid);
                     dtOverall.Clear();
-                    // データグリットビューの更新
                     updateDataGridViews(dtOverall, ref dgvInline);
-
-                    //親フォームfrmBoxのデータグリットビューを更新するため、デレゲートイベントを発生させる
                     this.RefreshEvent(this, new EventArgs());
                     this.Focus();
 
@@ -1488,11 +1127,8 @@ namespace BoxIdDb
                 }
             }
         }
-
-        // キャンセル時に、データテーブルのレコードの保持ができない旨、警告する
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            // frmCapacity （ＢＯＸあたりシリアル個数）を閉じていない場合は、先に閉じるよう通知する
             string formName = "frmCapacity";
             bool bl = false;
             foreach (Form buff in Application.OpenForms)
@@ -1504,17 +1140,13 @@ namespace BoxIdDb
                 MessageBox.Show("You need to close another form before canceling.", "Notice",
                   MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
                 return;
-            }
-
-            // データテーブルのレコード件数がない場合、または編集モードの場合は、そのまま閉じる                        
+            }                   
             if (dtOverall.Rows.Count == 0 || !formEditMode)
             {
                 Application.OpenForms["frmBox"].Focus();
                 Close();
                 return;
             }
-
-            // データテーブルのレコード件数がある場合、一時的に保持されているレコードが消滅する旨、警告する
             DialogResult result = MessageBox.Show("The current serial data has not been saved." + System.Environment.NewLine +
                 "Do you rally cancel?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Yes)
@@ -1531,8 +1163,6 @@ namespace BoxIdDb
                 return;
             }
         }
-
-        // 閉じるボタンやショートカットでの終了を許さない
         [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         protected override void WndProc(ref Message m)
         {
@@ -1541,8 +1171,6 @@ namespace BoxIdDb
             if (m.Msg == WM_SYSCOMMAND && (m.WParam.ToInt64() & 0xFFF0L) == SC_CLOSE) { return; }
             base.WndProc(ref m);
         }
-
-        //MP3ファイル（今回は警告音）を再生する
         [System.Runtime.InteropServices.DllImport("winmm.dll")]
         private static extern int mciSendString(String command,
            StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
@@ -1570,8 +1198,6 @@ namespace BoxIdDb
             mciSendString(cmd, null, 0, IntPtr.Zero);
             sound = true;
         }
-
-        // データをエクセルへエクスポート
         private void btnExport_Click(object sender, EventArgs e)
         {
             if (txtBoxId.Text == "")
@@ -1588,97 +1214,7 @@ namespace BoxIdDb
 
         private void cmbModel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtCarton.Enabled = true;
-            //switch (cmbModel.Text)
-            //{
-            //    case "LA20_517CC":
-            //    case "LA20_517CC1":
-            //    case "LA20_517CC2":
-            //    case "LA20_517CC3":
-            //        limit1 = 80;
-            //        txtOkCount.Text = okCount.ToString() + "/" + limit1.ToString();
-            //        dgvInline.Columns["col_comp_ser"].Visible = false;
-            //        dgvInline.Columns["col_aio_cw"].Visible = true;
-            //        dgvInline.Columns["col_ano_cw"].Visible = true;
-            //        dgvInline.Columns["col_air_cw"].Visible = true;
-            //        dgvInline.Columns["col_anr_cw"].Visible = true;
-            //        dgvInline.Columns["col_ais_cw"].Visible = true;
-            //        dgvInline.Columns["col_aio_ccw"].Visible = false;
-            //        dgvInline.Columns["col_ano_ccw"].Visible = false;
-            //        dgvInline.Columns["col_air_ccw"].Visible = false;
-            //        dgvInline.Columns["col_anr_ccw"].Visible = false;
-            //        dgvInline.Columns["col_ais_ccw"].Visible = false;
-            //        txtCompSerial.Enabled = false;
-            //        txtProductSerial.Enabled = true;
-            //        txtProductSerial.Focus();
-            //        break;
-            //    case "LA20_517DB":
-            //    case "LA20_517DC":
-            //    case "LA20_517EB":
-            //        dgvInline.Columns["col_aio_cw"].Visible = false;
-            //        dgvInline.Columns["col_ano_cw"].Visible = false;
-            //        dgvInline.Columns["col_air_cw"].Visible = false;
-            //        dgvInline.Columns["col_anr_cw"].Visible = false;
-            //        dgvInline.Columns["col_ais_cw"].Visible = false;
-            //        dgvInline.Columns["col_aio_ccw"].Visible = true;
-            //        dgvInline.Columns["col_ano_ccw"].Visible = true;
-            //        dgvInline.Columns["col_air_ccw"].Visible = true;
-            //        dgvInline.Columns["col_anr_ccw"].Visible = true;
-            //        dgvInline.Columns["col_ais_ccw"].Visible = true;
-            //        break;
-            //    default:
-            //        limit1 = 80;
-            //        txtOkCount.Text = okCount.ToString() + "/" + limit1.ToString();
-            //        dgvInline.Columns["col_aio_ccw"].Visible = false;
-            //        dgvInline.Columns["col_ano_ccw"].Visible = false;
-            //        dgvInline.Columns["col_air_ccw"].Visible = false;
-            //        dgvInline.Columns["col_anr_ccw"].Visible = false;
-            //        dgvInline.Columns["col_ais_ccw"].Visible = false;
-            //        dgvInline.Columns["col_aio_cw"].Visible = true;
-            //        dgvInline.Columns["col_ano_cw"].Visible = true;
-            //        dgvInline.Columns["col_air_cw"].Visible = true;
-            //        dgvInline.Columns["col_anr_cw"].Visible = true;
-            //        dgvInline.Columns["col_ais_cw"].Visible = true;
-            //        txtCompSerial.Enabled = false;
-            //        txtProductSerial.Enabled = true;
-            //        txtProductSerial.Focus();
-            //        break;
-            //}
-            if (VBS.Mid(cmbModel.Text, 6, 4) == "517D")
-            {
-                limit1 = 96;
-                txtOkCount.Text = okCount.ToString() + "/" + limit1.ToString();
-                txtProductSerial.Enabled = true;
-                txtProductSerial.Focus();
-            }
-            else if (VBS.Mid(cmbModel.Text, 6, 4) == "517E")
-            {
-                limit1 = 60;
-                txtOkCount.Text = okCount.ToString() + "/" + limit1.ToString();
-                txtProductSerial.Enabled = true;
-                txtProductSerial.Focus();
-            }
-            else if (cmbModel.Text == "BMA_0051")
-            {
-                limit1 = 108;
-                txtOkCount.Text = okCount.ToString() + "/" + limit1.ToString();
-                txtProductSerial.Enabled = true;
-                txtProductSerial.Focus();
-            }
-            else if (cmbModel.Text == "BMA_0129")
-            {
-                limit1 = 60;
-                txtOkCount.Text = okCount.ToString() + "/" + limit1.ToString();
-                txtProductSerial.Enabled = true;
-                txtProductSerial.Focus();
-            }
-            else
-            {
-                limit1 = 80;
-                txtOkCount.Text = okCount.ToString() + "/" + limit1.ToString();
-                txtProductSerial.Enabled = true;
-                txtProductSerial.Focus();
-            }
+
         }
 
         private void txtCarton_TextChanged(object sender, EventArgs e)
@@ -1710,8 +1246,6 @@ namespace BoxIdDb
                 }
             }
         }
-
-        // サブプロシージャ：データテーブルの中身をチェックする、本アプリケーションに対して、直接は関係ない
         private void printDataTable(DataTable dt)
         {
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -1722,8 +1256,6 @@ namespace BoxIdDb
                 }
             }
         }
-
-        // サブプロシージャ：データビューの中身をチェックする、本アプリケーションに対して、直接は関係ない
         private void printDataView(DataView dv)
         {
             foreach (DataRowView drv in dv)

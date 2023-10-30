@@ -30,7 +30,6 @@ namespace BoxIdDb
             this.Left = 450;
             this.Top = 100;
         }
-
         // サブプロシージャ：親フォームで呼び出し、親フォームの情報を、テキストボックスへ格納して引き継ぐ
         public void updateControls(string limit)
         {
