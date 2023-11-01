@@ -40,7 +40,7 @@ namespace BoxIdDb
         DataTable dtAllProcess;
 
         //DataTable dtTester;
-        int limit1 =60;
+        int limit1 =80;
         public int limit2 = 0;
         bool sound;
 
@@ -66,7 +66,7 @@ namespace BoxIdDb
             {
                 if (dtOverall.Rows.Count >= 0)
                 {
-                    limit1 = 60;
+                    limit1 = 80;
                 }
             }
             updateDataGridViews(dtOverall, ref dgvInline);
@@ -108,7 +108,7 @@ namespace BoxIdDb
 
                 string model = box_arr[0];
                 cmbModel.Text = "BMA_0241";
-                limit1 = 60;
+                limit1 = 80;
                 txtCarton.Text = box_arr[2];
             }
 
