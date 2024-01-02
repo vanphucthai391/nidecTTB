@@ -1023,23 +1023,19 @@ namespace BoxIdDB
                             {
 
                                 frictiongood = false;
-                                int noi = 1;
                                 string countdt = dtFRICTION.Rows.Count.ToString();
                                 List<string> show = new List<string>();
-
-                                foreach (DataRow row in dtFRICTION.Rows)
+                                int maxRowIndex = Int32.Parse(countdt);
+                                for (int rowIndex = Int32.Parse(countdt) - 1; rowIndex >= 0; rowIndex--)
                                 {
+                                    DataRow row = dtFRICTION.Rows[rowIndex];
                                     string value = row[2].ToString();
                                     if (value == "0")
                                         value = "OK";
                                     if (value == "1")
                                         value = "NG";
-
-                                    if (noi <= dtFRICTION.Rows.Count)
-                                    {
-                                        show.Add("No " + noi + ": " + value + "\r\n");
-                                        noi++;
-                                    }
+                                    int noiFRICTION = maxRowIndex - rowIndex;
+                                    show.Add("No " + noiFRICTION + ": " + value + "\r\n");
                                 }
                                 lbFRICTIONAlarm.Text = "Data FRICTION Đã Kiểm " + countdt + " lần\r\n" + String.Join("", show.ToArray());
                             }
@@ -1048,8 +1044,6 @@ namespace BoxIdDB
                         {
                             frictionnorow = true;
                         }
-
-
                         #region Data OQC
                         string sql2 = "select serno, tjudge, inspectdate, " +
                   "MAX(case inspect when 'QACURREN' then inspectdata else null end) as QACURRENT," +
