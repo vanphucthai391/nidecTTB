@@ -88,5 +88,8 @@ D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDB
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDB.exe.manifest
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDB.application
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\bin\Debug\Mono.Security.dll
-D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.csprojResolveAssemblyReference.cache
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.frmModule0241.resources
+D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.csprojAssemblyReference.cache
+D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.frmModule0259.resources
+D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.csproj.CoreCompileInputs.cache
+D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.csproj.CopyComplete

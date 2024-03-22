@@ -528,6 +528,97 @@ namespace BoxIdDb
                 return false;
             }
         }
+        public bool sqlMultipleInsert0259(DataTable dt)
+        {
+            int res1;
+            bool res2 = false;
+            connection = new NpgsqlConnection(conStringBoxidDb);
+            connection.Open();
+            NpgsqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                System.Diagnostics.Debug.Print(dt.Rows[0][i].ToString());
+            }
+
+            try
+            {
+                //string sql = "INSERT INTO product_serial_rtcd(boxid, serialno, model, carton, lot, cio_ccw, cg_ccw, cno_ccw, aio_ccw, ano_ccw, air_ccw, anr_ccw, ais_ccw, tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :cio_ccw, :cg_ccw, :cno_ccw, :aio_ccw, :ano_ccw, :air_ccw, :anr_ccw, :ais_ccw, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
+                string sql = "INSERT INTO product_serial_0259(boxid, serialno, model, carton, lot, cio_cw, cg_cw, cno_cw, aio_cw, ano_cw, air_cw, anr_cw, ais_cw, tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :cio_cw, :cg_cw, :cno_cw, :aio_cw, :ano_cw, :air_cw, :anr_cw, :ais_cw, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
+                NpgsqlCommand command = new NpgsqlCommand(sql, connection);
+                command.Parameters.Add(new NpgsqlParameter("boxid", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("serialno", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("model", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("carton", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("lot", NpgsqlTypes.NpgsqlDbType.Varchar));
+                //OQC
+                command.Parameters.Add(new NpgsqlParameter("tjudge", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("inspectdate", NpgsqlTypes.NpgsqlDbType.TimestampTZ));
+                command.Parameters.Add(new NpgsqlParameter("cio_cw", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("cg_cw", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("cno_cw", NpgsqlTypes.NpgsqlDbType.Varchar));
+                //INLINE
+                command.Parameters.Add(new NpgsqlParameter("tjudge_line", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("date_line", NpgsqlTypes.NpgsqlDbType.TimestampTZ));
+                command.Parameters.Add(new NpgsqlParameter("aio_cw", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("ano_cw", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("air_cw", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("anr_cw", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("ais_cw", NpgsqlTypes.NpgsqlDbType.Varchar));
+                command.Parameters.Add(new NpgsqlParameter("return", NpgsqlTypes.NpgsqlDbType.Varchar));
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    command.Parameters[0].Value = dt.Rows[i]["boxid"].ToString();
+                    command.Parameters[1].Value = dt.Rows[i]["serialno"].ToString();
+                    command.Parameters[2].Value = dt.Rows[i]["model"].ToString();
+                    command.Parameters[3].Value = dt.Rows[i]["carton"].ToString();
+                    command.Parameters[4].Value = dt.Rows[i]["lot"].ToString();
+                    //OQC
+                    command.Parameters[5].Value = dt.Rows[i]["tjudge"].ToString();
+                    command.Parameters[6].Value = DateTime.Parse(dt.Rows[i]["inspectdate"].ToString());
+                    command.Parameters[7].Value = dt.Rows[i]["cio_cw"].ToString();
+                    command.Parameters[8].Value = dt.Rows[i]["cg_cw"].ToString();
+                    command.Parameters[9].Value = dt.Rows[i]["cno_cw"].ToString();
+                    //INLINE
+                    command.Parameters[10].Value = dt.Rows[i]["tjudge_line"].ToString();
+                    command.Parameters[11].Value = DateTime.Parse(dt.Rows[i]["date_line"].ToString());
+                    command.Parameters[12].Value = dt.Rows[i]["aio_cw"].ToString();
+                    command.Parameters[13].Value = dt.Rows[i]["ano_cw"].ToString();
+                    command.Parameters[14].Value = dt.Rows[i]["air_cw"].ToString();
+                    command.Parameters[15].Value = dt.Rows[i]["anr_cw"].ToString();
+                    command.Parameters[16].Value = dt.Rows[i]["ais_cw"].ToString();
+                    command.Parameters[17].Value = dt.Rows[i]["return"].ToString();
+
+                    System.Diagnostics.Debug.Print(command.ToString());
+                    res1 = command.ExecuteNonQuery();
+                    if (res1 == -1) res2 = true;
+                }
+
+                if (!res2)
+                {
+                    transaction.Commit();
+                    connection.Close();
+                    return true;
+                }
+                else
+                {
+                    transaction.Rollback();
+                    MessageBox.Show("Not successful!", "Database Responce", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    connection.Close();
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Not successful!" + "\r\n" + ex.Message
+                                , "Database Responce", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                connection.Close();
+                return false;
+            }
+        }
         public bool sqlMultipleInsert517EB(DataTable dt)
         {
             int res1;
@@ -1208,6 +1299,41 @@ namespace BoxIdDb
             string sql1 = "delete from box_id_rt where boxid = '" + boxid + "'";
             //string sql2 = "delete from product_serial_rtcd where boxid = '" + boxid + "'";
             string sql2 = "delete from product_serial_0241 where boxid = '" + boxid + "'";
+
+            System.Diagnostics.Debug.Print(sql1);
+            System.Diagnostics.Debug.Print(sql2);
+
+            connection = new NpgsqlConnection(conStringBoxidDb);
+            connection.Open();
+            NpgsqlTransaction transaction = connection.BeginTransaction(IsolationLevel.ReadCommitted);
+
+            try
+            {
+                NpgsqlCommand command1 = new NpgsqlCommand(sql1, connection);
+                NpgsqlCommand command2 = new NpgsqlCommand(sql2, connection);
+                res1 = command1.ExecuteNonQuery();
+                res2 = command2.ExecuteNonQuery();
+
+                transaction.Commit();
+                connection.Close();
+                return res2;
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                MessageBox.Show("Not successful!" + "\r\n" + ex.Message
+                                , "Database Responce", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                connection.Close();
+                return -1;
+            }
+        }
+        public int sqlDeleteBoxid0259(string boxid)
+        {
+            int res1 = 0;
+            int res2 = 0;
+            string sql1 = "delete from box_id_rt where boxid = '" + boxid + "'";
+            //string sql2 = "delete from product_serial_rtcd where boxid = '" + boxid + "'";
+            string sql2 = "delete from product_serial_0259 where boxid = '" + boxid + "'";
 
             System.Diagnostics.Debug.Print(sql1);
             System.Diagnostics.Debug.Print(sql2);

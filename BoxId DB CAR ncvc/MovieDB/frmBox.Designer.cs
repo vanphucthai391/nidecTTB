@@ -72,8 +72,9 @@ namespace BoxIdDb
             this.btnAddBoxBFB_0025 = new System.Windows.Forms.Button();
             this.btnAddBoxBMA_0148 = new System.Windows.Forms.Button();
             this.btnAddBoxLD = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBoxId)).BeginInit();
             this.pnlInvoice.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -458,6 +459,7 @@ namespace BoxIdDb
             this.panel2.Controls.Add(this.btnSearchBoxId);
             this.panel2.Controls.Add(this.pnlInvoice);
             this.panel2.Controls.Add(this.btnAddBoxID517FB);
+            this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.btnAddBoxId);
             this.panel2.Controls.Add(this.btnAddBoxID523);
@@ -500,14 +502,15 @@ namespace BoxIdDb
             this.btnAddBoxLD.UseVisualStyleBackColor = true;
             this.btnAddBoxLD.Click += new System.EventHandler(this.btnAddBoxLD_Click);
             // 
-            // panel3
+            // button2
             // 
-            this.panel3.Controls.Add(this.dgvBoxId);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 321);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(980, 409);
-            this.panel3.TabIndex = 54;
+            this.button2.Location = new System.Drawing.Point(562, 84);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(134, 25);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Add Box ID BMA_0259";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.btnAddBoxId0259_Click);
             // 
             // button1
             // 
@@ -518,6 +521,15 @@ namespace BoxIdDb
             this.button1.Text = "Add Box ID BMA_0241";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.btnAddBoxId0241_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.dgvBoxId);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 321);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(980, 409);
+            this.panel3.TabIndex = 54;
             // 
             // frmBox
             // 
@@ -592,6 +604,7 @@ namespace BoxIdDb
         private System.Windows.Forms.Button btnAddBoxBMA_0148;
         private System.Windows.Forms.Button btnAddBoxBFB_0025;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
