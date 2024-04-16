@@ -889,8 +889,11 @@ namespace BoxIdDb
             }
         }
 
-        public bool sqlMultipleInsert517FB(DataTable dt)
+        public bool sqlMultipleInsert517FB(DataTable dt, string model=null)
         {
+            string table;
+            if (model == null||model==String.Empty) table = "product_serial_517fb";
+               else table= "product_serial_" + model;
             int res1;
             bool res2 = false;
             connection = new NpgsqlConnection(conStringBoxidDb);
@@ -904,7 +907,7 @@ namespace BoxIdDb
 
             try
             {
-                string sql = "INSERT INTO product_serial_517fb(boxid, serialno, model, carton, lot, cio_ccw, cg_ccw, cno_ccw, aio_ccw, ano_ccw, air_ccw, anr_ccw, ais_ccw, tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :cio_ccw, :cg_ccw, :cno_ccw, :aio_ccw, :ano_ccw, :air_ccw, :anr_ccw, :ais_ccw, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
+                string sql = "INSERT INTO "+ table + "(boxid, serialno, model, carton, lot, cio_ccw, cg_ccw, cno_ccw, aio_ccw, ano_ccw, air_ccw, anr_ccw, ais_ccw, tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :cio_ccw, :cg_ccw, :cno_ccw, :aio_ccw, :ano_ccw, :air_ccw, :anr_ccw, :ais_ccw, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
                 NpgsqlCommand command = new NpgsqlCommand(sql, connection);
 
                 command.Parameters.Add(new NpgsqlParameter("boxid", NpgsqlTypes.NpgsqlDbType.Varchar));

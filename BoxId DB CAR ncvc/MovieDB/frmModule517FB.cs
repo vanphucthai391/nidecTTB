@@ -108,6 +108,10 @@ namespace BoxIdDb
                         cmbModel.Text = "LA20_517FB";
                         limit1 = 40;
                         break;
+                    case "0161":
+                        cmbModel.Text = "BMA_0161";
+                        limit1 = 40;
+                        break;
                 }
                 txtCarton.Text = box_arr[2];
             }
@@ -414,9 +418,8 @@ namespace BoxIdDb
                     txtResultDetail.Clear();
                     txtProductSerial.Enabled = false;
                     string serial = txtProductSerial.Text;
-
-                    decideReferenceTable();
-
+                    if(cmbModel.Text == "BMA_0161") decideReferenceTable0161();
+                    else decideReferenceTable();
                     if (serial != String.Empty)
                     {
                         string model = cmbModel.Text;
@@ -534,8 +537,8 @@ namespace BoxIdDb
                         #endregion
 
                         DataRow dr = dtOverall.NewRow();
-
-                        dr["model"] = model.Substring(0, 4) + "V" + model.Substring(4);
+                        if (model == "BMA_0161") dr["model"] = model;
+                        else dr["model"] = model.Substring(0, 4) + "V" + model.Substring(4);
                         dr["serialno"] = serial;
                         //dr["lot"] = VBS.Mid(serial, 12, 6).Length < 6 ? "Error" : VBS.Mid(serial, 12, 6);
                         dr["lot"] = (VBS.Left(serial, 3).Length < 3) || (VBS.Left(serial, 3).Length > 3) ? "Error" : VBS.Left(serial, 3);
@@ -712,11 +715,36 @@ namespace BoxIdDb
             tableLastMonth = model_c + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
                 (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12") + "data";
         }
-
+        private void decideReferenceTable0161()
+        {
+            string m = "BMA0_00161";
+            string m1 = "BMA0_0161";
+            string model_c = m1;
+            oqcTableThisMonth = m + DateTime.Today.ToString("yyyyMM");
+            oqcTableLastMonth = m + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+                (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
+            inLineTableThisMonth = m1 + DateTime.Today.ToString("yyyyMM");
+            inLineTableLastMonth = m1 + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+                (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
+            testerTableThisMonth = m + DateTime.Today.ToString("yyyyMM");
+            testerThisMonth = m + DateTime.Today.ToString("yyyyMM") + "data";
+            tableThisMonth = model_c + DateTime.Today.ToString("yyyyMM") + "data";
+            tablethis = model_c + DateTime.Today.ToString("yyyyMM");
+            tablelast = model_c + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+                (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
+            testerTableLastMonth = m + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+                (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
+            testerLastMonth = m + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+                (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12") + "data";
+            tableLastMonth = model_c + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+                (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12") + "data";
+        }
         private void btnPrint_Click(object sender, EventArgs e)
         {
             string boxId = txtBoxId.Text;
-            string model = cmbModel.Text.Substring(0, 4) + "V" + cmbModel.Text.Substring(4);
+            string model;
+            if (cmbModel.Text=="BMA_0161")  model= cmbModel.Text;
+            else model = cmbModel.Text.Substring(0, 4) + "V" + cmbModel.Text.Substring(4);
             string shipKind = dtOverall.Rows[0]["return"].ToString();
             printBarcode(directory, boxId, model, dgvDateCode, ref dgvDateCode2, ref txtBoxIdPrint, shipKind);
         }
@@ -766,12 +794,14 @@ namespace BoxIdDb
                 }
 
                 TfSQL tf = new TfSQL();
-                bool res1 = tf.sqlMultipleInsert517FB(dt);
+                string[] model = cmbModel.Text.Split('_');
+                bool res1 = tf.sqlMultipleInsert517FB(dt, model[1]);
 
                 if (res1)
                 {
                     string shipKind = dtOverall.Rows[0]["return"].ToString();
-                    string prt_model = cmbModel.Text.Substring(0, 4) + "V" + cmbModel.Text.Substring(4);
+
+                    //string prt_model = cmbModel.Text.Substring(0, 4) + "V" + cmbModel.Text.Substring(4);
                     dtOverall.Clear();
                     dt = null;
 
@@ -951,8 +981,7 @@ namespace BoxIdDb
                         System.Diagnostics.Debug.Print(buff);
                     }
                 }
-
-                bool res2 = tf.sqlMultipleInsert517FB(dt);
+                bool res2 = tf.sqlMultipleInsert517FB(dt, model[1]);
 
                 if (!res1 || !res2)
                 {
