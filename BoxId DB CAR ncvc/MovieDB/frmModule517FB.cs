@@ -44,6 +44,7 @@ namespace BoxIdDb
         int limit1 = 40;
         public int limit2 = 0;
         bool sound;
+        bool nmt4FullData;
 
         public frmModule517FB()
         {
@@ -445,7 +446,7 @@ namespace BoxIdDb
                         " (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge from (select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE from (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag from (select * from " + oqcTableLastMonth + "data" +
                         " WHERE serno = (select serno from " + oqcTableLastMonth + " where process = 'NMT4' and serno = '" + serial + "' LIMIT 1) and inspect in ('CG_CCW','CIO_CCW','CNO_CCW'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + oqcTableLastMonth + " where serno = '" + serial + "' and process = 'NMT4' and tjudge = '0' order by inspectdate desc LIMIT 1) d" +
                         " group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
-                        " GROUP BY serno, tjudge, inspectdate";
+                        " GROUP BY serno, tjudge, inspectdate order by inspectdate desc";
 
                         System.Diagnostics.Debug.Print(System.Environment.NewLine + sql2);
                         DataTable dt2 = new DataTable();
@@ -520,7 +521,9 @@ namespace BoxIdDb
                         if (dtAllProcess == null || dtAllProcess.Rows.Count == 0)
                         {
                             dtAllProcess = new DataTable();
+                            System.Diagnostics.Debug.Print(System.Environment.NewLine + queryProcess);
                             tf.sqlDataAdapterFillDatatablePqm(queryProcess, ref dtAllProcess);
+
                         }
                         else
                         {
@@ -532,6 +535,7 @@ namespace BoxIdDb
                                 dtAllProcess.Merge(dtProcessCurrentSerial);
                             }
                         }
+                        nmt4FullData = dt2.Rows.Count == 1 ? true : false;
                         ShowProcessJudge(serial);
                         dtAllProcess.Clear();
                         #endregion
@@ -549,8 +553,8 @@ namespace BoxIdDb
                             //T-judge OQC
                             string linepass = String.Empty;
                             string buff = dt2.Rows[0]["tjudge"].ToString();
-                            if (buff == "0") linepass = "PASS";
-                            else if (buff == "1") linepass = "FAIL";
+                            if (buff == "0"&& nmt4FullData) linepass = "PASS";
+                            else if (buff == "1"||!nmt4FullData) linepass = "FAIL";
                             else linepass = "ERROR";
 
                             dr["tjudge"] = linepass;
@@ -582,7 +586,7 @@ namespace BoxIdDb
                             dr["cio_ccw"] = dt2.Rows[0]["cio_ccw"].ToString();
                             dr["cno_ccw"] = dt2.Rows[0]["cno_ccw"].ToString();
                         }
-                        if (txtCount.Text == "OK")
+                        if (txtCount.Text == "OK"||!nmt4FullData)
                         {
                             dtOverall.Rows.Add(dr);
                             updateDataGridViews(dtOverall, ref dgvInline);
@@ -611,15 +615,32 @@ namespace BoxIdDb
             {
                 var datastring = string.Empty;
                 var datarows = dtAllProcess.Rows;
-                for (int i = 0; i < datarows.Count; i++)
+                if (nmt4FullData)
                 {
-                    var process = datarows[i]["process"] ?? string.Empty;
-                    var judge = datarows[i]["judge"] ?? string.Empty;
-                    if (!string.IsNullOrEmpty(process.ToString()))
+                    for (int i = 0; i < datarows.Count; i++)
                     {
-                        datastring += string.Format("{0}: {1}\r\n", process.ToString(), judge.ToString());
+                        var process = datarows[i]["process"] ?? string.Empty;
+                        var judge = datarows[i]["judge"] ?? string.Empty;
+                        if (!string.IsNullOrEmpty(process.ToString()))
+                        {
+                            datastring += string.Format("{0}: {1}\r\n", process.ToString(), judge.ToString());
+                        }
                     }
                 }
+                else
+                {
+                    datastring = "NMT4: FAIL\r\n";
+                    for (int i = 1; i < datarows.Count; i++)
+                    {
+                        var process = datarows[i]["process"] ?? string.Empty;
+                        var judge = datarows[i]["judge"] ?? string.Empty;
+                        if (!string.IsNullOrEmpty(process.ToString()))
+                        {
+                            datastring += string.Format("{0}: {1}\r\n", process.ToString(), judge.ToString());
+                        }
+                    }
+                }
+
                 txtResultDetail.Text = datastring;
                 var checkFail = dtAllProcess.AsEnumerable().Any(x => x.Field<string>("judge").Contains("FAILURE"));
                 var checknmt4 = dtAllProcess.AsEnumerable().Any(x => x.Field<string>("process").Contains("NMT4"));
@@ -628,6 +649,7 @@ namespace BoxIdDb
                 var checkno44 = dtAllProcess.AsEnumerable().Any(x => x.Field<string>("process").Contains("NO44"));
                 var checkno47 = dtAllProcess.AsEnumerable().Any(x => x.Field<string>("process").Contains("NO47"));
                 var checkno48 = dtAllProcess.AsEnumerable().Any(x => x.Field<string>("process").Contains("NO48"));
+
                 //  var checkno53 = dtAllProcess.AsEnumerable().Any(x => x.Field<string>("process").Contains("NO53"));
                 if (!checknmt4)
                 {
@@ -674,14 +696,14 @@ namespace BoxIdDb
                     datastring += "NO48: NO DATA\r\n";
                 }
 
-                if (checkFail)
+                if (checkFail ||!nmt4FullData)
                 {
                     txtResultDetail.BackColor = Color.Red;
                     txtCount.Text = "NG";
                     txtCount.BackColor = Color.Red;
                     txtResultDetail.Text = datastring;
                 }
-                if (!checkFail && checknmt4 && checkno41 && checkno43 && checkno44 && checkno47 && checkno48)
+                if (!checkFail && checknmt4 && checkno41 && checkno43 && checkno44 && checkno47 && checkno48&& nmt4FullData)
                 {
                     txtCount.Text = "OK";
                     txtCount.BackColor = Color.SpringGreen;
