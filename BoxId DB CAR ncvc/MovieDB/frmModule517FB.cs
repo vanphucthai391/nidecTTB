@@ -44,8 +44,6 @@ namespace BoxIdDb
         int limit1 = 40;
         public int limit2 = 0;
         bool sound;
-        bool nmt4FullData;
-
         public frmModule517FB()
         {
             InitializeComponent();
@@ -330,7 +328,7 @@ namespace BoxIdDb
             for (int i = 0; i < row; ++i)
             {
                 //Alarm OQC FAIL or NODATA
-                if (dgv["col_judge_oqc", i].Value.ToString() == "FAIL" || dgv["col_judge_oqc", i].Value.ToString() == "PLS NG" || String.IsNullOrEmpty(dgv["col_judge_oqc", i].Value.ToString()))
+                if (dgv["col_judge_oqc", i].Value.ToString() == "FAIL" || dgv["col_judge_oqc", i].Value.ToString() == "PLS NG" || String.IsNullOrEmpty(dgv["col_judge_oqc", i].Value.ToString()) || String.IsNullOrEmpty(dgv["col_cg_ccw", i].Value.ToString())|| String.IsNullOrEmpty(dgv["col_cio_ccw", i].Value.ToString())|| String.IsNullOrEmpty(dgv["col_cno_ccw", i].Value.ToString()))
                 {
                     dgv["col_date", i].Style.BackColor = Color.Red;
                     dgv["col_cg_ccw", i].Style.BackColor = Color.Red;
@@ -535,7 +533,7 @@ namespace BoxIdDb
                                 dtAllProcess.Merge(dtProcessCurrentSerial);
                             }
                         }
-                        nmt4FullData = dt2.Rows.Count == 1 ? true : false;
+                        //nmt4LostData = dt2.Rows.Count == 2 ? true : false;
                         ShowProcessJudge(serial);
                         dtAllProcess.Clear();
                         #endregion
@@ -553,8 +551,8 @@ namespace BoxIdDb
                             //T-judge OQC
                             string linepass = String.Empty;
                             string buff = dt2.Rows[0]["tjudge"].ToString();
-                            if (buff == "0"&& nmt4FullData) linepass = "PASS";
-                            else if (buff == "1"||!nmt4FullData) linepass = "FAIL";
+                            if (buff == "0") linepass = "PASS";
+                            else if (buff == "1") linepass = "FAIL";
                             else linepass = "ERROR";
 
                             dr["tjudge"] = linepass;
@@ -586,7 +584,7 @@ namespace BoxIdDb
                             dr["cio_ccw"] = dt2.Rows[0]["cio_ccw"].ToString();
                             dr["cno_ccw"] = dt2.Rows[0]["cno_ccw"].ToString();
                         }
-                        if (txtCount.Text == "OK"||!nmt4FullData)
+                        if (txtCount.Text == "OK")
                         {
                             dtOverall.Rows.Add(dr);
                             updateDataGridViews(dtOverall, ref dgvInline);
@@ -615,32 +613,15 @@ namespace BoxIdDb
             {
                 var datastring = string.Empty;
                 var datarows = dtAllProcess.Rows;
-                if (nmt4FullData)
+                for (int i = 0; i < datarows.Count; i++)
                 {
-                    for (int i = 0; i < datarows.Count; i++)
+                    var process = datarows[i]["process"] ?? string.Empty;
+                    var judge = datarows[i]["judge"] ?? string.Empty;
+                    if (!string.IsNullOrEmpty(process.ToString()))
                     {
-                        var process = datarows[i]["process"] ?? string.Empty;
-                        var judge = datarows[i]["judge"] ?? string.Empty;
-                        if (!string.IsNullOrEmpty(process.ToString()))
-                        {
-                            datastring += string.Format("{0}: {1}\r\n", process.ToString(), judge.ToString());
-                        }
+                        datastring += string.Format("{0}: {1}\r\n", process.ToString(), judge.ToString());
                     }
                 }
-                else
-                {
-                    datastring = "NMT4: FAIL\r\n";
-                    for (int i = 1; i < datarows.Count; i++)
-                    {
-                        var process = datarows[i]["process"] ?? string.Empty;
-                        var judge = datarows[i]["judge"] ?? string.Empty;
-                        if (!string.IsNullOrEmpty(process.ToString()))
-                        {
-                            datastring += string.Format("{0}: {1}\r\n", process.ToString(), judge.ToString());
-                        }
-                    }
-                }
-
                 txtResultDetail.Text = datastring;
                 var checkFail = dtAllProcess.AsEnumerable().Any(x => x.Field<string>("judge").Contains("FAILURE"));
                 var checknmt4 = dtAllProcess.AsEnumerable().Any(x => x.Field<string>("process").Contains("NMT4"));
@@ -696,14 +677,14 @@ namespace BoxIdDb
                     datastring += "NO48: NO DATA\r\n";
                 }
 
-                if (checkFail ||!nmt4FullData)
+                if (checkFail)
                 {
                     txtResultDetail.BackColor = Color.Red;
                     txtCount.Text = "NG";
                     txtCount.BackColor = Color.Red;
                     txtResultDetail.Text = datastring;
                 }
-                if (!checkFail && checknmt4 && checkno41 && checkno43 && checkno44 && checkno47 && checkno48&& nmt4FullData)
+                if (!checkFail && checknmt4 && checkno41 && checkno43 && checkno44 && checkno47 && checkno48)
                 {
                     txtCount.Text = "OK";
                     txtCount.BackColor = Color.SpringGreen;

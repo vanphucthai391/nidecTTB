@@ -351,7 +351,7 @@ namespace BoxIdDb
             int row = dgv.Rows.Count;
             for (int i = 0; i < row; ++i)
             {
-                if (dgv["col_judge_oqc", i].Value.ToString() == "FAIL" || dgv["col_judge_oqc", i].Value.ToString() == "PLS NG" || String.IsNullOrEmpty(dgv["col_judge_oqc", i].Value.ToString()))
+                if (dgv["col_judge_oqc", i].Value.ToString() == "FAIL" || dgv["col_judge_oqc", i].Value.ToString() == "PLS NG" || String.IsNullOrEmpty(dgv["col_judge_oqc", i].Value.ToString())|| String.IsNullOrEmpty(dgv["col_cg_ccw", i].Value.ToString()) || String.IsNullOrEmpty(dgv["col_cir_ccw", i].Value.ToString()) || String.IsNullOrEmpty(dgv["col_cnr_ccw", i].Value.ToString()))
                 {
                     dgv["col_date", i].Style.BackColor = Color.Red;
                     dgv["col_cg_ccw", i].Style.BackColor = Color.Red;
@@ -467,7 +467,7 @@ namespace BoxIdDb
                         " (select d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge from (select SERNO, INSPECTDATE, INSPECT, INSPECTDATA, JUDGE from (select SERNO, INSPECT, INSPECTDATA, JUDGE, max(inspectdate) as inspectdate, row_number() OVER(PARTITION BY inspect ORDER BY max(inspectdate) desc) as flag from (select * from " + oqcTableLastMonth + "data" +
                         " WHERE serno = (SELECT serno from(select lot, serno,process, inspectdate, ROW_NUMBER() OVER(PARTITION BY process ORDER BY inspectdate DESC) from " + oqcTableLastMonth + " where (process = 'NMT1' and serno = '" + serial + "') order by serno) tbl where row_number =1) and inspect in ('CG_CCW','CIR_CCW','CNR_CCW'))" + "a group by SERNO, INSPECTDATE , INSPECT , INSPECTDATA , JUDGE ) b where flag = 1) c," + "(select serno, tjudge from " + oqcTableLastMonth + " where serno = '" + serial + "' and process = 'NMT1' and tjudge = '0' order by inspectdate desc LIMIT 1) d" +
                         " group by d.serno, d.tjudge, c.inspectdate, c.inspect, c.inspectdata, c.judge) e " +
-                        " GROUP BY serno, tjudge, inspectdate";
+                        " GROUP BY serno, tjudge, inspectdate order by inspectdate desc";
 
                         System.Diagnostics.Debug.Print(System.Environment.NewLine + sql2);
                         DataTable dt2 = new DataTable();
