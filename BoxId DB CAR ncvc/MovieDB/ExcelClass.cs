@@ -341,7 +341,7 @@ namespace BoxIdDb
 
                 rowHead = oSheet.get_Range("A3", "P3");
             }
-            else if(model[0] == "0241")
+            else if(model[0] == "0241"|| model[0] == "0334")
             {
                 //OQC
                 Microsoft.Office.Interop.Excel.Range cl4 = oSheet.get_Range("D3", "D3");
@@ -728,7 +728,7 @@ namespace BoxIdDb
                     oExcel.Cells[i + rowStart, 16] = dgv["col_return", i].Value.ToString();
                 }
 
-                else if(model[0] == "0241")
+                else if(model[0] == "0241"|| model[0] == "0334")
                 {
                     oExcel.Cells[i + rowStart, 1] = "'" + dgv["col_serial_no", i].Value.ToString();
                     oExcel.Cells[i + rowStart, 2] = dgv["col_model", i].Value.ToString();

@@ -73,6 +73,7 @@ namespace BoxIdDb
             this.btnAddBoxBMA_0148 = new System.Windows.Forms.Button();
             this.btnAddBoxLD = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.btnAddBoxId0334 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBoxId)).BeginInit();
@@ -251,7 +252,7 @@ namespace BoxIdDb
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(536, 23);
+            this.btnCancel.Location = new System.Drawing.Point(701, 23);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 25);
             this.btnCancel.TabIndex = 6;
@@ -460,6 +461,7 @@ namespace BoxIdDb
             this.panel2.Controls.Add(this.pnlInvoice);
             this.panel2.Controls.Add(this.btnAddBoxID517FB);
             this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.btnAddBoxId0334);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.btnAddBoxId);
             this.panel2.Controls.Add(this.btnAddBoxID523);
@@ -511,6 +513,16 @@ namespace BoxIdDb
             this.button2.Text = "Add Box ID BMA_0259";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.btnAddBoxId0259_Click);
+            // 
+            // btnAddBoxId0334
+            // 
+            this.btnAddBoxId0334.Location = new System.Drawing.Point(510, 54);
+            this.btnAddBoxId0334.Name = "btnAddBoxId0334";
+            this.btnAddBoxId0334.Size = new System.Drawing.Size(134, 25);
+            this.btnAddBoxId0334.TabIndex = 6;
+            this.btnAddBoxId0334.Text = "Add Box ID BMA_0334";
+            this.btnAddBoxId0334.UseVisualStyleBackColor = true;
+            this.btnAddBoxId0334.Click += new System.EventHandler(this.btnAddBoxId0334_Click);
             // 
             // button1
             // 
@@ -605,6 +617,7 @@ namespace BoxIdDb
         private System.Windows.Forms.Button btnAddBoxBFB_0025;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAddBoxId0334;
     }
 }
 

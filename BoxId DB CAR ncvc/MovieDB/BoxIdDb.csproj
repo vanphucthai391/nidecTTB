@@ -33,7 +33,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.html</WebPage>
-    <ApplicationRevision>58</ApplicationRevision>
+    <ApplicationRevision>59</ApplicationRevision>
     <ApplicationVersion>4.0.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -174,6 +174,12 @@
     <Compile Include="frmModule0259.Designer.cs">
       <DependentUpon>frmModule0259.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmModule0334.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmModule0334.Designer.cs">
+      <DependentUpon>frmModule0334.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmModule517FB.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmModule0259.resx">
       <DependentUpon>frmModule0259.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmModule0334.resx">
+      <DependentUpon>frmModule0334.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmModule517FB.resx">
       <DependentUpon>frmModule517FB.cs</DependentUpon>

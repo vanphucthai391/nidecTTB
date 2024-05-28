@@ -656,6 +656,7 @@ namespace BoxIdDb
                         + "WHERE serno in (SELECT DISTINCT lot FROM {2} WHERE process = 'NO53' AND serno = '{0}') "
                         + "OR serno = '{0}' ORDER BY process) tbl) tb where ROW_NUMBER = 1 and process in ('NMT2','NO41','NO43','NO53','NO56')", serial, testerTableThisMonth, testerTableLastMonth, lotthis, tablethis, tablelast, lotlast);
                     }
+
                     //string queryProcess = string.Format("SELECT '{0}' as serno, serno lot, process,"
                     //+ "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {1} "
                     //+ "WHERE serno in (SELECT DISTINCT lot FROM {1} WHERE process = 'NO41' AND serno = '{0}') "
@@ -672,6 +673,7 @@ namespace BoxIdDb
                     //+ "(CASE WHEN tjudge = '0' THEN 'PASS' ELSE 'FAILURE' END) AS judge FROM {4} "
                     //+ "WHERE serno in (SELECT DISTINCT lot FROM {4} WHERE process = 'NO41' AND serno = '{0}') "
                     //+ "OR serno = '{0}' ORDER BY process ", serial, tableThisMonth, tableLastMonth, testerTableThisMonth, testerTableLastMonth);
+                    System.Diagnostics.Debug.Print(System.Environment.NewLine + queryProcess);
 
                     if (dtAllProcess == null || dtAllProcess.Rows.Count == 0)
                     {

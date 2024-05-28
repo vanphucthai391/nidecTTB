@@ -93,3 +93,4 @@ D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.frmModule0259.resources
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.csproj.CoreCompileInputs.cache
 D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.csproj.CopyComplete
+D:\thaivanphuc\Git_nidecTTB\nidecTTB\BoxId DB CAR ncvc\MovieDB\obj\Debug\BoxIdDb.frmModule0334.resources

@@ -437,7 +437,7 @@ namespace BoxIdDb
                 return false;
             }
         }
-        public bool sqlMultipleInsert0241(DataTable dt)
+        public bool sqlMultipleInsertModel(DataTable dt,string model)
         {
             int res1;
             bool res2 = false;
@@ -453,7 +453,7 @@ namespace BoxIdDb
             try
             {
                 //string sql = "INSERT INTO product_serial_rtcd(boxid, serialno, model, carton, lot, cio_ccw, cg_ccw, cno_ccw, aio_ccw, ano_ccw, air_ccw, anr_ccw, ais_ccw, tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :cio_ccw, :cg_ccw, :cno_ccw, :aio_ccw, :ano_ccw, :air_ccw, :anr_ccw, :ais_ccw, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
-                string sql = "INSERT INTO product_serial_0241(boxid, serialno, model, carton, lot, cio_cw, cg_cw, cno_cw, aio_cw, ano_cw, air_cw, anr_cw, ais_cw, tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :cio_cw, :cg_cw, :cno_cw, :aio_cw, :ano_cw, :air_cw, :anr_cw, :ais_cw, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
+                string sql = "INSERT INTO product_serial_" + model +"(boxid, serialno, model, carton, lot, cio_cw, cg_cw, cno_cw, aio_cw, ano_cw, air_cw, anr_cw, ais_cw, tjudge_line, return, inspectdate, tjudge, date_line) VALUES (:boxid, :serialno, :model, :carton, :lot, :cio_cw, :cg_cw, :cno_cw, :aio_cw, :ano_cw, :air_cw, :anr_cw, :ais_cw, :tjudge_line, :return, :inspectdate, :tjudge, :date_line)";
                 NpgsqlCommand command = new NpgsqlCommand(sql, connection);
                 command.Parameters.Add(new NpgsqlParameter("boxid", NpgsqlTypes.NpgsqlDbType.Varchar));
                 command.Parameters.Add(new NpgsqlParameter("serialno", NpgsqlTypes.NpgsqlDbType.Varchar));
@@ -1295,13 +1295,13 @@ namespace BoxIdDb
                 return -1;
             }
         }
-        public int sqlDeleteBoxid0241(string boxid)
+        public int sqlDeleteBoxidModel(string boxid,string model)
         {
             int res1 = 0;
             int res2 = 0;
             string sql1 = "delete from box_id_rt where boxid = '" + boxid + "'";
             //string sql2 = "delete from product_serial_rtcd where boxid = '" + boxid + "'";
-            string sql2 = "delete from product_serial_0241 where boxid = '" + boxid + "'";
+            string sql2 = "delete from product_serial_"+model+" where boxid = '" + boxid + "'";
 
             System.Diagnostics.Debug.Print(sql1);
             System.Diagnostics.Debug.Print(sql2);

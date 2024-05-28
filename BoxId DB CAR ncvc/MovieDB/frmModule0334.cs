@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace BoxIdDb
 {
-    public partial class frmModule0241 : Form
+    public partial class frmModule0334 : Form
     {
         //親フォームfrmBoxへイベント発生を連絡（デレゲート）
         public delegate void RefreshEventHandler(object sender, EventArgs e);
@@ -45,7 +45,7 @@ namespace BoxIdDb
         bool sound;
 
         // コンストラクタ
-        public frmModule0241()
+        public frmModule0334()
         {
             InitializeComponent();
         }
@@ -107,7 +107,7 @@ namespace BoxIdDb
                 string[] box_arr = boxId.Split('-');
 
                 string model = box_arr[0];
-                cmbModel.Text = "BMA_0241";
+                cmbModel.Text = "BMA_0334";
                 limit1 = 80;
                 txtCarton.Text = box_arr[2];
             }
@@ -159,7 +159,7 @@ namespace BoxIdDb
             if (!formEditMode)
             {
                 string sql = "select serialno, model, lot, inspectdate, cio_cw, cg_cw, cno_cw, tjudge, date_line, aio_cw, ano_cw, air_cw, anr_cw, ais_cw, tjudge_line, return " +
-"FROM product_serial_0241 WHERE boxid='" + boxId + "'";
+"FROM product_serial_0334 WHERE boxid='" + boxId + "'";
                 TfSQL tf = new TfSQL();
                 System.Diagnostics.Debug.Print(sql);
                 tf.sqlDataAdapterFillDatatable(sql, ref dt);
@@ -389,7 +389,7 @@ namespace BoxIdDb
                 serial = dgv["col_serial_no", i].Value.ToString();
 
                 DataRow[] dr = dt.Select("serialno = '" + serial + "'");
-                if (dr.Length >= 2 || dgv["col_serial_no", i].Value.ToString().Length >= 25)
+                if (dr.Length >= 2 || dgv["col_serial_no", i].Value.ToString().Length != 27)
                 {
                     if (dgv.Name == "dgvInline") tabControl1.SelectedIndex = 1;
                     else tabControl1.SelectedIndex = 0;
@@ -547,9 +547,9 @@ namespace BoxIdDb
                     dtAllProcess.Clear();
                     #endregion
                     DataRow dr = dtOverall.NewRow();
-                    dr["model"] = "BMA_0241";
+                    dr["model"] = "BMA_0334";
                     dr["serialno"] = serial;
-                    dr["lot"] = VBS.Mid(serial, 8, 3).Length < 3 ? "Error" : VBS.Mid(serial, 8, 3);
+                    dr["lot"] = VBS.Mid(serial, 16, 3).Length < 3 ? "Error" : VBS.Mid(serial, 16, 3);
                     dr["return"] = formReturnMode ? "R" : "N";
                     if (dt2.Rows.Count != 0)
                     {
@@ -791,15 +791,15 @@ namespace BoxIdDb
         }
         private void decideReferenceTable()
         {
-            string modelsub = "0241";
-            string model_sub = "BMA0_0241";
-            string model_c = "BMA0_0241";
+            string modelsub = "0334";
+            string model_sub = "BMA0_0334";
+            string model_c = "BMA0_0334";
             switch (modelsub)
             {
-                case "0241":
-                    testerTableThisMonth = "BMA0_00241" + DateTime.Today.ToString("yyyyMM");
+                case "0334":
+                    testerTableThisMonth = "BMA0_00334" + DateTime.Today.ToString("yyyyMM");
                     tableThisMonth = model_sub + DateTime.Today.ToString("yyyyMM");
-                    testerTableLastMonth = "BMA0_00241" + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
+                    testerTableLastMonth = "BMA0_00334" + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
                         (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
                     tableLastMonth = model_sub + ((VBS.Right(DateTime.Today.ToString("yyyyMM"), 2) != "01") ?
                         (long.Parse(DateTime.Today.ToString("yyyyMM")) - 1).ToString() : (long.Parse(DateTime.Today.ToString("yyyy")) - 1).ToString() + "12");
@@ -858,7 +858,7 @@ namespace BoxIdDb
                     dt.Rows[i]["carton"] = txtCarton.Text;
                 }
                 TfSQL tf = new TfSQL();
-                bool res1 = tf.sqlMultipleInsertModel(dt,"0241");
+                bool res1 = tf.sqlMultipleInsertModel(dt,"0334");
                 if (res1)
                 {
                     // バーコードを印字（念のためメインモデルを今一度取得した後）
@@ -898,7 +898,7 @@ namespace BoxIdDb
             string serial;
             string result = String.Empty;
             if (formReturnMode) return result;
-            string sql = "select serialno, boxid, model FROM product_serial_0241 where model='" + cmbModel.Text + "'";
+            string sql = "select serialno, boxid, model FROM product_serial_0334 where model='" + cmbModel.Text + "'";
             DataTable dt2 = new DataTable();
             TfSQL tf = new TfSQL();
             tf.sqlDataAdapterFillDatatable(sql, ref dt2);
@@ -1005,7 +1005,7 @@ namespace BoxIdDb
             else
             {
                 string boxId = txtBoxId.Text;
-                string sql = "delete from product_serial_0241 where boxid = '" + boxId + "'";
+                string sql = "delete from product_serial_0334 where boxid = '" + boxId + "'";
                 System.Diagnostics.Debug.Print(sql);
                 TfSQL tf = new TfSQL();
                 bool res1 = tf.sqlExecuteNonQuery(sql, false);
@@ -1070,7 +1070,7 @@ namespace BoxIdDb
                 {
                     whereSer += "'" + cell.Value.ToString() + "', ";
                 }
-                string sql = "delete from product_serial_0241 where boxid = '" + boxId + "' and  serialno in (" + VBS.Left(whereSer, whereSer.Length - 2) + ")";
+                string sql = "delete from product_serial_0334 where boxid = '" + boxId + "' and  serialno in (" + VBS.Left(whereSer, whereSer.Length - 2) + ")";
                 System.Diagnostics.Debug.Print(sql);
                 TfSQL tf = new TfSQL();
                 int res = tf.sqlExecuteNonQueryInt(sql, false);
@@ -1106,7 +1106,7 @@ namespace BoxIdDb
                     string boxid = txtBoxId.Text;
 
                     TfSQL tf = new TfSQL();
-                    int res = tf.sqlDeleteBoxidModel(boxid,"0241");
+                    int res = tf.sqlDeleteBoxidModel(boxid,"0334");
                     dtOverall.Clear();
                     updateDataGridViews(dtOverall, ref dgvInline);
                     this.RefreshEvent(this, new EventArgs());

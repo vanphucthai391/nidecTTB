@@ -216,7 +216,7 @@ namespace BoxIdDb
             if (dgvBoxId.Columns[e.ColumnIndex] == openBoxId && currentRow >= 0)
             {
                 //既にfrmModule が開かれている場合は、それ閉じるように促す
-                bool inUse = TfGeneral.checkOpenFormExists("frmModule") && TfGeneral.checkOpenFormExists("frmModule517EB") && TfGeneral.checkOpenFormExists("frmModule517FB") && TfGeneral.checkOpenFormExists("frmModule523") && TfGeneral.checkOpenFormExists("frmModuleLD") && TfGeneral.checkOpenFormExists("frmModule0148") && TfGeneral.checkOpenFormExists("frmModule0025") && TfGeneral.checkOpenFormExists("frmModule0241") && TfGeneral.checkOpenFormExists("frmModule0259");
+                bool inUse = TfGeneral.checkOpenFormExists("frmModule") && TfGeneral.checkOpenFormExists("frmModule517EB") && TfGeneral.checkOpenFormExists("frmModule517FB") && TfGeneral.checkOpenFormExists("frmModule523") && TfGeneral.checkOpenFormExists("frmModuleLD") && TfGeneral.checkOpenFormExists("frmModule0148") && TfGeneral.checkOpenFormExists("frmModule0025") && TfGeneral.checkOpenFormExists("frmModule0241") && TfGeneral.checkOpenFormExists("frmModule0259") && TfGeneral.checkOpenFormExists("frmModule0334");
                 if (inUse)
                 {
                     MessageBox.Show("Please close the other already open window.", "Notice",
@@ -318,6 +318,18 @@ namespace BoxIdDb
                 else if (dgvBoxId.CurrentRow.Cells["col_boxid"].Value.ToString().StartsWith("0241"))
                 {
                     frmModule0241 f3 = new frmModule0241();
+                    //子イベントをキャッチして、データグリッドを更新する
+                    f3.RefreshEvent += delegate (object sndr, EventArgs excp)
+                    {
+                        updateDataGridViews(ref dgvBoxId, false);
+                        Focus();
+                    };
+                    f3.updateControls(frmName, boxId, printDate, serialNo, invoice, user, false, false);
+                    f3.Show();
+                }
+                else if (dgvBoxId.CurrentRow.Cells["col_boxid"].Value.ToString().StartsWith("0334"))
+                {
+                    frmModule0334 f3 = new frmModule0334();
                     //子イベントをキャッチして、データグリッドを更新する
                     f3.RefreshEvent += delegate (object sndr, EventArgs excp)
                     {
@@ -474,13 +486,14 @@ namespace BoxIdDb
             string formName3 = "frmModule523";
             string formName4 = "frmModule0241";
             string formName5 = "frmModule0259";
+            string formName6 = "frmModule0334";
 
 
 
             bool bl = false;
             foreach (Form buff in Application.OpenForms)
             {
-                if (buff.Name == formName || buff.Name == formName1 || buff.Name == formName2 || buff.Name == formName3 || buff.Name == formName4 || buff.Name == formName5)
+                if (buff.Name == formName || buff.Name == formName1 || buff.Name == formName2 || buff.Name == formName3 || buff.Name == formName4 || buff.Name == formName5 || buff.Name == formName6)
                 { bl = true; }
             }
             if (bl)
@@ -805,6 +818,31 @@ namespace BoxIdDb
                     updateDataGridViews(ref dgvBoxId, false);
                     Focus();
                 };
+                f3.updateControls(String.Empty, String.Empty, DateTime.Now, String.Empty, String.Empty, user, true, false);
+                f3.Show();
+            }
+        }
+
+        private void btnAddBoxId0334_Click(object sender, EventArgs e)
+        {
+            string user = txtUser.Text;
+
+            bool bl = TfGeneral.checkOpenFormExists("frmModule0334");
+            if (bl)
+            {
+                MessageBox.Show("Please close brows-mode form or finish the current edit form.", "BoxId DB",
+                MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+            }
+            else
+            {
+                frmModule0334 f3 = new frmModule0334();
+                //子イベントをキャッチして、データグリッドを更新する
+                f3.RefreshEvent += delegate (object sndr, EventArgs excp)
+                {
+                    updateDataGridViews(ref dgvBoxId, false);
+                    Focus();
+                };
+
                 f3.updateControls(String.Empty, String.Empty, DateTime.Now, String.Empty, String.Empty, user, true, false);
                 f3.Show();
             }
