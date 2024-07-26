@@ -397,7 +397,8 @@
             "BMD_0219",
             "BMD_0226",
             "BMD_0232",
-            "TRIAL MODEL"});
+            "TRIAL MODEL",
+            "BMD_0324"});
             this.cmbModelMaster.Location = new System.Drawing.Point(113, 91);
             this.cmbModelMaster.Name = "cmbModelMaster";
             this.cmbModelMaster.Size = new System.Drawing.Size(188, 21);

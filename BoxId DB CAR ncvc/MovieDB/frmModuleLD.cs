@@ -467,6 +467,8 @@ namespace BoxIdDb
 
                         decideReferenceTable();
                         string codemodelmaster = null;
+                        string codecheckmodelmaster = VBS.Left(txtProductSerial.Text, 2);
+                        int lengthCodeCheck = 10;
                         if (cmbModelMaster.Text == "LD20_001")
                             codemodelmaster = "01";
                         else if (cmbModelMaster.Text == "BMD_0015")
@@ -487,10 +489,14 @@ namespace BoxIdDb
                             codemodelmaster = "09";
                         else if (cmbModelMaster.Text == "TRIAL MODEL")
                             codemodelmaster = "00";
-
-                        string codecheckmodelmaster = VBS.Left(txtProductSerial.Text, 2);
+                        else if (cmbModelMaster.Text == "BMD_0324")
+                        {
+                            codemodelmaster = "5026041312630";
+                            codecheckmodelmaster = VBS.Left(txtProductSerial.Text, 13);
+                            lengthCodeCheck = 23;
+                        }
                         int lengcode = txtProductSerial.Text.Length;
-                        if (codemodelmaster == codecheckmodelmaster && lengcode == 10)
+                        if (codemodelmaster == codecheckmodelmaster && lengcode == lengthCodeCheck)
                         {
                             TfSQL tf = new TfSQL();
                             string model = cmbModel.Text;
@@ -705,8 +711,16 @@ namespace BoxIdDb
                                 {
                                     dr["model"] = "BMD-0232";
                                 }
+                                else if (barcode.StartsWith("5026041312630"))
+                                {
+                                    dr["model"] = "BMD-0324";
+                                }
                                 dr["serialno"] = serial;
                                 dr["lot"] = VBS.Mid(serial, 3, 4);
+                                if ((barcode.StartsWith("5026041312630")))
+                                {
+                                    dr["lot"] = VBS.Mid(serial, 14, 4);
+                                };
                                 dr["return"] = formReturnMode ? "R" : "N";
 
                                 //if (dt2.Rows.Count != 0)
